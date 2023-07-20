@@ -7,7 +7,8 @@ import Combine
 
 var EnglishAlphabet: Array<Item> = [
     Item(letter:" ", display: "Space"),
-    Item(actionType: .delete, display: "Delete"),
+    Item(actionType: .delete, display: "Clear"),
+    Item(actionType: .backspace, display: "Backspace"),
     Item(letter:"a"),
     Item(letter:"b"),
     Item(letter:"c"),
@@ -45,6 +46,25 @@ class DeleteItem: ItemProtocol, Identifiable {
 
     func select(enteredText: String) -> String {
         return ""
+    }
+}
+
+class BackspaceItem: ItemProtocol, Identifiable {
+    var id = UUID()
+    var displayText: String
+    
+    init(_ display: String) {
+        self.displayText = display
+    }
+
+    func select(enteredText: String) -> String {
+        if enteredText == "" { return "" }
+        
+        // `removeLast` annoyingly mutates the string
+        // which means we have to do this copy nonsense
+        var mutableCopy = enteredText
+        mutableCopy.removeLast()
+        return mutableCopy
     }
 }
 
@@ -96,13 +116,15 @@ struct Item: Identifiable{
     init(actionType: ItemActionType, display: String){
         if actionType == .delete {
             self.details = DeleteItem(display)
+        } else if actionType == .backspace {
+            self.details = BackspaceItem(display)
         } else {
             self.details = LetterItem("An error occurred")
         }
     }
     
     enum ItemActionType {
-        case delete
+        case delete, backspace
     }
 }
 
@@ -110,7 +132,7 @@ struct Item: Identifiable{
 class SelectionState: ObservableObject {
     @Published var items: Array<Item>
     @Published var selectedUUID: UUID
-    @Published var enteredText = ""
+    @Published var enteredText = "This is an example"
     
     init() {
         items = EnglishAlphabet
@@ -187,27 +209,35 @@ struct ContentView: View {
                     Button(action: { selection.next(scrollControl: scrollControl) }, label: { Text("Next") })
                     Button(action: { selection.select(scrollControl: scrollControl) }, label: { Text("Select") })
                 }
-                GeometryReader { geoReader in
-                    ScrollView {
-                        
-                        VStack{}.padding(.top, geoReader.size.height/2)
-                        ForEach(selection.items) { item in
-                            HStack {
-                                if(item.id == selection.selectedUUID) {
-                                    Text(item.details.displayText + "<--")
-                                        .bold()
-                                        .padding()
-                                } else {
-                                    Text(item.details.displayText)
-                                        .padding()
+                HStack {
+                    Text(">")
+                    
+                    GeometryReader { geoReader in
+                        ScrollView() {
+                            VStack(alignment: .leading) {
+                                ForEach(selection.items) { item in
+                                    HStack{
+                                        if(item.id == selection.selectedUUID) {
+                                            Text(item.details.displayText)
+                                                .padding()
+                                                .bold()
+                                            
+                                        } else {
+                                            Text(item.details.displayText)
+                                                .padding()
+                                            
+                                        }
+                                    }.id(item.id)
+                                    
                                 }
-                            }.id(item.id)
+                            }.padding(.vertical, geoReader.size.height/2)
                             
-                        }
-                        VStack{}.padding(.bottom, geoReader.size.height/2)
+                        }.onAppear {
+                            scrollControl.scrollTo(selection.selectedUUID, anchor: .center)
+                        }.scrollDisabled(true)
 
                     }
-                }
+                }.padding()
                 
                 
                 Text(selection.enteredText)
