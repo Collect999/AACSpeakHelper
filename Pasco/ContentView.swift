@@ -2,40 +2,35 @@
 /// TODO Add translation strings in
 /// TODO Split up files
 /// TODO Allow for long taps
+/// TODO Make actions clear
 
 import SwiftUI
 import Combine
 
-var EnglishAlphabet: Array<Item> = [
-    Item(letter:" ", display: "Space"),
-    Item(actionType: .delete, display: "Clear"),
-    Item(actionType: .backspace, display: "Backspace"),
-    Item(letter:"a"),
-    Item(letter:"b"),
-    Item(letter:"c"),
-    Item(letter:"d"),
-    Item(letter:"e"),
-    Item(letter:"f"),
-    Item(letter:"g"),
-    Item(letter:"h"),
-    Item(letter:"i"),
-    Item(letter:"j"),
-    Item(letter:"k"),
-    Item(letter:"l"),
-    Item(letter:"m"),
-    Item(letter:"n"),
-    Item(letter:"o"),
-    Item(letter:"p"),
-    Item(letter:"q"),
-    Item(letter:"r"),
-    Item(letter:"s"),
-    Item(letter:"t"),
-    Item(letter:"u"),
-    Item(letter:"v"),
-    Item(letter:"x"),
-    Item(letter:"y"),
-    Item(letter:"z")
-]
+// This is a 'prediction' engine that randomly shuffles letters
+class RandomPrediction: PredictionEngine {
+    var alphabet: Array<String>
+    var words: Array<String>
+    
+    init() {
+        words = ["This", "is", "word", "I", "suggest","more"]
+        alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
+    }
+    
+    func predict(enteredText: String) -> Array<String> {
+        if(enteredText == "") {
+            return "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
+        }
+        
+        alphabet.shuffle()
+        words.shuffle()
+        return words + alphabet
+    }
+}
+
+protocol PredictionEngine {
+    func predict(enteredText: String) -> Array<String>
+}
 
 class DeleteItem: ItemProtocol, Identifiable {
     var id = UUID()
@@ -47,6 +42,10 @@ class DeleteItem: ItemProtocol, Identifiable {
 
     func select(enteredText: String) -> String {
         return ""
+    }
+    
+    func isPredicted() -> Bool {
+        return false
     }
 }
 
@@ -67,21 +66,46 @@ class BackspaceItem: ItemProtocol, Identifiable {
         mutableCopy.removeLast()
         return mutableCopy
     }
+    
+    func isPredicted() -> Bool {
+        return false
+    }
 }
+
 
 class LetterItem: ItemProtocol, Identifiable {
     var id = UUID()
     var letter: String
     var displayText: String
+    var predicted: Bool
     
     init(_ letter: String) {
         self.letter = letter
         self.displayText = letter
+        self.predicted = false
+    }
+    
+    init(_ letter: String, isPredicted: Bool) {
+        self.letter = letter
+        self.displayText = letter
+        self.predicted = isPredicted
     }
     
     init(_ letter: String, display: String) {
         self.letter = letter
         self.displayText = display
+        self.predicted = false
+    }
+    
+    init(_ letter: String, display: String, isPredicted: Bool) {
+        self.letter = letter
+        self.displayText = display
+        self.predicted = isPredicted
+
+    }
+    
+    func isPredicted() -> Bool {
+        return self.predicted
     }
     
     func select(enteredText: String) -> String {
@@ -99,6 +123,7 @@ protocol ItemProtocol: Identifiable {
     var id: UUID { get }
     var displayText: String { get }
     func select(enteredText: String) -> String
+    func isPredicted() -> Bool
 }
 
 // We need this kinda annoying container due to: https://stackoverflow.com/questions/73773884/any-identifiable-cant-conform-to-identifiable
@@ -108,6 +133,11 @@ struct Item: Identifiable{
     
     init(letter: String) {
         self.details = LetterItem(letter)
+    }
+    
+    init(letter: String, isPredicted: Bool) {
+        self.details = LetterItem(letter, isPredicted: isPredicted)
+
     }
     
     init(letter: String, display: String) {
@@ -133,11 +163,26 @@ struct Item: Identifiable{
 class SelectionState: ObservableObject {
     @Published var items: Array<Item>
     @Published var selectedUUID: UUID
-    @Published var enteredText = "This is an example"
+    @Published var enteredText = ""
+    
+    var predictor: PredictionEngine
     
     init() {
-        items = EnglishAlphabet
+        predictor = RandomPrediction()
+        items = [
+            Item(letter:" ", display: "<Space>"),
+            Item(actionType: .delete, display: "<Clear>"),
+            Item(actionType: .backspace, display: "<Backspace>")
+        ]
         selectedUUID = UUID()
+        
+        let predictions = predictor.predict(enteredText: enteredText)
+        let predictedItems = predictions.map { currentPrediction in
+            return Item(letter: currentPrediction, isPredicted: true)
+            
+        }
+        
+        items = items + predictedItems
         
         if let firstItem = items.first {
             selectedUUID = firstItem.id
@@ -187,6 +232,20 @@ class SelectionState: ObservableObject {
         
         let newText = currentItem.details.select(enteredText: enteredText)
         enteredText = newText
+        
+        let predictions = predictor.predict(enteredText: enteredText)
+        let predictedItems = predictions.map { currentPrediction in
+            return Item(letter: currentPrediction, isPredicted: true)
+            
+        }
+        
+        items = items.filter { item in
+            return !item.details.isPredicted()
+        }
+        
+        items = items + predictedItems
+
+        
         
         self.reset()
         
