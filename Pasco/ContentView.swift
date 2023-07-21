@@ -1,6 +1,7 @@
 // Generic TODOs
 /// TODO Add translation strings in
 /// TODO Split up files
+/// TODO Allow for long taps
 
 import SwiftUI
 import Combine
@@ -198,6 +199,22 @@ class SelectionState: ObservableObject {
     
 }
 
+extension View {
+    func swipe(
+        up: @escaping (() -> Void) = {},
+        down: @escaping (() -> Void) = {},
+        left: @escaping (() -> Void) = {},
+        right: @escaping (() -> Void) = {}
+    ) -> some View {
+        return self.gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+            .onEnded({ value in
+                if value.translation.width < 0 { left() }
+                if value.translation.width > 0 { right() }
+                if value.translation.height < 0 { up() }
+                if value.translation.height > 0 { down() }
+            }))
+    }
+}
 
 struct ContentView: View {
     @StateObject var selection = SelectionState();
@@ -237,7 +254,15 @@ struct ContentView: View {
                         }.scrollDisabled(true)
 
                     }
-                }.padding()
+                }
+                .contentShape(Rectangle())
+                .padding()
+                .onTapGesture {
+                    selection.next(scrollControl: scrollControl)
+                }
+                .swipe(right: {
+                    selection.select(scrollControl: scrollControl)
+                })
                 
                 
                 Text(selection.enteredText)
