@@ -78,8 +78,8 @@ class SlowAndBadPrediciton: PredictionEngine {
         }
         
         return alphabet.sorted {
-            var firstScore = alphabetScores[$0, default: 0]
-            var secondScore = alphabetScores[$1, default: 0]
+            let firstScore = alphabetScores[$0, default: 0]
+            let secondScore = alphabetScores[$1, default: 0]
             
             return firstScore > secondScore
         }
