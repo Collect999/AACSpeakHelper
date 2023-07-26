@@ -6,6 +6,70 @@
 
 import SwiftUI
 import Combine
+import SQLite
+
+// This is slow an ineffecient
+// It brute forces the dictionary every time
+// It should do some kind of binary search ideally
+// It also only does next letter, no full word
+// It also has no consideration for weight of a word. Obscure words are equal to common words
+// No error handling
+// Probably very poor SQLite practice, i reckon it might drop the connection
+class SlowAndBadPrediciton: PredictionEngine {
+    var dbConn: Connection?
+    var wordsTable: SQLite.Table?
+    
+    init() {
+        do {
+            let path = Bundle.main.path(forResource: "dictionary", ofType: "sqlite")!
+            let db = try Connection(path, readonly: true)
+            let words = Table("words")
+            
+            self.dbConn = db
+            self.wordsTable = words
+            
+            
+
+        } catch {
+            print (error)
+        }
+    }
+    
+    func predict(enteredText: String) -> Array<String> {
+        guard let db = dbConn else { return [] }
+        guard let words = wordsTable else { return [] }
+        
+        let alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
+        let alphabetScores: [String: Int] = [:]
+        
+        let prefix = "he"
+        
+        do {
+            let wordExpression = Expression<String>("word")
+
+            let query = words.filter(wordExpression.like(prefix + "%"))
+            
+            for word in try db.prepare(query) {
+                let nextCharPos = prefix.count + 1
+                
+            }
+            
+        } catch {
+            print(error)
+            return alphabet
+        }
+        
+        return alphabet.sorted {
+            var firstScore = alphabetScores[$0, default: 0]
+            var secondScore = alphabetScores[$1, default: 0]
+            
+            return firstScore > secondScore
+        }
+    }
+    
+    
+}
+
 
 // This is a 'prediction' engine that randomly shuffles letters
 class RandomPrediction: PredictionEngine {
@@ -168,7 +232,7 @@ class SelectionState: ObservableObject {
     var predictor: PredictionEngine
     
     init() {
-        predictor = RandomPrediction()
+        predictor = SlowAndBadPrediciton()
         items = [
             Item(letter:" ", display: "<Space>"),
             Item(actionType: .delete, display: "<Clear>"),
@@ -258,13 +322,13 @@ class SelectionState: ObservableObject {
     
 }
 
-extension View {
+extension SwiftUI.View {
     func swipe(
         up: @escaping (() -> Void) = {},
         down: @escaping (() -> Void) = {},
         left: @escaping (() -> Void) = {},
         right: @escaping (() -> Void) = {}
-    ) -> some View {
+    ) -> some SwiftUI.View {
         return self.gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
             .onEnded({ value in
                 if value.translation.width < 0 { left() }
@@ -275,10 +339,10 @@ extension View {
     }
 }
 
-struct ContentView: View {
+struct ContentView: SwiftUI.View {
     @StateObject var selection = SelectionState();
     
-    var body: some View {
+    var body: some SwiftUI.View {
         ScrollViewReader { scrollControl in
             VStack{
                 HStack {
@@ -331,7 +395,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
+    static var previews: some SwiftUI.View {
         ContentView()
     }
 }

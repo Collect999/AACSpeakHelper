@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D51743072A6FF72300E14EE0 /* dictionary.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D51743062A6FF72300E14EE0 /* dictionary.sqlite */; };
+		D517430A2A6FFBBA00E14EE0 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D51743092A6FFBBA00E14EE0 /* SQLite */; };
 		D5965DFD2A61995A003C9208 /* PascoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFC2A61995A003C9208 /* PascoApp.swift */; };
 		D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFE2A61995A003C9208 /* ContentView.swift */; };
 		D5965E012A61995E003C9208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5965E002A61995E003C9208 /* Assets.xcassets */; };
@@ -14,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D51743062A6FF72300E14EE0 /* dictionary.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionary.sqlite; sourceTree = "<group>"; };
 		D5965DF92A61995A003C9208 /* Pasco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pasco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5965DFC2A61995A003C9208 /* PascoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PascoApp.swift; sourceTree = "<group>"; };
 		D5965DFE2A61995A003C9208 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D517430A2A6FFBBA00E14EE0 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +60,7 @@
 				D5965E0A2A619EC1003C9208 /* Models */,
 				D5965DFC2A61995A003C9208 /* PascoApp.swift */,
 				D5965DFE2A61995A003C9208 /* ContentView.swift */,
+				D51743062A6FF72300E14EE0 /* dictionary.sqlite */,
 				D5965E002A61995E003C9208 /* Assets.xcassets */,
 				D5965E022A61995F003C9208 /* Preview Content */,
 			);
@@ -93,6 +98,9 @@
 			dependencies = (
 			);
 			name = Pasco;
+			packageProductDependencies = (
+				D51743092A6FFBBA00E14EE0 /* SQLite */,
+			);
 			productName = Pasco;
 			productReference = D5965DF92A61995A003C9208 /* Pasco.app */;
 			productType = "com.apple.product-type.application";
@@ -121,6 +129,9 @@
 				Base,
 			);
 			mainGroup = D5965DF02A61995A003C9208;
+			packageReferences = (
+				D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */,
+			);
 			productRefGroup = D5965DFA2A61995A003C9208 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,6 +148,7 @@
 			files = (
 				D5965E042A61995F003C9208 /* Preview Assets.xcassets in Resources */,
 				D5965E012A61995E003C9208 /* Assets.xcassets in Resources */,
+				D51743072A6FF72300E14EE0 /* dictionary.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.14.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D51743092A6FFBBA00E14EE0 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D5965DF12A61995A003C9208 /* Project object */;
 }

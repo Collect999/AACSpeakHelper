@@ -14,8 +14,8 @@
             filePath = "Pasco/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "predict(enteredText:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "Pasco/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "init()"
             landmarkType = "7">
             <Locations>
@@ -78,10 +78,106 @@
             filePath = "Pasco/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "predict(enteredText:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BB764A08-1F45-4FB4-865D-5F8BF1E37E3A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pasco/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "predict(enteredText:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BB764A08-1F45-4FB4-865D-5F8BF1E37E3A - 6bf9cf45db023dbd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pasco.SlowAndBadPrediciton.predict(enteredText: Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "Pasco"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gavinhenderson/Code/Pasco/Pasco/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "1120">
+               </Location>
+               <Location
+                  uuid = "BB764A08-1F45-4FB4-865D-5F8BF1E37E3A - 6bf9cf45db023dbd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pasco.SlowAndBadPrediciton.predict(enteredText: Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "Pasco"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gavinhenderson/Code/Pasco/Pasco/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "1592">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "41C99B05-A38E-444F-9EBF-4F3647D3005C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pasco/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "predict(enteredText:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "41C99B05-A38E-444F-9EBF-4F3647D3005C - 6bf9cf45db023a77"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pasco.SlowAndBadPrediciton.predict(enteredText: Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "Pasco"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gavinhenderson/Code/Pasco/Pasco/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "1036">
+               </Location>
+               <Location
+                  uuid = "41C99B05-A38E-444F-9EBF-4F3647D3005C - 6bf9cf45db023a31"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pasco.SlowAndBadPrediciton.predict(enteredText: Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "Pasco"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gavinhenderson/Code/Pasco/Pasco/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "1752">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
