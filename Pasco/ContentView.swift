@@ -10,11 +10,9 @@ import SQLite
 
 // This is slow an ineffecient
 // It brute forces the dictionary every time
-// It should do some kind of binary search ideally
 // It also only does next letter, no full word
-// It also has no consideration for weight of a word. Obscure words are equal to common words
 // No error handling
-// Probably very poor SQLite practice, i reckon it might drop the connection
+// Probably very poor SQLite practice, i reckon it might drop the connection if you leave the app in the background
 class SlowAndBadPrediciton: PredictionEngine {
     var dbConn: Connection?
     var wordsTable: SQLite.Table?
@@ -40,17 +38,37 @@ class SlowAndBadPrediciton: PredictionEngine {
         guard let words = wordsTable else { return [] }
         
         let alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
-        let alphabetScores: [String: Int] = [:]
+        var alphabetScores: [String: Int] = [:]
         
-        let prefix = "he"
+        let splitBySpace = enteredText.components(separatedBy: " ")
+
+        guard let prefix = splitBySpace.last else {
+            return alphabet
+        }
+        
+        if prefix == "" { return alphabet }
         
         do {
             let wordExpression = Expression<String>("word")
-
+            let scoreExpression = Expression<Int>("score")
+            
             let query = words.filter(wordExpression.like(prefix + "%"))
             
             for word in try db.prepare(query) {
-                let nextCharPos = prefix.count + 1
+                let nextCharPos = prefix.count
+                let unwrappedWord = try word.get(wordExpression)
+                let unwrappedScore = try word.get(scoreExpression)
+                
+                if nextCharPos < unwrappedWord.count {
+                    let nextChar = unwrappedWord[unwrappedWord.index(unwrappedWord.startIndex, offsetBy: nextCharPos)].lowercased()
+                    
+                    if alphabet.contains(nextChar) {
+                        let currentScore = alphabetScores[nextChar, default: 0]
+                        alphabetScores[nextChar] = currentScore + unwrappedScore
+                    }
+                }
+                
+               
                 
             }
             
