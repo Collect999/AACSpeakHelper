@@ -1,5 +1,6 @@
 // Generic TODOs
 /// TODO Add translation strings in
+/// TODO Make prediction work in more languages
 /// TODO Split up files
 /// TODO Allow for long taps
 /// TODO Make actions clear
@@ -7,6 +8,7 @@
 import SwiftUI
 import Combine
 import SQLite
+import AVKit
 
 // This is slow an ineffecient
 // It brute forces the dictionary every time
@@ -117,6 +119,7 @@ protocol PredictionEngine {
 class DeleteItem: ItemProtocol, Identifiable {
     var id = UUID()
     var displayText: String
+    var speakText = "Clear"
     
     init(_ display: String) {
         self.displayText = display
@@ -134,6 +137,7 @@ class DeleteItem: ItemProtocol, Identifiable {
 class BackspaceItem: ItemProtocol, Identifiable {
     var id = UUID()
     var displayText: String
+    var speakText = "Backspace"
     
     init(_ display: String) {
         self.displayText = display
@@ -160,31 +164,45 @@ class LetterItem: ItemProtocol, Identifiable {
     var letter: String
     var displayText: String
     var predicted: Bool
+    var speakText: String
     
     init(_ letter: String) {
         self.letter = letter
         self.displayText = letter
         self.predicted = false
+        self.speakText = letter
     }
     
     init(_ letter: String, isPredicted: Bool) {
         self.letter = letter
         self.displayText = letter
         self.predicted = isPredicted
+        self.speakText = letter
+
     }
     
     init(_ letter: String, display: String) {
         self.letter = letter
         self.displayText = display
         self.predicted = false
+        self.speakText = letter
+    }
+    
+    init(_ letter: String, display: String, speakText: String) {
+        self.letter = letter
+        self.displayText = display
+        self.predicted = false
+        self.speakText = speakText
     }
     
     init(_ letter: String, display: String, isPredicted: Bool) {
         self.letter = letter
         self.displayText = display
         self.predicted = isPredicted
-
+        self.speakText = letter
     }
+    
+    
     
     func isPredicted() -> Bool {
         return self.predicted
@@ -204,6 +222,7 @@ class LetterItem: ItemProtocol, Identifiable {
 protocol ItemProtocol: Identifiable {
     var id: UUID { get }
     var displayText: String { get }
+    var speakText: String { get }
     func select(enteredText: String) -> String
     func isPredicted() -> Bool
 }
@@ -224,6 +243,10 @@ struct Item: Identifiable{
     
     init(letter: String, display: String) {
         self.details = LetterItem(letter, display: display)
+    }
+    
+    init(letter: String, display: String, speakText: String) {
+        self.details = LetterItem(letter, display: display, speakText: speakText)
     }
     
     init(actionType: ItemActionType, display: String){
@@ -247,12 +270,16 @@ class SelectionState: ObservableObject {
     @Published var selectedUUID: UUID
     @Published var enteredText = ""
     
+    var timer: Timer?
+    
     var predictor: PredictionEngine
+    @State var synthesizer = AVSpeechSynthesizer()
+
     
     init() {
         predictor = SlowAndBadPrediciton()
         items = [
-            Item(letter:" ", display: "<Space>"),
+            Item(letter:" ", display: "<Space>", speakText: "Space"),
             Item(actionType: .delete, display: "<Clear>"),
             Item(actionType: .backspace, display: "<Backspace>")
         ]
@@ -289,14 +316,50 @@ class SelectionState: ObservableObject {
         Optionally takes scrollControl so that it can force the next item into the center of the viewport
         This relies on you setting the id of items in ScrollView using the index of the item
      */
-    func next(scrollControl: ScrollViewProxy?) {
+    func next(scrollControl: ScrollViewProxy?, reset: Bool = false) {
+        // Nuke any current speech and delete the timer
+        synthesizer.stopSpeaking(at: .immediate)
+        self.timer?.invalidate()
+        self.timer = nil
+        
         let currentIndex = self.getIndexOfSelectedItem()
-        let newIndex = (currentIndex + 1) % items.count
+        var newIndex = (currentIndex + 1) % items.count
+        
+        
+        if reset == true {
+            newIndex = 0
+        }
         
         let newItem = items[newIndex]
-        
         selectedUUID = newItem.id
+
+        let utterance = AVSpeechUtterance(string: newItem.details.speakText)
         
+        // Configure the utterance.
+        utterance.rate = 0.57
+        utterance.pitchMultiplier = 0.8
+        utterance.postUtteranceDelay = 0.2
+        utterance.volume = 0.8
+
+        // Retrieve the British English voice.
+        let voice = AVSpeechSynthesisVoice(language: "en-GB")
+
+        // Assign the voice to the utterance.
+        utterance.voice = voice
+        
+        // It seems to not like it when you call .speak() in quick succession
+        // The timer basically works as a debouncer not allowing more than 1 call
+        // to the .speak() function every 100ms which seems to do the trick.
+        self.timer = Timer.scheduledTimer(
+            withTimeInterval: TimeInterval(0.1),
+            repeats: false,
+            block: { _ in
+                self.synthesizer.speak(utterance)
+            }
+        )
+        
+        
+
         if let unrwappedScroll = scrollControl {
             withAnimation {
                 unrwappedScroll.scrollTo(self.selectedUUID, anchor: .center)
@@ -326,16 +389,8 @@ class SelectionState: ObservableObject {
         }
         
         items = items + predictedItems
-
         
-        
-        self.reset()
-        
-        if let unrwappedScroll = scrollControl {
-            withAnimation {
-                unrwappedScroll.scrollTo(self.selectedUUID, anchor: .center)
-            }
-        }
+        self.next(scrollControl: scrollControl, reset: true)
     }
     
 }
