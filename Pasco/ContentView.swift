@@ -12,9 +12,9 @@ import AVKit
 
 // This is slow an ineffecient
 // It brute forces the dictionary every time
-// It also only does next letter, no full word
 // No error handling
 // Probably very poor SQLite practice, i reckon it might drop the connection if you leave the app in the background
+// It does some basic word prediction, but it doesnt count the weight of the word just if its specific enough
 class SlowAndBadPrediciton: PredictionEngine {
     var dbConn: Connection?
     var wordsTable: SQLite.Table?
@@ -35,20 +35,26 @@ class SlowAndBadPrediciton: PredictionEngine {
         }
     }
     
-    func predict(enteredText: String) -> Array<String> {
+    func predict(enteredText: String) -> Array<Item> {
         guard let db = dbConn else { return [] }
         guard let words = wordsTable else { return [] }
         
         let alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
+        let alphabetItems = alphabet.map { currentPrediction in
+            return Item(letter: currentPrediction, isPredicted: true)
+        }
+        
         var alphabetScores: [String: Int] = [:]
         
         let splitBySpace = enteredText.components(separatedBy: " ")
 
         guard let prefix = splitBySpace.last else {
-            return alphabet
+            return alphabetItems
         }
         
-        if prefix == "" { return alphabet }
+        if prefix == "" { return alphabetItems }
+        
+        var wordPredictions: Array<String> = []
         
         do {
             let wordExpression = Expression<String>("word")
@@ -62,6 +68,8 @@ class SlowAndBadPrediciton: PredictionEngine {
                 let unwrappedScore = try word.get(scoreExpression)
                 
                 if nextCharPos < unwrappedWord.count {
+                    wordPredictions.append(unwrappedWord)
+                    
                     let nextChar = unwrappedWord[unwrappedWord.index(unwrappedWord.startIndex, offsetBy: nextCharPos)].lowercased()
                     
                     if alphabet.contains(nextChar) {
@@ -76,15 +84,29 @@ class SlowAndBadPrediciton: PredictionEngine {
             
         } catch {
             print(error)
-            return alphabet
+            return alphabetItems
         }
         
-        return alphabet.sorted {
+        let sortedAlphabet = alphabet.sorted {
             let firstScore = alphabetScores[$0, default: 0]
             let secondScore = alphabetScores[$1, default: 0]
             
             return firstScore > secondScore
+        }.map { currentPrediction in
+            return Item(letter: currentPrediction, isPredicted: true)
         }
+        
+        if wordPredictions.count <= 3 {
+            let wordItems = wordPredictions.map { word in
+                let wordWithoutPrefix = String(word.dropFirst(prefix.count))
+                
+                return Item(letter: wordWithoutPrefix, display: word, speakText: word, isPredicted: true)
+            }
+            
+            return wordItems + sortedAlphabet
+        }
+        
+        return sortedAlphabet
     }
     
     
@@ -101,19 +123,27 @@ class RandomPrediction: PredictionEngine {
         alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
     }
     
-    func predict(enteredText: String) -> Array<String> {
+    func predict(enteredText: String) -> Array<Item> {
         if(enteredText == "") {
-            return "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
+            return "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",").map { currentPrediction in
+                return Item(letter: currentPrediction, isPredicted: true)
+                
+            }
         }
         
         alphabet.shuffle()
         words.shuffle()
-        return words + alphabet
+        return (words + alphabet).map { currentPrediction in
+            return Item(letter: currentPrediction, isPredicted: true)
+            
+        }
+        
+  
     }
 }
 
 protocol PredictionEngine {
-    func predict(enteredText: String) -> Array<String>
+    func predict(enteredText: String) -> Array<Item>
 }
 
 class DeleteItem: ItemProtocol, Identifiable {
@@ -195,6 +225,13 @@ class LetterItem: ItemProtocol, Identifiable {
         self.speakText = speakText
     }
     
+    init(_ letter: String, display: String, speakText: String, isPredicted: Bool) {
+        self.letter = letter
+        self.displayText = display
+        self.predicted = isPredicted
+        self.speakText = speakText
+    }
+    
     init(_ letter: String, display: String, isPredicted: Bool) {
         self.letter = letter
         self.displayText = display
@@ -249,6 +286,10 @@ struct Item: Identifiable{
         self.details = LetterItem(letter, display: display, speakText: speakText)
     }
     
+    init(letter: String, display: String, speakText: String, isPredicted: Bool) {
+        self.details = LetterItem(letter, display: display, speakText: speakText, isPredicted: isPredicted)
+    }
+    
     init(actionType: ItemActionType, display: String){
         if actionType == .delete {
             self.details = DeleteItem(display)
@@ -264,16 +305,33 @@ struct Item: Identifiable{
     }
 }
 
+// This is a basic wrapper around Apples TTS
+class TextToSpeech {
+    var synthesizer = AVSpeechSynthesizer()
+    var voice = AVSpeechSynthesisVoice(language: "en-GB")
+
+    func speak(_ text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+
+        // Assign the voice to the utterance.
+        utterance.voice = voice
+        
+        self.synthesizer.stopSpeaking(at: .immediate)
+        self.synthesizer.speak(utterance)
+    }
+    
+    
+}
+
 /// TODO: 'SelectionState' is a bad name
 class SelectionState: ObservableObject {
     @Published var items: Array<Item>
     @Published var selectedUUID: UUID
     @Published var enteredText = ""
     
-    var timer: Timer?
-    
+    var textToSpeech = TextToSpeech()
+        
     var predictor: PredictionEngine
-    @State var synthesizer = AVSpeechSynthesizer()
 
     
     init() {
@@ -286,12 +344,8 @@ class SelectionState: ObservableObject {
         selectedUUID = UUID()
         
         let predictions = predictor.predict(enteredText: enteredText)
-        let predictedItems = predictions.map { currentPrediction in
-            return Item(letter: currentPrediction, isPredicted: true)
-            
-        }
         
-        items = items + predictedItems
+        items = items + predictions
         
         if let firstItem = items.first {
             selectedUUID = firstItem.id
@@ -317,10 +371,7 @@ class SelectionState: ObservableObject {
         This relies on you setting the id of items in ScrollView using the index of the item
      */
     func next(scrollControl: ScrollViewProxy?, reset: Bool = false) {
-        // Nuke any current speech and delete the timer
-        synthesizer.stopSpeaking(at: .immediate)
-        self.timer?.invalidate()
-        self.timer = nil
+
         
         let currentIndex = self.getIndexOfSelectedItem()
         var newIndex = (currentIndex + 1) % items.count
@@ -332,32 +383,8 @@ class SelectionState: ObservableObject {
         
         let newItem = items[newIndex]
         selectedUUID = newItem.id
-
-        let utterance = AVSpeechUtterance(string: newItem.details.speakText)
         
-        // Configure the utterance.
-        utterance.rate = 0.57
-        utterance.pitchMultiplier = 0.8
-        utterance.postUtteranceDelay = 0.2
-        utterance.volume = 0.8
-
-        // Retrieve the British English voice.
-        let voice = AVSpeechSynthesisVoice(language: "en-GB")
-
-        // Assign the voice to the utterance.
-        utterance.voice = voice
-        
-        // It seems to not like it when you call .speak() in quick succession
-        // The timer basically works as a debouncer not allowing more than 1 call
-        // to the .speak() function every 100ms which seems to do the trick.
-        self.timer = Timer.scheduledTimer(
-            withTimeInterval: TimeInterval(0.1),
-            repeats: false,
-            block: { _ in
-                self.synthesizer.speak(utterance)
-            }
-        )
-        
+        textToSpeech.speak(newItem.details.speakText)
         
 
         if let unrwappedScroll = scrollControl {
@@ -379,16 +406,12 @@ class SelectionState: ObservableObject {
         enteredText = newText
         
         let predictions = predictor.predict(enteredText: enteredText)
-        let predictedItems = predictions.map { currentPrediction in
-            return Item(letter: currentPrediction, isPredicted: true)
-            
-        }
         
         items = items.filter { item in
             return !item.details.isPredicted()
         }
         
-        items = items + predictedItems
+        items = items + predictions
         
         self.next(scrollControl: scrollControl, reset: true)
     }
