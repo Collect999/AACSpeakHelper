@@ -38,7 +38,9 @@ class TextToSpeech: NSObject, AVSpeechSynthesizerDelegate {
         
         self.synthesizer.stopSpeaking(at: .immediate)
         
-        self.callback = cb
+        if cb != nil {
+            self.callback = cb
+        }
         
         self.synthesizer.speak(utterance)
     }
