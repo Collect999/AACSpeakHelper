@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		D51743072A6FF72300E14EE0 /* dictionary.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D51743062A6FF72300E14EE0 /* dictionary.sqlite */; };
 		D517430A2A6FFBBA00E14EE0 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D51743092A6FFBBA00E14EE0 /* SQLite */; };
+		D517430C2A7AA8BB00E14EE0 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D517430B2A7AA8BB00E14EE0 /* Prediction.swift */; };
+		D51743112A7AA8FD00E14EE0 /* TextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51743102A7AA8FD00E14EE0 /* TextToSpeech.swift */; };
+		D51743132A7AA94100E14EE0 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51743122A7AA94100E14EE0 /* Items.swift */; };
 		D5965DFD2A61995A003C9208 /* PascoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFC2A61995A003C9208 /* PascoApp.swift */; };
 		D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFE2A61995A003C9208 /* ContentView.swift */; };
 		D5965E012A61995E003C9208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5965E002A61995E003C9208 /* Assets.xcassets */; };
@@ -17,6 +20,9 @@
 
 /* Begin PBXFileReference section */
 		D51743062A6FF72300E14EE0 /* dictionary.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionary.sqlite; sourceTree = "<group>"; };
+		D517430B2A7AA8BB00E14EE0 /* Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prediction.swift; sourceTree = "<group>"; };
+		D51743102A7AA8FD00E14EE0 /* TextToSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeech.swift; sourceTree = "<group>"; };
+		D51743122A7AA94100E14EE0 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		D5965DF92A61995A003C9208 /* Pasco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pasco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5965DFC2A61995A003C9208 /* PascoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PascoApp.swift; sourceTree = "<group>"; };
 		D5965DFE2A61995A003C9208 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,7 +65,10 @@
 				D5965E0B2A6875AB003C9208 /* Info.plist */,
 				D5965E0A2A619EC1003C9208 /* Models */,
 				D5965DFC2A61995A003C9208 /* PascoApp.swift */,
+				D51743102A7AA8FD00E14EE0 /* TextToSpeech.swift */,
 				D5965DFE2A61995A003C9208 /* ContentView.swift */,
+				D51743122A7AA94100E14EE0 /* Items.swift */,
+				D517430B2A7AA8BB00E14EE0 /* Prediction.swift */,
 				D51743062A6FF72300E14EE0 /* dictionary.sqlite */,
 				D5965E002A61995E003C9208 /* Assets.xcassets */,
 				D5965E022A61995F003C9208 /* Preview Content */,
@@ -160,7 +169,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */,
+				D51743132A7AA94100E14EE0 /* Items.swift in Sources */,
+				D51743112A7AA8FD00E14EE0 /* TextToSpeech.swift in Sources */,
 				D5965DFD2A61995A003C9208 /* PascoApp.swift in Sources */,
+				D517430C2A7AA8BB00E14EE0 /* Prediction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +299,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"Pasco/Preview Content\"";
 				DEVELOPMENT_TEAM = K45HHA96ND;
 				ENABLE_PREVIEWS = YES;
@@ -302,7 +314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.9;
+				MARKETING_VERSION = 0.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.acecentre.PascoV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -317,7 +329,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"Pasco/Preview Content\"";
 				DEVELOPMENT_TEAM = K45HHA96ND;
 				ENABLE_PREVIEWS = YES;
@@ -332,7 +344,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.9;
+				MARKETING_VERSION = 0.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = uk.org.acecentre.PascoV2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
