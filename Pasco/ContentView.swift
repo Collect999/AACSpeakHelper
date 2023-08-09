@@ -1,12 +1,13 @@
 // Generic TODOs
 /// TODO Add translation strings in
 /// TODO Make prediction work in more languages
-/// TODO Split up files
 /// TODO Allow for long taps
-/// TODO Make actions clear
-/// TODO Allow backspace, and clear to go to the bottom
 /// TODO Make spaces visible
 /// TODO Add clipboard and share options
+/// TODO Add arrow keys
+/// TODO Joystick mode?
+/// TODO Swipe with inertia
+/// TODO figure out double press
 
 import SwiftUI
 import Combine
@@ -18,15 +19,18 @@ class SelectionState: ObservableObject {
     @Published var enteredText = ""
     
     var textToSpeech = TextToSpeech()
-        
+    
     var predictor: PredictionEngine
-
+    
+    var undoItem: Item
+    
     
     init() {
         predictor = SlowAndBadPrediciton()
+        undoItem = Item(actionType: .backspace, display: "Undo", textToSpeech: textToSpeech)
         items = [
             Item(letter:"·", display: "Space", speakText: "Space"),
-            Item(actionType: .backspace, display: "Undo", textToSpeech: textToSpeech),
+            undoItem,
             Item(actionType: .finish, display: "Finish", textToSpeech: textToSpeech)
         ]
         selectedUUID = UUID()
@@ -45,35 +49,34 @@ class SelectionState: ObservableObject {
             selectedUUID = firstItem.id
         }
     }
-        
+    
     private func getIndexOfSelectedItem() -> Int {
         let currentIndex = items.firstIndex(where: { $0.id == selectedUUID })
-                
+        
         return currentIndex ?? 0
     }
     
-    /***
-        Move onto the next item in the list
-     
-        Optionally takes scrollControl so that it can force the next item into the center of the viewport
-        This relies on you setting the id of items in ScrollView using the index of the item
-     */
-    func next(scrollControl: ScrollViewProxy?, reset: Bool = false) {
-
-        
+    func back(scrollControl: ScrollViewProxy?) {
+        move(scrollControl: scrollControl, moveBy: -1, reset: false)
+    }
+    
+    func move(scrollControl: ScrollViewProxy?, moveBy: Int = 1, reset: Bool = false) {
         let currentIndex = self.getIndexOfSelectedItem()
-        var newIndex = (currentIndex + 1) % items.count
-        
+        var newIndex = (currentIndex + moveBy) % items.count
         
         if reset == true {
             newIndex = 0
         }
         
-        let newItem = items[newIndex]
+        let wrappedIndex = newIndex < 0 ? items.count + newIndex : newIndex
+        
+        let newItem = items[wrappedIndex]
+        
+        
         selectedUUID = newItem.id
         
         textToSpeech.speak(newItem.details.speakText) {}
-
+        
         if let unrwappedScroll = scrollControl {
             
             // This is a hack
@@ -95,12 +98,26 @@ class SelectionState: ObservableObject {
     }
     
     /***
-        Select the current item in the list
+     Move onto the next item in the list
      
-        'Select' will perform different actions depending on the item that is currently focused
+     Optionally takes scrollControl so that it can force the next item into the center of the viewport
+     This relies on you setting the id of items in ScrollView using the index of the item
      */
-    func select(scrollControl: ScrollViewProxy?) {
-        let currentItem = items[getIndexOfSelectedItem()]
+    func next(scrollControl: ScrollViewProxy?, reset: Bool = false) {
+        move(scrollControl: scrollControl, moveBy: 1, reset: reset)
+    }
+    
+    func backspace(scrollControl: ScrollViewProxy?) {
+        select(scrollControl: scrollControl, overrideItem: undoItem)
+    }
+    
+    /***
+     Select the current item in the list
+     
+     'Select' will perform different actions depending on the item that is currently focused
+     */
+    func select(scrollControl: ScrollViewProxy?, overrideItem: Item? = nil) {
+        let currentItem = overrideItem ?? items[getIndexOfSelectedItem()]
         
         currentItem.details.select(enteredText: enteredText) { newText in
             self.enteredText = newText
@@ -140,53 +157,141 @@ extension SwiftUI.View {
 struct ContentView: SwiftUI.View {
     @StateObject var selection = SelectionState();
     
+    // Thanks to https://sarunw.com/posts/move-view-around-with-drag-gesture-in-swiftui/
+    @State private var location: CGPoint = CGPoint(x: 300, y: 200)
+    @GestureState private var fingerLocation: CGPoint? = nil
+    @GestureState private var startLocation: CGPoint? = nil
+    
     var body: some SwiftUI.View {
         ScrollViewReader { scrollControl in
-            VStack{
-                HStack {
-                    Button(action: { selection.next(scrollControl: scrollControl) }, label: { Text("Next") })
-                    Button(action: { selection.select(scrollControl: scrollControl) }, label: { Text("Select") })
-                }
-                HStack {
-                    Text(">")
-                    
-                    GeometryReader { geoReader in
-                        ScrollView() {
-                            VStack(alignment: .leading) {
-                                ForEach(selection.items) { item in
-                                    HStack{
-                                        if(item.id == selection.selectedUUID) {
-                                            Text(item.details.displayText)
-                                                .padding()
-                                                .bold()
-                                            
-                                        } else {
-                                            Text(item.details.displayText)
-                                                .padding()
-                                            
-                                        }
-                                    }.id(item.id)
-                                    
-                                }
-                            }.padding(.vertical, geoReader.size.height/2)
+            
+            ZStack {
+                ZStack {
+                    VStack(spacing: .zero) {
+                        HStack(spacing: .zero)  {
                             
-                        }.onAppear {
-                            scrollControl.scrollTo(selection.selectedUUID, anchor: .center)
-                        }.scrollDisabled(true)
+                            Spacer()
+                            Button {
+                                print("Up")
+                                selection.back(scrollControl: scrollControl)
+                            } label: {
+                                Image("SingleArrow")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .offset(CGSize(width: 0, height: 3))
+                            }
+                            Spacer()
+                            
+                        }
+                        HStack(spacing: .zero)  {
+                            
+                            
+                            Button {
+                                print("Left")
+                                selection.backspace(scrollControl: scrollControl)
+                            } label: {
+                                Image("SingleArrow")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .rotationEffect(.degrees(-90))
+                            }
+                            Spacer()
+                            Button {
+                                print("Right")
+                                selection.select(scrollControl: scrollControl)
+                            } label: {
+                                Image("SingleArrow")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .rotationEffect(.degrees(90))
+                            }
+                            
+                        }
+                        
+                        HStack(spacing: .zero)  {
+                            
+                            Spacer()
+                            Button {
+                                print("Down")
+                                selection.next(scrollControl: scrollControl)
 
+                            } label: {
+                                Image("SingleArrow")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .rotationEffect(.degrees(180))
+                                    .offset(CGSize(width: 0, height: -3))
+                            }
+                            Spacer()
+                            
+                        }
                     }
+                    
+                    
+                    
                 }
-                .contentShape(Rectangle())
-                .padding()
-                .onTapGesture {
-                    selection.next(scrollControl: scrollControl)
-                }
-                .swipe(right: {
-                    selection.select(scrollControl: scrollControl)
-                })
+                .frame(width: 172.0, height: 172.0)
+                .background(.white)
+                .position(location)
+                .zIndex(1)
+                .gesture(
+                    DragGesture(coordinateSpace: .global)
+                        .onChanged { value in
+                            var newLocation = startLocation ?? location
+                            newLocation.x += value.translation.width
+                            newLocation.y += value.translation.height
+                            self.location = newLocation
+                        }
+                        .updating($startLocation) { (value, startLocation, transaction) in
+                            startLocation = startLocation ?? location
+                        }
+                )
                 
                 
-                Text(selection.enteredText)
+                
+                VStack{
+    
+                    HStack {
+                        Text(">")
+                        
+                        GeometryReader { geoReader in
+                            ScrollView() {
+                                VStack(alignment: .leading) {
+                                    ForEach(selection.items) { item in
+                                        HStack{
+                                            if(item.id == selection.selectedUUID) {
+                                                Text(item.details.displayText)
+                                                    .padding()
+                                                    .bold()
+                                                
+                                            } else {
+                                                Text(item.details.displayText)
+                                                    .padding()
+                                                
+                                            }
+                                        }.id(item.id)
+                                        
+                                    }
+                                }.padding(.vertical, geoReader.size.height/2)
+                                
+                            }.onAppear {
+                                scrollControl.scrollTo(selection.selectedUUID, anchor: .center)
+                            }.scrollDisabled(true)
+                            
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .padding()
+                    .onTapGesture {
+                        selection.next(scrollControl: scrollControl)
+                    }
+                    .swipe(right: {
+                        selection.select(scrollControl: scrollControl)
+                    })
+                    
+                    
+                    Text(selection.enteredText)
+                }
             }
         }
     }

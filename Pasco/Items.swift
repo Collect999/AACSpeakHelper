@@ -39,7 +39,10 @@ class BackspaceItem: ItemProtocol, Identifiable {
     }
 
     func select(enteredText: String, cb: @escaping (_ enteredText: String) -> Void) {
-        if enteredText == "" { cb("") }
+        if enteredText == "" {
+            cb("")
+            return;
+        }
         
         // `removeLast` annoyingly mutates the string
         // which means we have to do this copy nonsense
