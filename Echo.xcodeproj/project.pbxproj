@@ -12,7 +12,7 @@
 		D517430C2A7AA8BB00E14EE0 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D517430B2A7AA8BB00E14EE0 /* Prediction.swift */; };
 		D51743112A7AA8FD00E14EE0 /* TextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51743102A7AA8FD00E14EE0 /* TextToSpeech.swift */; };
 		D51743132A7AA94100E14EE0 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51743122A7AA94100E14EE0 /* Items.swift */; };
-		D5965DFD2A61995A003C9208 /* PascoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFC2A61995A003C9208 /* PascoApp.swift */; };
+		D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFC2A61995A003C9208 /* EchoApp.swift */; };
 		D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFE2A61995A003C9208 /* ContentView.swift */; };
 		D5965E012A61995E003C9208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5965E002A61995E003C9208 /* Assets.xcassets */; };
 		D5965E042A61995F003C9208 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5965E032A61995F003C9208 /* Preview Assets.xcassets */; };
@@ -23,8 +23,8 @@
 		D517430B2A7AA8BB00E14EE0 /* Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prediction.swift; sourceTree = "<group>"; };
 		D51743102A7AA8FD00E14EE0 /* TextToSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeech.swift; sourceTree = "<group>"; };
 		D51743122A7AA94100E14EE0 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
-		D5965DF92A61995A003C9208 /* Pasco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pasco.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5965DFC2A61995A003C9208 /* PascoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PascoApp.swift; sourceTree = "<group>"; };
+		D5965DF92A61995A003C9208 /* Echo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Echo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5965DFC2A61995A003C9208 /* EchoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoApp.swift; sourceTree = "<group>"; };
 		D5965DFE2A61995A003C9208 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D5965E002A61995E003C9208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5965E032A61995F003C9208 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		D5965DF02A61995A003C9208 = {
 			isa = PBXGroup;
 			children = (
-				D5965DFB2A61995A003C9208 /* Pasco */,
+				D5965DFB2A61995A003C9208 /* Echo */,
 				D5965DFA2A61995A003C9208 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,17 +54,17 @@
 		D5965DFA2A61995A003C9208 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D5965DF92A61995A003C9208 /* Pasco.app */,
+				D5965DF92A61995A003C9208 /* Echo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D5965DFB2A61995A003C9208 /* Pasco */ = {
+		D5965DFB2A61995A003C9208 /* Echo */ = {
 			isa = PBXGroup;
 			children = (
 				D5965E0B2A6875AB003C9208 /* Info.plist */,
 				D5965E0A2A619EC1003C9208 /* Models */,
-				D5965DFC2A61995A003C9208 /* PascoApp.swift */,
+				D5965DFC2A61995A003C9208 /* EchoApp.swift */,
 				D51743102A7AA8FD00E14EE0 /* TextToSpeech.swift */,
 				D5965DFE2A61995A003C9208 /* ContentView.swift */,
 				D51743122A7AA94100E14EE0 /* Items.swift */,
@@ -73,7 +73,7 @@
 				D5965E002A61995E003C9208 /* Assets.xcassets */,
 				D5965E022A61995F003C9208 /* Preview Content */,
 			);
-			path = Pasco;
+			path = Echo;
 			sourceTree = "<group>";
 		};
 		D5965E022A61995F003C9208 /* Preview Content */ = {
@@ -94,9 +94,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D5965DF82A61995A003C9208 /* Pasco */ = {
+		D5965DF82A61995A003C9208 /* Echo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5965E072A61995F003C9208 /* Build configuration list for PBXNativeTarget "Pasco" */;
+			buildConfigurationList = D5965E072A61995F003C9208 /* Build configuration list for PBXNativeTarget "Echo" */;
 			buildPhases = (
 				D5965DF52A61995A003C9208 /* Sources */,
 				D5965DF62A61995A003C9208 /* Frameworks */,
@@ -106,12 +106,12 @@
 			);
 			dependencies = (
 			);
-			name = Pasco;
+			name = Echo;
 			packageProductDependencies = (
 				D51743092A6FFBBA00E14EE0 /* SQLite */,
 			);
-			productName = Pasco;
-			productReference = D5965DF92A61995A003C9208 /* Pasco.app */;
+			productName = Echo;
+			productReference = D5965DF92A61995A003C9208 /* Echo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -129,7 +129,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D5965DF42A61995A003C9208 /* Build configuration list for PBXProject "Pasco" */;
+			buildConfigurationList = D5965DF42A61995A003C9208 /* Build configuration list for PBXProject "Echo" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -145,7 +145,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D5965DF82A61995A003C9208 /* Pasco */,
+				D5965DF82A61995A003C9208 /* Echo */,
 			);
 		};
 /* End PBXProject section */
@@ -171,7 +171,7 @@
 				D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */,
 				D51743132A7AA94100E14EE0 /* Items.swift in Sources */,
 				D51743112A7AA8FD00E14EE0 /* TextToSpeech.swift in Sources */,
-				D5965DFD2A61995A003C9208 /* PascoApp.swift in Sources */,
+				D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */,
 				D517430C2A7AA8BB00E14EE0 /* Prediction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,11 +300,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 14;
-				DEVELOPMENT_ASSET_PATHS = "\"Pasco/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Echo/Preview Content\"";
 				DEVELOPMENT_TEAM = K45HHA96ND;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Pasco/Info.plist;
+				INFOPLIST_FILE = Echo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Echo;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -330,11 +331,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 14;
-				DEVELOPMENT_ASSET_PATHS = "\"Pasco/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Echo/Preview Content\"";
 				DEVELOPMENT_TEAM = K45HHA96ND;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Pasco/Info.plist;
+				INFOPLIST_FILE = Echo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Echo;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -356,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D5965DF42A61995A003C9208 /* Build configuration list for PBXProject "Pasco" */ = {
+		D5965DF42A61995A003C9208 /* Build configuration list for PBXProject "Echo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5965E052A61995F003C9208 /* Debug */,
@@ -365,7 +367,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5965E072A61995F003C9208 /* Build configuration list for PBXNativeTarget "Pasco" */ = {
+		D5965E072A61995F003C9208 /* Build configuration list for PBXNativeTarget "Echo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5965E082A61995F003C9208 /* Debug */,

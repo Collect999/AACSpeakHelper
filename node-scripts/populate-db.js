@@ -6,7 +6,7 @@ const freqList = JSON.parse(
   fs.readFileSync("./bncfrequency.json").toLocaleString()
 ).words;
 
-const dbPath = path.join(__dirname, "../Pasco/dictionary.sqlite");
+const dbPath = path.join(__dirname, "../Echo/dictionary.sqlite");
 console.log(dbPath);
 
 const db = new sqlite3.Database(dbPath);
