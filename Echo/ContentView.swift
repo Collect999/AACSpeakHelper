@@ -8,9 +8,22 @@
 /// TODO Joystick mode?
 /// TODO Swipe with inertia
 /// TODO figure out double press
+/// TODO Needs to work with voice over
+/// TODO needs to be switch accessible
+
+/**
+ Description of default behaviour:
+ After each letter you type out: read back the current word one charcter at a time. Prefix it with 'Current word'
+ After each word read out the current sentance. Prefix it with 'current sentance'
+ 
+ * The prefixes should be toggleable in the settings but lets keep them on by default
+ */
+
 
 import SwiftUI
 import Combine
+
+
 
 /// TODO: 'SelectionState' is a bad name
 class SelectionState: ObservableObject {
@@ -56,11 +69,11 @@ class SelectionState: ObservableObject {
         return currentIndex ?? 0
     }
     
-    func back(scrollControl: ScrollViewProxy?) {
-        move(scrollControl: scrollControl, moveBy: -1, reset: false)
+    func back() {
+        move(moveBy: -1, reset: false)
     }
     
-    func move(scrollControl: ScrollViewProxy?, moveBy: Int = 1, reset: Bool = false) {
+    func move(moveBy: Int = 1, reset: Bool = false) {
         let currentIndex = self.getIndexOfSelectedItem()
         var newIndex = (currentIndex + moveBy) % items.count
         
@@ -76,39 +89,17 @@ class SelectionState: ObservableObject {
         selectedUUID = newItem.id
         
         textToSpeech.speak(newItem.details.speakText) {}
-        
-        if let unrwappedScroll = scrollControl {
-            
-            // This is a hack
-            // If we are resetting then we need to wait
-            // for a rerender to happen before we can call
-            // scrollTo
-            if reset == true {
-                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
-                    withAnimation {
-                        unrwappedScroll.scrollTo(self.selectedUUID, anchor: .center)
-                    }
-                }
-            } else {
-                withAnimation {
-                    unrwappedScroll.scrollTo(self.selectedUUID, anchor: .center)
-                }
-            }
-        }
     }
     
     /***
      Move onto the next item in the list
-     
-     Optionally takes scrollControl so that it can force the next item into the center of the viewport
-     This relies on you setting the id of items in ScrollView using the index of the item
      */
-    func next(scrollControl: ScrollViewProxy?, reset: Bool = false) {
-        move(scrollControl: scrollControl, moveBy: 1, reset: reset)
+    func next(reset: Bool = false) {
+        move(moveBy: 1, reset: reset)
     }
     
-    func backspace(scrollControl: ScrollViewProxy?) {
-        select(scrollControl: scrollControl, overrideItem: undoItem)
+    func backspace() {
+        select(overrideItem: undoItem)
     }
     
     /***
@@ -116,7 +107,7 @@ class SelectionState: ObservableObject {
      
      'Select' will perform different actions depending on the item that is currently focused
      */
-    func select(scrollControl: ScrollViewProxy?, overrideItem: Item? = nil) {
+    func select(overrideItem: Item? = nil) {
         let currentItem = overrideItem ?? items[getIndexOfSelectedItem()]
         
         currentItem.details.select(enteredText: enteredText) { newText in
@@ -131,7 +122,7 @@ class SelectionState: ObservableObject {
             self.items = predictions + self.items
             
             
-            self.next(scrollControl: scrollControl, reset: true)
+            self.next(reset: true)
         }
     }
     
@@ -154,6 +145,27 @@ extension SwiftUI.View {
     }
 }
 
+/***
+    Renders a ScrollView and keeps the given UUID always in the center of the scroll area
+ */
+struct ScrollLock<Content: View>: SwiftUI.View {
+    @Binding var selectedUUID: UUID
+    @ViewBuilder var content: Content
+    
+    var body: some View {
+        ScrollViewReader { scrollControl in
+            content
+                .onChange(of: selectedUUID) { newUUID in
+                    withAnimation {
+                        scrollControl.scrollTo(newUUID, anchor: .center)
+                    }
+                }.onAppear {
+                    scrollControl.scrollTo(selectedUUID, anchor: .center)
+                }.scrollDisabled(true)
+        }
+    }
+}
+
 struct ContentView: SwiftUI.View {
     @StateObject var selection = SelectionState();
     
@@ -163,7 +175,7 @@ struct ContentView: SwiftUI.View {
     @GestureState private var startLocation: CGPoint? = nil
     
     var body: some SwiftUI.View {
-        ScrollViewReader { scrollControl in
+        ScrollLock(selectedUUID: $selection.selectedUUID) {
             
             ZStack {
                 ZStack {
@@ -173,7 +185,7 @@ struct ContentView: SwiftUI.View {
                             Spacer()
                             Button {
                                 print("Up")
-                                selection.back(scrollControl: scrollControl)
+                                selection.back()
                             } label: {
                                 Image("SingleArrow")
                                     .resizable()
@@ -188,7 +200,7 @@ struct ContentView: SwiftUI.View {
                             
                             Button {
                                 print("Left")
-                                selection.backspace(scrollControl: scrollControl)
+                                selection.backspace()
                             } label: {
                                 Image("SingleArrow")
                                     .resizable()
@@ -198,7 +210,7 @@ struct ContentView: SwiftUI.View {
                             Spacer()
                             Button {
                                 print("Right")
-                                selection.select(scrollControl: scrollControl)
+                                selection.select()
                             } label: {
                                 Image("SingleArrow")
                                     .resizable()
@@ -213,7 +225,7 @@ struct ContentView: SwiftUI.View {
                             Spacer()
                             Button {
                                 print("Down")
-                                selection.next(scrollControl: scrollControl)
+                                selection.next()
 
                             } label: {
                                 Image("SingleArrow")
@@ -274,19 +286,17 @@ struct ContentView: SwiftUI.View {
                                     }
                                 }.padding(.vertical, geoReader.size.height/2)
                                 
-                            }.onAppear {
-                                scrollControl.scrollTo(selection.selectedUUID, anchor: .center)
-                            }.scrollDisabled(true)
+                            }
                             
                         }
                     }
                     .contentShape(Rectangle())
                     .padding()
                     .onTapGesture {
-                        selection.next(scrollControl: scrollControl)
+                        selection.next()
                     }
                     .swipe(right: {
-                        selection.select(scrollControl: scrollControl)
+                        selection.select()
                     })
                     
                     
