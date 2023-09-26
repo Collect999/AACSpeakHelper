@@ -19,30 +19,24 @@
  * The prefixes should be toggleable in the settings but lets keep them on by default
  */
 
-
 import SwiftUI
 import Combine
 
-
-
 /// TODO: 'SelectionState' is a bad name
 class SelectionState: ObservableObject {
-    @Published var items: Array<Item>
+    @Published var items: [Item]
     @Published var selectedUUID: UUID
     @Published var enteredText = ""
     
     var textToSpeech = TextToSpeech()
-    
     var predictor: PredictionEngine
-    
     var undoItem: Item
-    
     
     init() {
         predictor = SlowAndBadPrediciton()
         undoItem = Item(actionType: .backspace, display: "Undo", textToSpeech: textToSpeech)
         items = [
-            Item(letter:"·", display: "Space", speakText: "Space"),
+            Item(letter: "·", display: "Space", speakText: "Space"),
             undoItem,
             Item(actionType: .finish, display: "Finish", textToSpeech: textToSpeech)
         ]
@@ -85,7 +79,6 @@ class SelectionState: ObservableObject {
         
         let newItem = items[wrappedIndex]
         
-        
         selectedUUID = newItem.id
         
         textToSpeech.speak(newItem.details.speakText) {}
@@ -121,7 +114,6 @@ class SelectionState: ObservableObject {
             
             self.items = predictions + self.items
             
-            
             self.next(reset: true)
         }
     }
@@ -145,34 +137,13 @@ extension SwiftUI.View {
     }
 }
 
-/***
-    Renders a ScrollView and keeps the given UUID always in the center of the scroll area
- */
-struct ScrollLock<Content: View>: SwiftUI.View {
-    @Binding var selectedUUID: UUID
-    @ViewBuilder var content: Content
-    
-    var body: some View {
-        ScrollViewReader { scrollControl in
-            content
-                .onChange(of: selectedUUID) { newUUID in
-                    withAnimation {
-                        scrollControl.scrollTo(newUUID, anchor: .center)
-                    }
-                }.onAppear {
-                    scrollControl.scrollTo(selectedUUID, anchor: .center)
-                }.scrollDisabled(true)
-        }
-    }
-}
-
 struct ContentView: SwiftUI.View {
-    @StateObject var selection = SelectionState();
+    @StateObject var selection = SelectionState()
     
     // Thanks to https://sarunw.com/posts/move-view-around-with-drag-gesture-in-swiftui/
     @State private var location: CGPoint = CGPoint(x: 300, y: 200)
-    @GestureState private var fingerLocation: CGPoint? = nil
-    @GestureState private var startLocation: CGPoint? = nil
+    @GestureState private var fingerLocation: CGPoint?
+    @GestureState private var startLocation: CGPoint?
     
     var body: some SwiftUI.View {
         ScrollLock(selectedUUID: $selection.selectedUUID) {
@@ -180,7 +151,7 @@ struct ContentView: SwiftUI.View {
             ZStack {
                 ZStack {
                     VStack(spacing: .zero) {
-                        HStack(spacing: .zero)  {
+                        HStack(spacing: .zero) {
                             
                             Spacer()
                             Button {
@@ -195,8 +166,7 @@ struct ContentView: SwiftUI.View {
                             Spacer()
                             
                         }
-                        HStack(spacing: .zero)  {
-                            
+                        HStack(spacing: .zero) {
                             
                             Button {
                                 print("Left")
@@ -220,7 +190,7 @@ struct ContentView: SwiftUI.View {
                             
                         }
                         
-                        HStack(spacing: .zero)  {
+                        HStack(spacing: .zero) {
                             
                             Spacer()
                             Button {
@@ -239,8 +209,6 @@ struct ContentView: SwiftUI.View {
                         }
                     }
                     
-                    
-                    
                 }
                 .frame(width: 172.0, height: 172.0)
                 .background(.white)
@@ -254,24 +222,22 @@ struct ContentView: SwiftUI.View {
                             newLocation.y += value.translation.height
                             self.location = newLocation
                         }
-                        .updating($startLocation) { (value, startLocation, transaction) in
+                        .updating($startLocation) { (_, startLocation, _) in
                             startLocation = startLocation ?? location
                         }
                 )
                 
-                
-                
-                VStack{
+                VStack {
     
                     HStack {
                         Text(">")
                         
                         GeometryReader { geoReader in
-                            ScrollView() {
+                            ScrollView {
                                 VStack(alignment: .leading) {
                                     ForEach(selection.items) { item in
-                                        HStack{
-                                            if(item.id == selection.selectedUUID) {
+                                        HStack {
+                                            if item.id == selection.selectedUUID {
                                                 Text(item.details.displayText)
                                                     .padding()
                                                     .bold()
@@ -298,7 +264,6 @@ struct ContentView: SwiftUI.View {
                     .swipe(right: {
                         selection.select()
                     })
-                    
                     
                     Text(selection.enteredText)
                 }

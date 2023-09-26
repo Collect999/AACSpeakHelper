@@ -26,14 +26,12 @@ class SlowAndBadPrediciton: PredictionEngine {
             self.dbConn = db
             self.wordsTable = words
             
-            
-
         } catch {
-            print (error)
+            print(error)
         }
     }
     
-    func predict(enteredText: String) -> Array<Item> {
+    func predict(enteredText: String) -> [Item] {
         guard let db = dbConn else { return [] }
         guard let words = wordsTable else { return [] }
         
@@ -52,7 +50,7 @@ class SlowAndBadPrediciton: PredictionEngine {
         
         if prefix == "" { return alphabetItems }
         
-        var wordPredictions: Array<String> = []
+        var wordPredictions: [String] = []
         
         do {
             let wordExpression = Expression<String>("word")
@@ -68,16 +66,14 @@ class SlowAndBadPrediciton: PredictionEngine {
                 if nextCharPos < unwrappedWord.count {
                     wordPredictions.append(unwrappedWord)
                     
-                    let nextChar = unwrappedWord[unwrappedWord.index(unwrappedWord.startIndex, offsetBy: nextCharPos)].lowercased()
+                    let nextCharIndex = unwrappedWord.index(unwrappedWord.startIndex, offsetBy: nextCharPos)
+                    let nextChar = unwrappedWord[nextCharIndex].lowercased()
                     
                     if alphabet.contains(nextChar) {
                         let currentScore = alphabetScores[nextChar, default: 0]
                         alphabetScores[nextChar] = currentScore + unwrappedScore
                     }
                 }
-                
-               
-                
             }
             
         } catch {
@@ -93,10 +89,7 @@ class SlowAndBadPrediciton: PredictionEngine {
         }.map { currentPrediction in
             return Item(letter: currentPrediction, isPredicted: true)
         }
-        
-        let prefixBySpaces = String(Array(prefix.split(separator: "")).joined(separator: " "))
-        let currentPrefix = Item(letter: "·", display: prefix, speakText: prefixBySpaces, isPredicted: true)
-        
+                
         if wordPredictions.count <= 3 {
             let wordItems = wordPredictions.map { word in
                 let wordWithoutPrefix = String(word.dropFirst(prefix.count))
@@ -104,31 +97,29 @@ class SlowAndBadPrediciton: PredictionEngine {
                 return Item(letter: wordWithoutPrefix+"·", display: word, speakText: word, isPredicted: true)
             }
             
-            return [currentPrefix] + wordItems + sortedAlphabet
+            return wordItems + sortedAlphabet
         }
         
-        return [currentPrefix] + sortedAlphabet
+        return sortedAlphabet
     }
-    
     
 }
 
-
 // This is a 'prediction' engine that randomly shuffles letters
 class RandomPrediction: PredictionEngine {
-    var alphabet: Array<String>
-    var words: Array<String>
+    var alphabet: [String]
+    var words: [String]
     
     init() {
-        words = ["This", "is", "word", "I", "suggest","more"]
+        words = ["This", "is", "word", "I", "suggest", "more"]
         alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
     }
     
-    func predict(enteredText: String) -> Array<Item> {
-        if(enteredText == "") {
-            return "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",").map { currentPrediction in
-                return Item(letter: currentPrediction, isPredicted: true)
-                
+    func predict(enteredText: String) -> [Item] {
+        if enteredText == "" {
+            return "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z"
+                .components(separatedBy: ",").map { currentPrediction in
+                    return Item(letter: currentPrediction, isPredicted: true)
             }
         }
         
@@ -139,10 +130,9 @@ class RandomPrediction: PredictionEngine {
             
         }
         
-  
     }
 }
 
 protocol PredictionEngine {
-    func predict(enteredText: String) -> Array<Item>
+    func predict(enteredText: String) -> [Item]
 }

@@ -54,7 +54,6 @@ class TextToSpeech: NSObject, AVSpeechSynthesizerDelegate {
             unwappedCallback()
         }
         
-        
         self.callback = nil
     }
     
@@ -63,7 +62,6 @@ class TextToSpeech: NSObject, AVSpeechSynthesizerDelegate {
             unwappedCallback()
         }
         
-
         self.callback = nil
     }
 }

@@ -16,6 +16,7 @@
 		D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFE2A61995A003C9208 /* ContentView.swift */; };
 		D5965E012A61995E003C9208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5965E002A61995E003C9208 /* Assets.xcassets */; };
 		D5965E042A61995F003C9208 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5965E032A61995F003C9208 /* Preview Assets.xcassets */; };
+		D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E26B422AC2E77A003545BE /* ScrollLock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		D5965E002A61995E003C9208 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5965E032A61995F003C9208 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D5965E0B2A6875AB003C9208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D5E26B422AC2E77A003545BE /* ScrollLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,10 +65,10 @@
 			isa = PBXGroup;
 			children = (
 				D5965E0B2A6875AB003C9208 /* Info.plist */,
-				D5965E0A2A619EC1003C9208 /* Models */,
 				D5965DFC2A61995A003C9208 /* EchoApp.swift */,
 				D51743102A7AA8FD00E14EE0 /* TextToSpeech.swift */,
 				D5965DFE2A61995A003C9208 /* ContentView.swift */,
+				D5E26B422AC2E77A003545BE /* ScrollLock.swift */,
 				D51743122A7AA94100E14EE0 /* Items.swift */,
 				D517430B2A7AA8BB00E14EE0 /* Prediction.swift */,
 				D51743062A6FF72300E14EE0 /* dictionary.sqlite */,
@@ -84,13 +86,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		D5965E0A2A619EC1003C9208 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -105,6 +100,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D5E26B462AC31C42003545BE /* PBXTargetDependency */,
 			);
 			name = Echo;
 			packageProductDependencies = (
@@ -122,7 +118,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					D5965DF82A61995A003C9208 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -140,6 +136,7 @@
 			mainGroup = D5965DF02A61995A003C9208;
 			packageReferences = (
 				D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */,
+				D5E26B442AC31C1C003545BE /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = D5965DFA2A61995A003C9208 /* Products */;
 			projectDirPath = "";
@@ -169,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */,
+				D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */,
 				D51743132A7AA94100E14EE0 /* Items.swift in Sources */,
 				D51743112A7AA8FD00E14EE0 /* TextToSpeech.swift in Sources */,
 				D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */,
@@ -177,6 +175,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D5E26B462AC31C42003545BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = D5E26B452AC31C42003545BE /* SwiftLintPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D5965E052A61995F003C9208 /* Debug */ = {
@@ -387,6 +392,14 @@
 				minimumVersion = 0.14.1;
 			};
 		};
+		D5E26B442AC31C1C003545BE /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.52.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -394,6 +407,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
+		};
+		D5E26B452AC31C42003545BE /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5E26B442AC31C1C003545BE /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

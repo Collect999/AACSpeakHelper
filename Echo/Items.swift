@@ -41,7 +41,7 @@ class BackspaceItem: ItemProtocol, Identifiable {
     func select(enteredText: String, cb: @escaping (_ enteredText: String) -> Void) {
         if enteredText == "" {
             cb("")
-            return;
+            return
         }
         
         // `removeLast` annoyingly mutates the string
@@ -55,7 +55,6 @@ class BackspaceItem: ItemProtocol, Identifiable {
         return false
     }
 }
-
 
 class LetterItem: ItemProtocol, Identifiable {
     var id = UUID()
@@ -106,9 +105,7 @@ class LetterItem: ItemProtocol, Identifiable {
         self.predicted = isPredicted
         self.speakText = letter
     }
-    
-    
-    
+  
     func isPredicted() -> Bool {
         return self.predicted
     }
@@ -132,8 +129,9 @@ protocol ItemProtocol: Identifiable {
     func isPredicted() -> Bool
 }
 
-// We need this kinda annoying container due to: https://stackoverflow.com/questions/73773884/any-identifiable-cant-conform-to-identifiable
-struct Item: Identifiable{
+// We need this kinda annoying container due to:
+/// https://stackoverflow.com/questions/73773884/any-identifiable-cant-conform-to-identifiable
+struct Item: Identifiable {
     var details: any ItemProtocol
     var id: UUID { details.id }
     
@@ -158,7 +156,7 @@ struct Item: Identifiable{
         self.details = LetterItem(letter, display: display, speakText: speakText, isPredicted: isPredicted)
     }
     
-    init(actionType: ItemActionType, display: String, textToSpeech: TextToSpeech){
+    init(actionType: ItemActionType, display: String, textToSpeech: TextToSpeech) {
        if actionType == .backspace {
             self.details = BackspaceItem(display)
         } else if actionType == .finish {
