@@ -168,128 +168,145 @@ struct ContentView: SwiftUI.View {
     @GestureState private var startLocation: CGPoint?
     
     var body: some SwiftUI.View {
-        ScrollLock(selectedUUID: $selection.selectedUUID) {
+        NavigationView {
             
-            ZStack {
-                ZStack {
-                    VStack(spacing: .zero) {
-                        HStack(spacing: .zero) {
-                            
-                            Spacer()
-                            Button {
-                                print("Up")
-                                selection.back()
-                            } label: {
-                                Image("SingleArrow")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .offset(CGSize(width: 0, height: 3))
-                            }
-                            Spacer()
-                            
-                        }
-                        HStack(spacing: .zero) {
-                            
-                            Button {
-                                print("Left")
-                                selection.backspace()
-                            } label: {
-                                Image("SingleArrow")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .rotationEffect(.degrees(-90))
-                            }
-                            Spacer()
-                            Button {
-                                print("Right")
-                                selection.select()
-                            } label: {
-                                Image("SingleArrow")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .rotationEffect(.degrees(90))
-                            }
-                            
-                        }
-                        
-                        HStack(spacing: .zero) {
-                            
-                            Spacer()
-                            Button {
-                                print("Down")
-                                selection.next()
-
-                            } label: {
-                                Image("SingleArrow")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .rotationEffect(.degrees(180))
-                                    .offset(CGSize(width: 0, height: -3))
-                            }
-                            Spacer()
-                            
-                        }
-                    }
-                    
-                }
-                .frame(width: 172.0, height: 172.0)
-                .background(.white)
-                .position(location)
-                .zIndex(1)
-                .gesture(
-                    DragGesture(coordinateSpace: .global)
-                        .onChanged { value in
-                            var newLocation = startLocation ?? location
-                            newLocation.x += value.translation.width
-                            newLocation.y += value.translation.height
-                            self.location = newLocation
-                        }
-                        .updating($startLocation) { (_, startLocation, _) in
-                            startLocation = startLocation ?? location
-                        }
-                )
+        
+            ScrollLock(selectedUUID: $selection.selectedUUID) {
                 
-                VStack {
-    
-                    HStack {
-                        Text(">")
-                        
-                        GeometryReader { geoReader in
-                            ScrollView {
-                                VStack(alignment: .leading) {
-                                    ForEach(selection.items) { item in
-                                        HStack {
-                                            if item.id == selection.selectedUUID {
-                                                Text(item.details.displayText)
-                                                    .padding()
-                                                    .bold()
-                                                
-                                            } else {
-                                                Text(item.details.displayText)
-                                                    .padding()
-                                                
-                                            }
-                                        }.id(item.id)
-                                        
-                                    }
-                                }.padding(.vertical, geoReader.size.height/2)
+                ZStack {
+                    ZStack {
+                        VStack(spacing: .zero) {
+                            HStack(spacing: .zero) {
+                                
+                                Spacer()
+                                Button {
+                                    print("Up")
+                                    selection.back()
+                                } label: {
+                                    Image("SingleArrow")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .offset(CGSize(width: 0, height: 3))
+                                }
+                                Spacer()
+                                
+                            }
+                            HStack(spacing: .zero) {
+                                
+                                Button {
+                                    print("Left")
+                                    selection.backspace()
+                                } label: {
+                                    Image("SingleArrow")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .rotationEffect(.degrees(-90))
+                                }
+                                Spacer()
+                                Button {
+                                    print("Right")
+                                    selection.select()
+                                } label: {
+                                    Image("SingleArrow")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .rotationEffect(.degrees(90))
+                                }
                                 
                             }
                             
+                            HStack(spacing: .zero) {
+                                
+                                Spacer()
+                                Button {
+                                    print("Down")
+                                    selection.next()
+                                    
+                                } label: {
+                                    Image("SingleArrow")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .rotationEffect(.degrees(180))
+                                        .offset(CGSize(width: 0, height: -3))
+                                }
+                                Spacer()
+                                
+                            }
                         }
+                        
                     }
-                    .contentShape(Rectangle())
-                    .padding()
-                    .onTapGesture {
-                        selection.next()
-                    }
-                    .swipe(right: {
-                        selection.select()
-                    })
+                    .frame(width: 172.0, height: 172.0)
+                    .background(.white)
+                    .position(location)
+                    .zIndex(1)
+                    .gesture(
+                        DragGesture(coordinateSpace: .global)
+                            .onChanged { value in
+                                var newLocation = startLocation ?? location
+                                newLocation.x += value.translation.width
+                                newLocation.y += value.translation.height
+                                self.location = newLocation
+                            }
+                            .updating($startLocation) { (_, startLocation, _) in
+                                startLocation = startLocation ?? location
+                            }
+                    )
                     
-                    Text(selection.enteredText)
+                    VStack {
+                        
+                        HStack {
+                            Text(">")
+                            
+                            GeometryReader { geoReader in
+                                ScrollView {
+                                    VStack(alignment: .leading) {
+                                        ForEach(selection.items) { item in
+                                            HStack {
+                                                if item.id == selection.selectedUUID {
+                                                    Text(item.details.displayText)
+                                                        .padding()
+                                                        .bold()
+                                                    
+                                                } else {
+                                                    Text(item.details.displayText)
+                                                        .padding()
+                                                    
+                                                }
+                                            }.id(item.id)
+                                            
+                                        }
+                                    }.padding(.vertical, geoReader.size.height/2)
+                                    
+                                }
+                                
+                            }
+                        }
+                        .contentShape(Rectangle())
+                        .padding()
+                        .onTapGesture {
+                            selection.next()
+                        }
+                        .swipe(right: {
+                            selection.select()
+                        })
+                        
+                        Text(selection.enteredText)
+                    }
                 }
             }
+                .navigationTitle("Echo: Auditory Scanning")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        NavigationLink(destination: {
+                            Text("Settings page")
+                        }, label: {
+                            Image(systemName: "gear").foregroundColor(.blue)
+                        })
+                        
+                    }
+                }
+                .toolbarBackground(.visible, for: .navigationBar, .tabBar)
         }
     }
 }
