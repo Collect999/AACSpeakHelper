@@ -10,12 +10,13 @@ import Foundation
 class FinishItem: ItemProtocol, Identifiable {
     var id = UUID()
     var displayText: String
-    var speakText = "Finish"
+    var speakText: String
     var textToSpeech: TextToSpeech
     
     init(_ display: String, textToSpeech: TextToSpeech) {
         self.displayText = display
         self.textToSpeech = textToSpeech
+        self.speakText = displayText
     }
 
     func select(enteredText: String, cb: @escaping (_ enteredText: String) -> Void) {

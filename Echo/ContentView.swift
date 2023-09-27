@@ -35,11 +35,7 @@ class SelectionState: ObservableObject {
     init() {
         predictor = SlowAndBadPrediciton()
         undoItem = Item(actionType: .backspace, display: "Undo", textToSpeech: textToSpeech)
-        items = [
-            Item(letter: "·", display: "Space", speakText: "Space"),
-            undoItem,
-            Item(actionType: .finish, display: "Finish", textToSpeech: textToSpeech)
-        ]
+        items = []
         selectedUUID = UUID()
         
         let predictions = predictor.predict(enteredText: enteredText)
@@ -84,6 +80,15 @@ class SelectionState: ObservableObject {
         textToSpeech.speak(newItem.details.speakText) {}
     }
     
+    func moveToUUID(target: UUID) {
+        if let newItem = items.first(where: { $0.id == target }) {
+            textToSpeech.speak(newItem.details.speakText) {}
+            self.selectedUUID = target
+        } else {
+            self.move(reset: true)
+        }
+    }
+    
     /***
      Move onto the next item in the list
      */
@@ -107,14 +112,31 @@ class SelectionState: ObservableObject {
             self.enteredText = newText
             
             let predictions = self.predictor.predict(enteredText: self.enteredText)
+            var prefixItems: [Item] = []
             
-            self.items = self.items.filter { item in
-                return !item.details.isPredicted()
+            let finishedText = "Current Sentance: " + self.enteredText
+            let fullSentanceItem = Item(actionType: .finish, display: finishedText, textToSpeech: self.textToSpeech)
+            var newTargetItem = fullSentanceItem
+            if self.enteredText.count > 0 {
+                prefixItems.append(fullSentanceItem)
             }
             
-            self.items = predictions + self.items
+            let splitBySpace = self.enteredText.components(separatedBy: "·")
+            let prefix = splitBySpace.last ?? ""
+            let prefixWithHyphens = "Current Word: " + String(Array(prefix.split(separator: "")).joined(separator: "·"))
+            let prefixItem = Item(
+                letter: "·",
+                display: "Current Word: " + prefix,
+                speakText: prefixWithHyphens,
+                isPredicted: true
+            )
+            if prefix.count > 0 {
+                prefixItems.append(prefixItem)
+                newTargetItem = prefixItem
+            }
             
-            self.next(reset: true)
+            self.items = prefixItems + predictions
+            self.moveToUUID(target: newTargetItem.id)
         }
     }
     
