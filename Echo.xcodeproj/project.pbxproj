@@ -106,11 +106,11 @@
 				D5965DF52A61995A003C9208 /* Sources */,
 				D5965DF62A61995A003C9208 /* Frameworks */,
 				D5965DF72A61995A003C9208 /* Resources */,
+				D5C0056F2AC46B9C007C21B2 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D5E26B462AC31C42003545BE /* PBXTargetDependency */,
 			);
 			name = Echo;
 			packageProductDependencies = (
@@ -146,7 +146,6 @@
 			mainGroup = D5965DF02A61995A003C9208;
 			packageReferences = (
 				D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */,
-				D5E26B442AC31C1C003545BE /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = D5965DFA2A61995A003C9208 /* Products */;
 			projectDirPath = "";
@@ -170,6 +169,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D5C0056F2AC46B9C007C21B2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho \"LINT BEGIN\"\n\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint or run brew install swiftlint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D5965DF52A61995A003C9208 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -185,13 +205,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D5E26B462AC31C42003545BE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = D5E26B452AC31C42003545BE /* SwiftLintPlugin */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D5965E052A61995F003C9208 /* Debug */ = {
@@ -318,6 +331,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Echo/Preview Content\"";
 				DEVELOPMENT_TEAM = K45HHA96ND;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Echo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Echo;
@@ -349,6 +363,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Echo/Preview Content\"";
 				DEVELOPMENT_TEAM = K45HHA96ND;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Echo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Echo;
@@ -402,14 +417,6 @@
 				minimumVersion = 0.14.1;
 			};
 		};
-		D5E26B442AC31C1C003545BE /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.52.4;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -417,11 +424,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
-		};
-		D5E26B452AC31C42003545BE /* SwiftLintPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D5E26B442AC31C1C003545BE /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
