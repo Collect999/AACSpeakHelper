@@ -306,7 +306,7 @@ struct ContentView: SwiftUI.View {
                         NavigationLink(destination: {
                             SettingsPage()
                         }, label: {
-                            Image(systemName: "gear").foregroundColor(.blue)
+                            Image(systemName: "slider.horizontal.3").foregroundColor(.blue)
                         })
                         
                     }

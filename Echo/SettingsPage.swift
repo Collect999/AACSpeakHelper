@@ -12,7 +12,22 @@ struct SettingsPage: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-        Text("New settings")
+        VStack {
+            GroupBox {
+                NavigationLink(destination: {
+                    VoiceSelectionPage()
+                }, label: {
+                    Text("Voice Selection")
+                        .font(.callout.weight(.medium))
+                        .foregroundStyle(.black)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(.black)
+                })
+            }
+            .padding()
+            Spacer()
+        }
             .navigationBarBackButtonHidden(true)
             .navigationTitle("Settings")
             .toolbar {
@@ -31,7 +46,7 @@ struct SettingsPage: View {
     }
 }
 
-struct PreviewWrapper: View {
+private struct PreviewWrapper: View {
     var body: some View {
         NavigationStack {
             Text("Main Page")

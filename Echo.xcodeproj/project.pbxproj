@@ -17,6 +17,7 @@
 		D5965E012A61995E003C9208 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5965E002A61995E003C9208 /* Assets.xcassets */; };
 		D5965E042A61995F003C9208 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5965E032A61995F003C9208 /* Preview Assets.xcassets */; };
 		D5C005712AC58C7A007C21B2 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C005702AC58C7A007C21B2 /* SettingsPage.swift */; };
+		D5C005732AC5CEF9007C21B2 /* VoiceSelectionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C005722AC5CEF9007C21B2 /* VoiceSelectionPage.swift */; };
 		D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E26B422AC2E77A003545BE /* ScrollLock.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		D5965E0B2A6875AB003C9208 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D5C0056E2AC4625D007C21B2 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		D5C005702AC58C7A007C21B2 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		D5C005722AC5CEF9007C21B2 /* VoiceSelectionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSelectionPage.swift; sourceTree = "<group>"; };
 		D5E26B422AC2E77A003545BE /* ScrollLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 				D51743102A7AA8FD00E14EE0 /* TextToSpeech.swift */,
 				D5965DFE2A61995A003C9208 /* ContentView.swift */,
 				D5C005702AC58C7A007C21B2 /* SettingsPage.swift */,
+				D5C005722AC5CEF9007C21B2 /* VoiceSelectionPage.swift */,
 				D5E26B422AC2E77A003545BE /* ScrollLock.swift */,
 				D51743122A7AA94100E14EE0 /* Items.swift */,
 				D517430B2A7AA8BB00E14EE0 /* Prediction.swift */,
@@ -202,6 +205,7 @@
 				D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */,
 				D5C005712AC58C7A007C21B2 /* SettingsPage.swift in Sources */,
 				D51743132A7AA94100E14EE0 /* Items.swift in Sources */,
+				D5C005732AC5CEF9007C21B2 /* VoiceSelectionPage.swift in Sources */,
 				D51743112A7AA8FD00E14EE0 /* TextToSpeech.swift in Sources */,
 				D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */,
 				D517430C2A7AA8BB00E14EE0 /* Prediction.swift in Sources */,
