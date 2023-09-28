@@ -168,7 +168,7 @@ struct ContentView: SwiftUI.View {
     @GestureState private var startLocation: CGPoint?
     
     var body: some SwiftUI.View {
-        NavigationView {
+        NavigationStack {
             ScrollLock(selectedUUID: $selection.selectedUUID) {
                 
                 ZStack {
@@ -304,7 +304,7 @@ struct ContentView: SwiftUI.View {
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         NavigationLink(destination: {
-                            Text("Settings page")
+                            SettingsPage()
                         }, label: {
                             Image(systemName: "gear").foregroundColor(.blue)
                         })
