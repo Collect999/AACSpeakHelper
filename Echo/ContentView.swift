@@ -169,8 +169,6 @@ struct ContentView: SwiftUI.View {
     
     var body: some SwiftUI.View {
         NavigationView {
-            
-        
             ScrollLock(selectedUUID: $selection.selectedUUID) {
                 
                 ZStack {
@@ -236,7 +234,7 @@ struct ContentView: SwiftUI.View {
                         
                     }
                     .frame(width: 172.0, height: 172.0)
-                    .background(.white)
+                    .background(Color("transparent"))
                     .position(location)
                     .zIndex(1)
                     .gesture(
@@ -290,7 +288,14 @@ struct ContentView: SwiftUI.View {
                             selection.select()
                         })
                         
-                        Text(selection.enteredText)
+                        VStack {
+                            Text(selection.enteredText == "" ? " " : selection.enteredText)
+                                .padding(10)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(Color("lightGray"))
+                        .shadow(radius: 1)
+
                     }
                 }
             }
@@ -313,6 +318,8 @@ struct ContentView: SwiftUI.View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
-        ContentView()
+        ContentView().preferredColorScheme(.light)
+        ContentView().preferredColorScheme(.dark)
+
     }
 }
