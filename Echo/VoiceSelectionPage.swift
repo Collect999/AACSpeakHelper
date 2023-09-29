@@ -8,12 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct VoicePicker: View {
-    var body: some View {
-        Text("Voice Picker")
-    }
-}
-
 struct VoiceSelectionPage: View {
     var body: some View {
         VStack {
@@ -32,11 +26,19 @@ struct VoiceSelectionPage: View {
                     Text("Play Sample")
                     Spacer()
                 })
-                Divider()
+                Divider().padding(.vertical, 6)
                 NavigationLink(destination: {
                     VoicePicker()
                 }, label: {
-                    
+                    HStack {
+                        Text("Voice")
+                        Spacer()
+                        Text("Daniel (English)")
+                            .foregroundStyle(.gray)
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
+                    }.foregroundStyle(.black)
+                   
                 })
             }
             
@@ -44,7 +46,7 @@ struct VoiceSelectionPage: View {
         }
             
             .padding()
-            .navigationTitle("Voice Selection")
+            .navigationTitle("Voice Options")
     }
 }
 
