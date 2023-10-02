@@ -7,10 +7,54 @@
 
 import Foundation
 import SwiftUI
+import AVFAudio
+
+private func getLanguage(_ givenLocale: String) -> String {
+    let currentLocale: Locale = .current
+    return currentLocale.localizedString(forLanguageCode: givenLocale) ?? "Unknown"
+}
+
+class SelectedVoice: ObservableObject {
+    @Published var pitch: Double = 25
+    @Published var volume: Double = 100
+    @Published var rate: Double = 50
+    @Published var selectedVoiceId = ""
+    @Published var selectedVoiceName = ""
+    
+    var selectedVoice: AVSpeechSynthesisVoice = AVSpeechSynthesisVoice()
+    var synthesizer = AVSpeechSynthesizer()
+    
+    init() {
+        // This makes it work in silent mode by setting the audio to playback
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+        } catch let error {
+            print("This error message from SpeechSynthesizer \(error.localizedDescription)")
+        }
+    }
+    
+    func selectNewVoice(newVoiceId: String) {
+        selectedVoice = AVSpeechSynthesisVoice(identifier: newVoiceId) ?? AVSpeechSynthesisVoice()
+        selectedVoiceId = selectedVoice.identifier
+        selectedVoiceName = "\(selectedVoice.name) (\(getLanguage(selectedVoice.language)))"
+    }
+    
+    func playSample() {
+        let utterance = AVSpeechUtterance(string: "Thank you for using Echo")
+        utterance.voice = selectedVoice
+        utterance.pitchMultiplier = Float(((pitch * 1.5) / 100) + 0.5) // Pitch is between 0.5 - 2
+        utterance.volume = Float(volume / 100) // Volume is between 0 - 1
+        utterance.rate = Float(rate / 100) // Rate is between 0 - 1
+        
+        self.synthesizer.stopSpeaking(at: .immediate)
+        self.synthesizer.speak(utterance)
+    }
+}
 
 struct VoiceSelectionSettingsArea: View {
     var title: String
     var helpText: String
+    @ObservedObject var selectedVoice: SelectedVoice
     
     var body: some View {
         VStack {
@@ -23,19 +67,21 @@ struct VoiceSelectionSettingsArea: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             GroupBox {
-                Button(action: {}, label: {
+                Button(action: {
+                    selectedVoice.playSample()
+                }, label: {
                     Image(systemName: "play.circle")
                     Text("Play Sample")
                     Spacer()
                 })
                 Divider().padding(.vertical, 6)
                 NavigationLink(destination: {
-                    VoicePicker()
+                    VoicePicker(selectedVoice: selectedVoice )
                 }, label: {
                     HStack {
                         Text("Voice")
                         Spacer()
-                        Text("Daniel (English)")
+                        Text(selectedVoice.selectedVoiceName)
                             .foregroundStyle(.gray)
                         Image(systemName: "chevron.right")
                             .foregroundColor(.gray)
@@ -47,12 +93,17 @@ struct VoiceSelectionSettingsArea: View {
                     HStack {
                         Text("Pitch")
                         Spacer()
-                        Text("50")
+                        Text(String(Int(selectedVoice.pitch)))
                             .foregroundStyle(.gray)
                     }
                     Slider(
-                        value: .constant(50),
-                        in: 0...100
+                        value: $selectedVoice.pitch,
+                        in: 0...100,
+                        onEditingChanged: { isEditing in
+                            if isEditing == false {
+                                selectedVoice.playSample()
+                            }
+                        }
                     )
                 }
                 Divider().padding(.vertical, 6)
@@ -60,12 +111,17 @@ struct VoiceSelectionSettingsArea: View {
                     HStack {
                         Text("Volume")
                         Spacer()
-                        Text("50")
+                        Text(String(Int(selectedVoice.volume)))
                             .foregroundStyle(.gray)
                     }
                     Slider(
-                        value: .constant(50),
-                        in: 0...100
+                        value: $selectedVoice.volume,
+                        in: 0...100,
+                        onEditingChanged: { isEditing in
+                            if isEditing == false {
+                                selectedVoice.playSample()
+                            }
+                        }
                     )
                 }
                 Divider().padding(.vertical, 6)
@@ -73,12 +129,17 @@ struct VoiceSelectionSettingsArea: View {
                     HStack {
                         Text("Rate")
                         Spacer()
-                        Text("50")
+                        Text(String(Int(selectedVoice.rate)))
                             .foregroundStyle(.gray)
                     }
                     Slider(
-                        value: .constant(50),
-                        in: 0...100
+                        value: $selectedVoice.rate,
+                        in: 0...100,
+                        onEditingChanged: { isEditing in
+                            if isEditing == false {
+                                selectedVoice.playSample()
+                            }
+                        }
                     )
                 }
                 
@@ -93,17 +154,22 @@ struct VoiceSelectionSettingsArea: View {
 }
 
 struct VoiceSelectionPage: View {
+    @StateObject var speakingVoice = SelectedVoice()
+    @StateObject var cueVoice = SelectedVoice()
+
     var body: some View {
         ScrollView {
             VoiceSelectionSettingsArea(
                 title: "Speaking Voice",
                 // swiftlint:disable:next line_length
-                helpText: "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice."
+                helpText: "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice.",
+                selectedVoice: speakingVoice
             )
             VoiceSelectionSettingsArea(
                 title: "Cue Voice",
                 // swiftlint:disable:next line_length
-                helpText: "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you."
+                helpText: "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you.",
+                selectedVoice: cueVoice
             )
         }
     }

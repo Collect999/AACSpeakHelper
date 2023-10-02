@@ -87,6 +87,7 @@ class VoiceList: ObservableObject {
 
 struct VoicePicker: View {
     @StateObject var voiceList = VoiceList()
+    @ObservedObject var selectedVoice: SelectedVoice
     
     var body: some View {
         ScrollView {
@@ -102,17 +103,20 @@ struct VoicePicker: View {
                                 let voices = voiceList.voicesForLang(lang)
                                 ForEach(Array(voices.enumerated()), id: \.element) { index, voice in
                                     VStack {
-                                        HStack {
-                                            Text(voice.name)
-                                            Spacer()
-                                            if index == 0 {
-                                                Image(systemName: "checkmark")
-                                            }
-                                        }
-                                        
+                                        Button(action: {
+                                            selectedVoice.selectNewVoice(newVoiceId: voice.identifier)
+                                        }, label: {
+                                            HStack {
+                                                Text(voice.name)
+                                                    .foregroundStyle(.black)
+                                                Spacer()
+                                                if selectedVoice.selectedVoiceId == voice.identifier {
+                                                    Image(systemName: "checkmark")
+                                                }
+                                            }.padding(.vertical, 4)
+                                        })
                                         if index + 1 < voices.count {
                                             Divider()
-                                                .padding(.vertical, 4)
                                         }
                                     }
                                 }
@@ -126,13 +130,15 @@ struct VoicePicker: View {
 }
 
 private struct PreviewWrapper: View {
+    @StateObject var selectedVoice = SelectedVoice()
+    
     var body: some View {
         NavigationStack {
             Text("Main Page")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     navigationDestination(isPresented: .constant(true), destination: {
-                        VoicePicker()
+                        VoicePicker(selectedVoice: selectedVoice)
                     })
                     
                 }
