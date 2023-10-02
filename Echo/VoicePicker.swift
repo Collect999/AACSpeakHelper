@@ -79,6 +79,10 @@ class VoiceList: ObservableObject {
 
         })
     }
+    
+    func voicesForLang(_ lang: String) -> [AVSpeechSynthesisVoice] {
+        return self.voicesByLang[lang] ?? []
+    }
 }
 
 struct VoicePicker: View {
@@ -86,16 +90,38 @@ struct VoicePicker: View {
     
     var body: some View {
         ScrollView {
-            ForEach(voiceList.sortedKeys(), id: \.self) { lang in
-                Text(getFullLanguage(lang))
-//                GroupBox {
-//                    ForEach(voiceList.voicesByLang[lang], id: \.id) { voice in
-//                      Text("huh")
-//                    }
-//                }
+            VStack {
+                ForEach(voiceList.sortedKeys(), id: \.self) { lang in
+                    VStack {
+                        Text(getFullLanguage(lang))
+                            .font(.caption)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal)
+                        GroupBox {
+                            VStack {
+                                let voices = voiceList.voicesForLang(lang)
+                                ForEach(Array(voices.enumerated()), id: \.element) { index, voice in
+                                    VStack {
+                                        HStack {
+                                            Text(voice.name)
+                                            Spacer()
+                                            if index == 0 {
+                                                Image(systemName: "checkmark")
+                                            }
+                                        }
+                                        
+                                        if index + 1 < voices.count {
+                                            Divider()
+                                                .padding(.vertical, 4)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }.padding(.vertical)
+                }
             }
-        }
-        
+        }.padding(.horizontal)
     }
 }
 

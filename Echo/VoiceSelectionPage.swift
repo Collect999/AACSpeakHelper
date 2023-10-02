@@ -8,15 +8,17 @@
 import Foundation
 import SwiftUI
 
-struct VoiceSelectionPage: View {
+struct VoiceSelectionSettingsArea: View {
+    var title: String
+    var helpText: String
+    
     var body: some View {
         VStack {
-            Text("Speaking Voice")
+            Text(title)
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            // swiftlint:disable:next line_length
-            Text("Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice.")
+            Text(helpText)
                 .font(.subheadline)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -40,6 +42,46 @@ struct VoiceSelectionPage: View {
                     }.foregroundStyle(.black)
                    
                 })
+                Divider().padding(.vertical, 6)
+                VStack {
+                    HStack {
+                        Text("Pitch")
+                        Spacer()
+                        Text("50")
+                            .foregroundStyle(.gray)
+                    }
+                    Slider(
+                        value: .constant(50),
+                        in: 0...100
+                    )
+                }
+                Divider().padding(.vertical, 6)
+                VStack {
+                    HStack {
+                        Text("Volume")
+                        Spacer()
+                        Text("50")
+                            .foregroundStyle(.gray)
+                    }
+                    Slider(
+                        value: .constant(50),
+                        in: 0...100
+                    )
+                }
+                Divider().padding(.vertical, 6)
+                VStack {
+                    HStack {
+                        Text("Rate")
+                        Spacer()
+                        Text("50")
+                            .foregroundStyle(.gray)
+                    }
+                    Slider(
+                        value: .constant(50),
+                        in: 0...100
+                    )
+                }
+                
             }
             
             Spacer()
@@ -47,6 +89,23 @@ struct VoiceSelectionPage: View {
             
             .padding()
             .navigationTitle("Voice Options")
+    }
+}
+
+struct VoiceSelectionPage: View {
+    var body: some View {
+        ScrollView {
+            VoiceSelectionSettingsArea(
+                title: "Speaking Voice",
+                // swiftlint:disable:next line_length
+                helpText: "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice."
+            )
+            VoiceSelectionSettingsArea(
+                title: "Cue Voice",
+                // swiftlint:disable:next line_length
+                helpText: "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you."
+            )
+        }
     }
 }
 
