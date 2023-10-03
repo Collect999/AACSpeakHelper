@@ -130,7 +130,7 @@ struct VoicePicker: View {
 }
 
 private struct PreviewWrapper: View {
-    @StateObject var selectedVoice = SelectedVoice()
+    @StateObject var selectedVoice = SelectedVoice(.defaultVoice)
     
     var body: some View {
         NavigationStack {

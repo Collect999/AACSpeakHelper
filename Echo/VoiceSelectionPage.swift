@@ -24,7 +24,33 @@ class SelectedVoice: ObservableObject {
     var selectedVoice: AVSpeechSynthesisVoice = AVSpeechSynthesisVoice()
     var synthesizer = AVSpeechSynthesizer()
     
-    init() {
+    init(_ behaviour: InitBehaviour) {
+        let langCode = AVSpeechSynthesisVoice.currentLanguageCode()
+        if let defaultVoice = AVSpeechSynthesisVoice(language: langCode) {
+            // If the default voice is the given gender use that
+            if behaviour == .defaultVoice {
+                selectNewVoice(newVoiceId: defaultVoice.identifier)
+            } else { // Otherwise select the first voice of the opposite gender in the given language
+                
+                // For some reason, when you get a voice by language the gender is unspecified.
+                // When you get the exact same voice by identifier it has a gender.
+                let defaultVoiceFull = AVSpeechSynthesisVoice(identifier: defaultVoice.identifier) ?? AVSpeechSynthesisVoice()
+                let defaultGender = defaultVoiceFull.gender
+                let targetGender: AVSpeechSynthesisVoiceGender = defaultGender == .male ? .female : .male
+                
+                let voices = AVSpeechSynthesisVoice
+                    .speechVoices()
+                    .filter({
+                        $0.language == langCode
+                    })
+                
+                let targetVoice = voices.first(where: { $0.gender == targetGender })
+                let voice = targetVoice ?? voices[0]
+                selectNewVoice(newVoiceId: voice.identifier)
+            }
+            
+        }
+  
         // This makes it work in silent mode by setting the audio to playback
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
@@ -48,6 +74,10 @@ class SelectedVoice: ObservableObject {
         
         self.synthesizer.stopSpeaking(at: .immediate)
         self.synthesizer.speak(utterance)
+    }
+    
+    enum InitBehaviour {
+        case defaultVoice, oppositeGenderToDefault
     }
 }
 
@@ -154,8 +184,8 @@ struct VoiceSelectionSettingsArea: View {
 }
 
 struct VoiceSelectionPage: View {
-    @StateObject var speakingVoice = SelectedVoice()
-    @StateObject var cueVoice = SelectedVoice()
+    @StateObject var speakingVoice = SelectedVoice(.defaultVoice)
+    @StateObject var cueVoice = SelectedVoice(.oppositeGenderToDefault)
 
     var body: some View {
         ScrollView {
