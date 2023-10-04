@@ -6,21 +6,22 @@
 //
 
 import Foundation
+import SwiftUI
 
 class FinishItem: ItemProtocol, Identifiable {
     var id = UUID()
     var displayText: String
     var speakText: String
-    var textToSpeech: TextToSpeech
+    var voiceEngine: VoiceEngine
     
-    init(_ display: String, textToSpeech: TextToSpeech) {
+    init(_ display: String, voiceEngine: VoiceEngine) {
         self.displayText = display
-        self.textToSpeech = textToSpeech
         self.speakText = displayText
+        self.voiceEngine = voiceEngine
     }
 
     func select(enteredText: String, cb: @escaping (_ enteredText: String) -> Void) {
-        textToSpeech.speak(enteredText, voiceType: .main) {
+        voiceEngine.playSpeaking(enteredText) {
             cb("")
         }
     }
@@ -120,8 +121,6 @@ class LetterItem: ItemProtocol, Identifiable {
 ///
 /// The reason this is a protocol is because we will define different types of item for example
 /// we will want a 'LetterItem' and maybe a 'SentenceItem' and a 'ActionItem'
-///
-/// TODO: 'Item' is a bad name for a protocol
 protocol ItemProtocol: Identifiable {
     var id: UUID { get }
     var displayText: String { get }
@@ -157,11 +156,11 @@ struct Item: Identifiable {
         self.details = LetterItem(letter, display: display, speakText: speakText, isPredicted: isPredicted)
     }
     
-    init(actionType: ItemActionType, display: String, textToSpeech: TextToSpeech) {
+    init(actionType: ItemActionType, display: String, voiceEngine: VoiceEngine) {
        if actionType == .backspace {
             self.details = BackspaceItem(display)
         } else if actionType == .finish {
-            self.details = FinishItem(display, textToSpeech: textToSpeech)
+            self.details = FinishItem(display, voiceEngine: voiceEngine)
         } else {
             self.details = LetterItem("An error occurred")
         }
