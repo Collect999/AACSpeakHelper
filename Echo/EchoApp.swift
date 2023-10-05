@@ -12,6 +12,7 @@ struct EchoApp: App {
     @StateObject var voiceEngine: VoiceEngine = VoiceEngine()
     @StateObject var itemsList: ItemsList = ItemsList()
     @StateObject var accessOptions: AccessOptions = AccessOptions()
+    @StateObject var scanningOptions: ScanningOptions = ScanningOptions()
     
     var body: some Scene {
         WindowGroup {
@@ -19,6 +20,7 @@ struct EchoApp: App {
                 .environmentObject(voiceEngine)
                 .environmentObject(itemsList)
                 .environmentObject(accessOptions)
+                .environmentObject(scanningOptions)
                 .onAppear {
                     voiceEngine.load()
                     itemsList.loadEngine(voiceEngine)

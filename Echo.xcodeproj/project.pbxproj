@@ -12,6 +12,8 @@
 		D517430A2A6FFBBA00E14EE0 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D51743092A6FFBBA00E14EE0 /* SQLite */; };
 		D517430C2A7AA8BB00E14EE0 /* SlowAndBadPrediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D517430B2A7AA8BB00E14EE0 /* SlowAndBadPrediction.swift */; };
 		D51743132A7AA94100E14EE0 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51743122A7AA94100E14EE0 /* Items.swift */; };
+		D57A517F2ACF084300FC7716 /* ScanningOptionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57A517E2ACF084300FC7716 /* ScanningOptionsPage.swift */; };
+		D57A51812ACF0E3700FC7716 /* ScanningOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57A51802ACF0E3700FC7716 /* ScanningOptions.swift */; };
 		D58005192AC6D92D008BDC33 /* VoicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58005182AC6D92D008BDC33 /* VoicePicker.swift */; };
 		D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFC2A61995A003C9208 /* EchoApp.swift */; };
 		D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5965DFE2A61995A003C9208 /* ContentView.swift */; };
@@ -38,6 +40,8 @@
 		D51743062A6FF72300E14EE0 /* dictionary.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionary.sqlite; sourceTree = "<group>"; };
 		D517430B2A7AA8BB00E14EE0 /* SlowAndBadPrediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlowAndBadPrediction.swift; sourceTree = "<group>"; };
 		D51743122A7AA94100E14EE0 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		D57A517E2ACF084300FC7716 /* ScanningOptionsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningOptionsPage.swift; sourceTree = "<group>"; };
+		D57A51802ACF0E3700FC7716 /* ScanningOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningOptions.swift; sourceTree = "<group>"; };
 		D58005182AC6D92D008BDC33 /* VoicePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicePicker.swift; sourceTree = "<group>"; };
 		D5965DF92A61995A003C9208 /* Echo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Echo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5965DFC2A61995A003C9208 /* EchoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoApp.swift; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				D5C005722AC5CEF9007C21B2 /* VoiceSelectionPage.swift */,
+				D57A517E2ACF084300FC7716 /* ScanningOptionsPage.swift */,
 				D5C005702AC58C7A007C21B2 /* SettingsPage.swift */,
 				D5DB64752ACDBA0C00E41867 /* AccessOptionsPage.swift */,
 			);
@@ -164,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				D5DB64652ACC5A6A00E41867 /* ItemsList.swift */,
+				D57A51802ACF0E3700FC7716 /* ScanningOptions.swift */,
 				D5DB64772ACDC39500E41867 /* AccessOptions.swift */,
 				D5DB646C2ACC5CE100E41867 /* AvailableVoices.swift */,
 			);
@@ -284,12 +290,14 @@
 				D5DB64662ACC5A6A00E41867 /* ItemsList.swift in Sources */,
 				D5DB64692ACC5B1500E41867 /* Protocol.swift in Sources */,
 				D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */,
+				D57A51812ACF0E3700FC7716 /* ScanningOptions.swift in Sources */,
 				D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */,
 				D5DB645F2ACC514800E41867 /* View.swift in Sources */,
 				D5DB64782ACDC39500E41867 /* AccessOptions.swift in Sources */,
 				D5C005712AC58C7A007C21B2 /* SettingsPage.swift in Sources */,
 				D5DB646B2ACC5B2700E41867 /* Random.swift in Sources */,
 				D5DB64612ACC518900E41867 /* VoiceEngine.swift in Sources */,
+				D57A517F2ACF084300FC7716 /* ScanningOptionsPage.swift in Sources */,
 				D51743132A7AA94100E14EE0 /* Items.swift in Sources */,
 				D5DB64722ACC5E6500E41867 /* OnScreenArrows.swift in Sources */,
 				D512DA952ACEBDCA00660524 /* Comparable.swift in Sources */,

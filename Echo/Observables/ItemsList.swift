@@ -18,6 +18,8 @@ class ItemsList: ObservableObject {
     
     var voiceEngine: VoiceEngine?
     
+    var timer: Timer?
+    
     init() {
         predictor = SlowAndBadPrediciton()
         items = []
@@ -55,6 +57,10 @@ class ItemsList: ObservableObject {
     }
     
     func move(moveBy: Int = 1, reset: Bool = false) {
+        if let unwrappedTimer = timer {
+            unwrappedTimer.invalidate()
+        }
+                
         let currentIndex = self.getIndexOfSelectedItem()
         var newIndex = (currentIndex + moveBy) % items.count
         
@@ -68,12 +74,40 @@ class ItemsList: ObservableObject {
         
         selectedUUID = newItem.id
         
-        voiceEngine?.playCue(newItem.details.speakText) {}
+        voiceEngine?.playCue(newItem.details.speakText) {
+            let fiveSeconds = Date.now.addingTimeInterval(0.3)
+            let timer = Timer(
+                fireAt: fiveSeconds,
+                interval: 0,
+                target: self,
+                selector: #selector(self.next),
+                userInfo: nil,
+                repeats: false
+            )
+            
+            self.timer = timer
+            
+            RunLoop.main.add(timer, forMode: .common)
+        }
     }
     
     func moveToUUID(target: UUID) {
         if let newItem = items.first(where: { $0.id == target }) {
-            voiceEngine?.playCue(newItem.details.speakText) {}
+            voiceEngine?.playCue(newItem.details.speakText) {
+                let fiveSeconds = Date.now.addingTimeInterval(0.3)
+                let timer = Timer(
+                    fireAt: fiveSeconds,
+                    interval: 0,
+                    target: self,
+                    selector: #selector(self.next),
+                    userInfo: nil,
+                    repeats: false
+                )
+                
+                self.timer = timer
+                
+                RunLoop.main.add(timer, forMode: .common)
+            }
             self.selectedUUID = target
         } else {
             self.move(reset: true)
@@ -83,7 +117,7 @@ class ItemsList: ObservableObject {
     /***
      Move onto the next item in the list
      */
-    func next(reset: Bool = false) {
+    @objc func next(reset: Bool = false) {
         move(moveBy: 1, reset: reset)
     }
     
@@ -97,6 +131,10 @@ class ItemsList: ObservableObject {
      'Select' will perform different actions depending on the item that is currently focused
      */
     func select(overrideItem: Item? = nil) {
+        if let unwrappedTimer = timer {
+            unwrappedTimer.invalidate()
+        }
+        
         let currentItem = overrideItem ?? items[getIndexOfSelectedItem()]
         
         currentItem.details.select(enteredText: enteredText) { newText in

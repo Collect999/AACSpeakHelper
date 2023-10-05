@@ -35,6 +35,17 @@ struct SettingsPage: View {
                     Image(systemName: "chevron.right")
                         .foregroundStyle(.black)
                 })
+                Divider().padding(.vertical, 6)
+                NavigationLink(destination: {
+                    ScanningOptionsPage()
+                }, label: {
+                    Text("Scanning")
+                        .font(.callout.weight(.medium))
+                        .foregroundStyle(.black)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(.black)
+                })
             }
             .padding()
             Spacer()
