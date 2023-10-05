@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 class AccessOptions: ObservableObject {
-    @AppStorage("showOnScreenArrows") var showOnScreenArrows = true
+     @AppStorage("showOnScreenArrows") var showOnScreenArrows = true
+     @AppStorage("allowSwipeGestures") var allowSwipeGestures = true
     
     func save() {
         

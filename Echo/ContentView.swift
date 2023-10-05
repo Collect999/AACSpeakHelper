@@ -50,13 +50,28 @@ struct ContentView: SwiftUI.View {
                         }
                         .contentShape(Rectangle())
                         .padding()
-                        .onTapGesture {
-                            items.next()
-                        }
-                        .swipe(right: {
-                            items.select()
-                        })
-                        
+                        .swipe(
+                            up: {
+                                if accessOptions.allowSwipeGestures {
+                                    items.back()
+                                }
+                            },
+                            down: {
+                                if accessOptions.allowSwipeGestures {
+                                    items.next()
+                                }
+                            },
+                            left: {
+                                if accessOptions.allowSwipeGestures {
+                                    items.backspace()
+                                }
+                            },
+                            right: {
+                                if accessOptions.allowSwipeGestures {
+                                    items.select()
+                                }
+                            }
+                        )
                         VStack {
                             Text(items.enteredText == "" ? " " : items.enteredText)
                                 .padding(10)

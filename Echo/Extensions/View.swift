@@ -17,10 +17,21 @@ extension SwiftUI.View {
     ) -> some SwiftUI.View {
         return self.gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
             .onEnded({ value in
-                if value.translation.width < 0 { left() }
-                if value.translation.width > 0 { right() }
-                if value.translation.height < 0 { up() }
-                if value.translation.height > 0 { down() }
+                if value.translation.width > 0 && abs(value.translation.width) > abs(value.translation.height) {
+                    right()
+                }
+                
+                if value.translation.width < 0 && abs(value.translation.width) > abs(value.translation.height) {
+                    left()
+                }
+                
+                if value.translation.height > 0 && abs(value.translation.height) > abs(value.translation.width) {
+                    down()
+                }
+                
+                if value.translation.height < 0 && abs(value.translation.height) > abs(value.translation.width) {
+                    up()
+                }
             }))
     }
 }
