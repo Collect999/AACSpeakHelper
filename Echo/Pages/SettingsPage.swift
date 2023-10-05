@@ -24,6 +24,17 @@ struct SettingsPage: View {
                     Image(systemName: "chevron.right")
                         .foregroundStyle(.black)
                 })
+                Divider().padding(.vertical, 6)
+                NavigationLink(destination: {
+                    AccessOptionsPage()
+                }, label: {
+                    Text("Access Methods")
+                        .font(.callout.weight(.medium))
+                        .foregroundStyle(.black)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(.black)
+                })
             }
             .padding()
             Spacer()

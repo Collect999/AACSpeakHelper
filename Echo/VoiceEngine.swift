@@ -35,7 +35,7 @@ class VoiceOptions: Codable {
     
     init(_ voiceId: String) {
         self.voiceId = voiceId
-        self.rate = 10
+        self.rate = 50
         self.pitch = 25
         self.volume = 100
     }

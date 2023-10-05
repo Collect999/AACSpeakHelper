@@ -4,19 +4,21 @@ import Combine
 struct ContentView: SwiftUI.View {
     @EnvironmentObject var voiceEngine: VoiceEngine
     @EnvironmentObject var items: ItemsList
+    @EnvironmentObject var accessOptions: AccessOptions
     
     var body: some SwiftUI.View {
         NavigationStack {
             ScrollLock(selectedUUID: $items.selectedUUID) {
                 
                 ZStack {
-                    OnScreenArrows(
-                        up: { items.back() },
-                        down: { items.next() },
-                        left: { items.backspace() },
-                        right: { items.select() }
-                    )
-                    
+                    if accessOptions.showOnScreenArrows {
+                        OnScreenArrows(
+                            up: { items.back() },
+                            down: { items.next() },
+                            left: { items.backspace() },
+                            right: { items.select() }
+                        )
+                    }
                     VStack {
                         
                         HStack {
