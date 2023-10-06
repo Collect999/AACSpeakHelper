@@ -12,4 +12,6 @@ class ScanningOptions: ObservableObject {
     @AppStorage("scanning") var scanning = true
     @AppStorage("scanWaitTime") var scanWaitTime: Double = 2
     @AppStorage("scanLoops") var scanLoops: Int = 3
+    @AppStorage("scanOnLaunch") var scanOnAppLaunch = true
+    @AppStorage("scanAfterSelection") var scanAfterSelection = true
 }

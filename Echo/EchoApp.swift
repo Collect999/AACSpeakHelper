@@ -23,8 +23,9 @@ struct EchoApp: App {
                 .environmentObject(scanningOptions)
                 .onAppear {
                     voiceEngine.load()
-                    itemsList.loadEngine(voiceEngine)
                     accessOptions.load()
+                    itemsList.loadEngine(voiceEngine)
+                    itemsList.loadScanning(scanningOptions)
                 }
                 .onDisappear {
                     voiceEngine.save()

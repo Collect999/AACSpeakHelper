@@ -17,8 +17,9 @@ class ItemsList: ObservableObject {
     var undoItem: Item?
     
     var voiceEngine: VoiceEngine?
+    var scanningOptions: ScanningOptions?
     
-    var timer: Timer?
+    var workItem: DispatchWorkItem?
     
     init() {
         predictor = SlowAndBadPrediciton()
@@ -40,6 +41,10 @@ class ItemsList: ObservableObject {
         self.undoItem = Item(actionType: .backspace, display: "Undo", voiceEngine: voiceEngine)
     }
     
+    func loadScanning(_ scanning: ScanningOptions) {
+        self.scanningOptions = scanning
+    }
+    
     func reset() {
         if let firstItem = items.first {
             selectedUUID = firstItem.id
@@ -56,9 +61,22 @@ class ItemsList: ObservableObject {
         move(moveBy: -1, reset: false)
     }
     
+    func setNextMoveTimer() {
+        let isScanningEnabled = scanningOptions?.scanning ?? false
+        if !isScanningEnabled { return }
+        
+        let newWorkItem = DispatchWorkItem(block: {
+            self.next()
+        })
+        
+        workItem = newWorkItem
+        let timeInterval = scanningOptions?.scanWaitTime ?? 3
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeInterval, execute: newWorkItem)
+    }
+    
     func move(moveBy: Int = 1, reset: Bool = false) {
-        if let unwrappedTimer = timer {
-            unwrappedTimer.invalidate()
+        if let unwrappedWorkItem = workItem {
+            unwrappedWorkItem.cancel()
         }
                 
         let currentIndex = self.getIndexOfSelectedItem()
@@ -75,38 +93,14 @@ class ItemsList: ObservableObject {
         selectedUUID = newItem.id
         
         voiceEngine?.playCue(newItem.details.speakText) {
-            let fiveSeconds = Date.now.addingTimeInterval(0.3)
-            let timer = Timer(
-                fireAt: fiveSeconds,
-                interval: 0,
-                target: self,
-                selector: #selector(self.next),
-                userInfo: nil,
-                repeats: false
-            )
-            
-            self.timer = timer
-            
-            RunLoop.main.add(timer, forMode: .common)
+            self.setNextMoveTimer()
         }
     }
     
     func moveToUUID(target: UUID) {
         if let newItem = items.first(where: { $0.id == target }) {
             voiceEngine?.playCue(newItem.details.speakText) {
-                let fiveSeconds = Date.now.addingTimeInterval(0.3)
-                let timer = Timer(
-                    fireAt: fiveSeconds,
-                    interval: 0,
-                    target: self,
-                    selector: #selector(self.next),
-                    userInfo: nil,
-                    repeats: false
-                )
                 
-                self.timer = timer
-                
-                RunLoop.main.add(timer, forMode: .common)
             }
             self.selectedUUID = target
         } else {
@@ -131,10 +125,6 @@ class ItemsList: ObservableObject {
      'Select' will perform different actions depending on the item that is currently focused
      */
     func select(overrideItem: Item? = nil) {
-        if let unwrappedTimer = timer {
-            unwrappedTimer.invalidate()
-        }
-        
         let currentItem = overrideItem ?? items[getIndexOfSelectedItem()]
         
         currentItem.details.select(enteredText: enteredText) { newText in

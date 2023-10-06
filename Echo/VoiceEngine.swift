@@ -13,7 +13,7 @@ class VoiceOptions: Codable {
     var rate: Float
     var pitch: Float
     var volume: Float
-    
+        
     init() {
         self.voiceId = ""
         self.rate = 50
@@ -49,6 +49,8 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     
     var callback: (() -> Void)?
     
+    var lastIssuedUtterance: AVSpeechUtterance?
+    
     override init() {
         super.init()
         self.synthesizer.delegate = self
@@ -75,6 +77,7 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
             self.callback = cb
         }
         
+        lastIssuedUtterance = utterance
         self.synthesizer.speak(utterance)
     }
     
@@ -189,19 +192,19 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         self.saveSpeakingOptions()
     }
     
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
-        if let unwappedCallback = self.callback {
-            unwappedCallback()
+    func triggerCallback(utterance: AVSpeechUtterance) {
+        if utterance == lastIssuedUtterance {
+            if let unwappedCallback = self.callback {
+                unwappedCallback()
+            }
         }
-        
-        self.callback = nil
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        triggerCallback(utterance: utterance)
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        if let unwappedCallback = self.callback {
-            unwappedCallback()
-        }
-        
-        self.callback = nil
+        triggerCallback(utterance: utterance)
     }
 }

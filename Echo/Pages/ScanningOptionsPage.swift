@@ -34,9 +34,9 @@ struct ScanningOptionsPage: View {
                     .font(.footnote)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Divider().padding(.vertical, 6)
-                Toggle("Scan on app launch", isOn: .constant(true))
+                Toggle("Scan on app launch", isOn: $scanningOptions.scanOnAppLaunch)
                 Divider().padding(.vertical, 6)
-                Toggle("Scan after selection", isOn: .constant(true))
+                Toggle("Scan after selection", isOn: $scanningOptions.scanAfterSelection)
                 Divider().padding(.vertical, 6)
                 Stepper(
                     value: $scanningOptions.scanLoops,
