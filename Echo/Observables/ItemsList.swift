@@ -12,6 +12,9 @@ class ItemsList: ObservableObject {
     @Published var items: [Item]
     @Published var selectedUUID: UUID
     @Published var enteredText = ""
+    @Published var scanLoops = 0
+    
+    var disableScanningAsHidden = false
     
     var predictor: PredictionEngine
     var undoItem: Item?
@@ -36,6 +39,27 @@ class ItemsList: ObservableObject {
         }
     }
     
+    func cancelScanning() {
+        disableScanningAsHidden = true
+        if let unwrappedWorkItem = workItem {
+            unwrappedWorkItem.cancel()
+        }
+    }
+    
+    func allowScanning() {
+        disableScanningAsHidden = false
+    }
+    
+    func cancelCurrentItem() {
+        if let unwrappedWorkItem = workItem {
+            unwrappedWorkItem.cancel()
+        }
+    }
+    
+    func startScanning() {
+        self.moveToUUID(target: selectedUUID, isAppLaunch: true, isAfterSelection: false)
+    }
+    
     func loadEngine(_ voiceEngine: VoiceEngine) {
         self.voiceEngine = voiceEngine
         self.undoItem = Item(actionType: .backspace, display: "Undo", voiceEngine: voiceEngine)
@@ -45,25 +69,23 @@ class ItemsList: ObservableObject {
         self.scanningOptions = scanning
     }
     
-    func reset() {
-        if let firstItem = items.first {
-            selectedUUID = firstItem.id
-        }
-    }
-    
     private func getIndexOfSelectedItem() -> Int {
         let currentIndex = items.firstIndex(where: { $0.id == selectedUUID })
         
         return currentIndex ?? 0
     }
     
-    func back() {
+    func back(userInteraction: Bool = false) {
+        if userInteraction { scanLoops = 0 }
+
         move(moveBy: -1, reset: false)
     }
     
     func setNextMoveTimer() {
         let isScanningEnabled = scanningOptions?.scanning ?? false
         if !isScanningEnabled { return }
+        
+        if disableScanningAsHidden { return }
         
         let newWorkItem = DispatchWorkItem(block: {
             self.next()
@@ -75,12 +97,14 @@ class ItemsList: ObservableObject {
     }
     
     func move(moveBy: Int = 1, reset: Bool = false) {
-        if let unwrappedWorkItem = workItem {
-            unwrappedWorkItem.cancel()
-        }
+        self.cancelCurrentItem()
                 
         let currentIndex = self.getIndexOfSelectedItem()
         var newIndex = (currentIndex + moveBy) % items.count
+        
+        if newIndex == 0 {
+            scanLoops += 1
+        }
         
         if reset == true {
             newIndex = 0
@@ -93,17 +117,35 @@ class ItemsList: ObservableObject {
         selectedUUID = newItem.id
         
         voiceEngine?.playCue(newItem.details.speakText) {
-            self.setNextMoveTimer()
+            let maxScanLoops = self.scanningOptions?.scanLoops ?? 1
+            
+            if reset == true && (self.scanningOptions?.scanAfterSelection ?? false) == true {
+                self.setNextMoveTimer()
+                return
+            }
+            
+            if self.scanLoops < maxScanLoops && reset == false {
+                self.setNextMoveTimer()
+                return
+            }
+            
         }
     }
     
-    func moveToUUID(target: UUID) {
+    func moveToUUID(target: UUID, isAppLaunch: Bool, isAfterSelection: Bool) {
         if let newItem = items.first(where: { $0.id == target }) {
             voiceEngine?.playCue(newItem.details.speakText) {
-                
+                if isAppLaunch && (self.scanningOptions?.scanOnAppLaunch ?? false) {
+                    self.setNextMoveTimer()
+                } else if isAfterSelection && (self.scanningOptions?.scanAfterSelection ?? false) {
+                    self.setNextMoveTimer()
+                }
             }
             self.selectedUUID = target
         } else {
+            print("=======")
+            print("ID NOT FOUND")
+            print("=======")
             self.move(reset: true)
         }
     }
@@ -111,11 +153,13 @@ class ItemsList: ObservableObject {
     /***
      Move onto the next item in the list
      */
-    @objc func next(reset: Bool = false) {
+    func next(reset: Bool = false, userInteraction: Bool = false) {
+        if userInteraction { scanLoops = 0 }
+        
         move(moveBy: 1, reset: reset)
     }
     
-    func backspace() {
+    func backspace(userInteraction: Bool = false) {
         select(overrideItem: undoItem)
     }
     
@@ -124,7 +168,10 @@ class ItemsList: ObservableObject {
      
      'Select' will perform different actions depending on the item that is currently focused
      */
-    func select(overrideItem: Item? = nil) {
+    func select(overrideItem: Item? = nil, userInteraction: Bool = true) {
+        cancelCurrentItem()
+        if userInteraction { scanLoops = 0 }
+
         let currentItem = overrideItem ?? items[getIndexOfSelectedItem()]
         
         currentItem.details.select(enteredText: enteredText) { newText in
@@ -161,7 +208,7 @@ class ItemsList: ObservableObject {
             }
             
             self.items = prefixItems + predictions
-            self.moveToUUID(target: newTargetItem.id)
+            self.moveToUUID(target: newTargetItem.id, isAppLaunch: false, isAfterSelection: true)
         }
     }
     

@@ -5,6 +5,7 @@ struct ContentView: SwiftUI.View {
     @EnvironmentObject var voiceEngine: VoiceEngine
     @EnvironmentObject var items: ItemsList
     @EnvironmentObject var accessOptions: AccessOptions
+    @EnvironmentObject var scanOptions: ScanningOptions
     
     var body: some SwiftUI.View {
         NavigationStack {
@@ -13,10 +14,10 @@ struct ContentView: SwiftUI.View {
                 ZStack {
                     if accessOptions.showOnScreenArrows {
                         OnScreenArrows(
-                            up: { items.back() },
-                            down: { items.next() },
-                            left: { items.backspace() },
-                            right: { items.select() }
+                            up: { items.back(userInteraction: true) },
+                            down: { items.next(userInteraction: true) },
+                            left: { items.backspace(userInteraction: true) },
+                            right: { items.select(userInteraction: true) }
                         )
                     }
                     VStack {
@@ -53,22 +54,22 @@ struct ContentView: SwiftUI.View {
                         .swipe(
                             up: {
                                 if accessOptions.allowSwipeGestures {
-                                    items.back()
+                                    items.back(userInteraction: true)
                                 }
                             },
                             down: {
                                 if accessOptions.allowSwipeGestures {
-                                    items.next()
+                                    items.next(userInteraction: true)
                                 }
                             },
                             left: {
                                 if accessOptions.allowSwipeGestures {
-                                    items.backspace()
+                                    items.backspace(userInteraction: true)
                                 }
                             },
                             right: {
                                 if accessOptions.allowSwipeGestures {
-                                    items.select()
+                                    items.select(userInteraction: true)
                                 }
                             }
                         )
@@ -96,6 +97,15 @@ struct ContentView: SwiftUI.View {
                     }
                 }
                 .toolbarBackground(.visible, for: .navigationBar, .tabBar)
+                .onDisappear {
+                    items.cancelScanning()
+                }
+                .onAppear {
+                    items.allowScanning()
+                    if scanOptions.scanOnAppLaunch {
+                        items.startScanning()
+                    }
+                }
         }
     }
 }

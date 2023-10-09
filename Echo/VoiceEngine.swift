@@ -192,7 +192,7 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         self.saveSpeakingOptions()
     }
     
-    func triggerCallback(utterance: AVSpeechUtterance) {
+    func triggerCallback(utterance: AVSpeechUtterance) {   
         if utterance == lastIssuedUtterance {
             if let unwappedCallback = self.callback {
                 unwappedCallback()
