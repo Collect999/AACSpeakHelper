@@ -11,43 +11,47 @@ import SwiftUI
 struct AccessOptionsPage: View {
     @EnvironmentObject var accessOptions: AccessOptions
     
+    @State var showNewSwitchSheet = false
+    
     var body: some View {
-        VStack {
-            GroupBox {
-                HStack {
-                    Toggle("Show on-screen arrows", isOn: $accessOptions.showOnScreenArrows)
-                }
-            }
-            VStack {
-                
-                GroupBox {
-                    
-                    HStack {
-                        Toggle("Swiping gestures", isOn: $accessOptions.allowSwipeGestures)
-                    }
-                }
-                VStack {
-                    Text("Swipe up, down, left or right to control Echo")
-                        .font(.footnote)
-                        .foregroundStyle(.gray)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text("""
-                   • **Right:** Select the current item
-                   • **Down:** Go to the next item in the list
-                   • **Left:** Remove the last entered character
-                   • **Up:** Go to the previous item in the list
-                """)
-                    .font(.footnote)
-                    .foregroundStyle(.gray)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }.padding(.horizontal)
+        Form {
+            Section(content: {
+                Toggle("Show on-screen arrows", isOn: $accessOptions.showOnScreenArrows)
+            }, header: {
+                Text("On-screen")
+            })
+            
+            Section(content: {
+                Toggle("Swiping gestures", isOn: $accessOptions.allowSwipeGestures)
 
-            }.padding(.vertical)
-            Spacer()
+            }, footer: {
+                Text("""
+            Swipe up, down, left or right to control Echo
+               • **Right:** Select the current item
+               • **Down:** Go to the next item in the list
+               • **Left:** Remove the last entered character
+               • **Up:** Go to the previous item in the list
+            """)
+            })
+            
+            Section(content: {
+                Toggle("Switch Control", isOn: .constant(false))
+                Button(action: {
+                    showNewSwitchSheet.toggle()
+                }, label: {
+                    Label("Add Switch", systemImage: "plus.circle.fill")
+                })
+            }, footer: {
+                Text("""
+                Control Echo using switch presses to perform actions. Add new switches and change what they trigger.
+                """)
+            })
         }
-        .padding(.horizontal)
         .onDisappear {
             accessOptions.save()
+        }
+        .sheet(isPresented: $showNewSwitchSheet) {
+            AddSwitch(sheetState: $showNewSwitchSheet)
         }
     }
 }

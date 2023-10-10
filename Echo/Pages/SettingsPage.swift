@@ -12,59 +12,45 @@ struct SettingsPage: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-        VStack {
-            GroupBox {
+        Form {
+            Group {
                 NavigationLink(destination: {
                     VoiceSelectionPage()
                 }, label: {
                     Text("Voice Selection")
                         .font(.callout.weight(.medium))
                         .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.black)
                 })
-                Divider().padding(.vertical, 6)
                 NavigationLink(destination: {
                     AccessOptionsPage()
                 }, label: {
                     Text("Access Methods")
                         .font(.callout.weight(.medium))
                         .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.black)
                 })
-                Divider().padding(.vertical, 6)
                 NavigationLink(destination: {
                     ScanningOptionsPage()
                 }, label: {
                     Text("Scanning")
                         .font(.callout.weight(.medium))
                         .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.black)
                 })
             }
-            .padding()
-            Spacer()
         }
-            .navigationBarBackButtonHidden(true)
-            .navigationTitle("Settings")
-            .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        HStack {
-                            Image(systemName: "chevron.left")
-                            Text("Back")
-                        }
-                    })
-                }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle("Settings")
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                })
             }
-        
+        }
     }
 }
 

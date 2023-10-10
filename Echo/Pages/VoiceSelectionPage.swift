@@ -65,61 +65,65 @@ struct VoiceSelectionPage: View {
     }
     
     var body: some View {
-        ScrollView {
-            VoiceOptionsArea(
-                title: "Speaking Voice",
-                // swiftlint:disable:next line_length
-                helpText: "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice.",
-                pitch: $speakingPitch,
-                rate: $speakingRate,
-                volume: $speakingVolume,
-                voiceId: $speakingVoiceId,
-                voiceName: $speakingVoiceName,
-                playSample: {
-                    let speakingVoice = VoiceOptions(
-                        voiceId: speakingVoiceId,
-                        rate: Float(speakingRate),
-                        pitch: Float(speakingPitch),
-                        volume: Float(speakingVolume)
-                    )
-                    voiceEngine.play(
-                        "Thank you for using Echo, this is your speaking voice.",
-                        voiceOptions: speakingVoice
-                    )
-                }
-            )
-            VoiceOptionsArea(
-                title: "Cue Voice",
-                // swiftlint:disable:next line_length
-                helpText: "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you.",
-                pitch: $cuePitch,
-                rate: $cueRate,
-                volume: $cueVolume,
-                voiceId: $cueVoiceId,
-                voiceName: $cueVoiceName,
-                playSample: {
-                    let cueVoice = VoiceOptions(
-                        voiceId: cueVoiceId,
-                        rate: Float(cueRate),
-                        pitch: Float(cuePitch),
-                        volume: Float(cueVolume)
-                    )
-                    voiceEngine.play("Thank you for using Echo, this is your cue voice", voiceOptions: cueVoice)
-                }
-            )
-        }.onAppear {
+        Form {
+                VoiceOptionsArea(
+                    title: "Speaking Voice",
+                    // swiftlint:disable:next line_length
+                    helpText: "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice.",
+                    pitch: $speakingPitch,
+                    rate: $speakingRate,
+                    volume: $speakingVolume,
+                    voiceId: $speakingVoiceId,
+                    voiceName: $speakingVoiceName,
+                    playSample: {
+                        let speakingVoice = VoiceOptions(
+                            voiceId: speakingVoiceId,
+                            rate: Float(speakingRate),
+                            pitch: Float(speakingPitch),
+                            volume: Float(speakingVolume)
+                        )
+                        voiceEngine.play(
+                            "Thank you for using Echo, this is your speaking voice.",
+                            voiceOptions: speakingVoice
+                        )
+                    }
+                )
+                VoiceOptionsArea(
+                    title: "Cue Voice",
+                    // swiftlint:disable:next line_length
+                    helpText: "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you.",
+                    pitch: $cuePitch,
+                    rate: $cueRate,
+                    volume: $cueVolume,
+                    voiceId: $cueVoiceId,
+                    voiceName: $cueVoiceName,
+                    playSample: {
+                        let cueVoice = VoiceOptions(
+                            voiceId: cueVoiceId,
+                            rate: Float(cueRate),
+                            pitch: Float(cuePitch),
+                            volume: Float(cueVolume)
+                        )
+                        voiceEngine.play("Thank you for using Echo, this is your cue voice", voiceOptions: cueVoice)
+                    }
+                )
+        }
+        .onAppear {
             loadSettings()
-            
+
             if speakingVoiceId == "" || cueVoiceId == "" {
                 loadVoices()
             }
-        }.onDisappear {
+        }
+        .onDisappear {
             save()
         }
     }
 }
 
 private struct PreviewWrapper: View {
+    @StateObject var voiceEngine: VoiceEngine = VoiceEngine()
+    
     var body: some View {
         NavigationStack {
             Text("Main Page")
@@ -127,6 +131,8 @@ private struct PreviewWrapper: View {
                 ToolbarItem(placement: .primaryAction) {
                     navigationDestination(isPresented: .constant(true), destination: {
                         VoiceSelectionPage()
+                            .environmentObject(voiceEngine)
+
                     })
                     
                 }

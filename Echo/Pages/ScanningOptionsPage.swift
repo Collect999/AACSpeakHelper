@@ -12,44 +12,41 @@ struct ScanningOptionsPage: View {
     @EnvironmentObject var scanningOptions: ScanningOptions
     
     var body: some View {
-        VStack {
-            // swiftlint:disable:next line_length
-            Text("Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time.")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
-            GroupBox {
+        Form {
+            Section(content: {
                 Toggle("Scanning", isOn: $scanningOptions.scanning)
-                Divider().padding(.vertical, 6)
-                HStack {
-                    Text("Scanning speed")
-                    Spacer()
-                    Text(String(format: "%.1f", scanningOptions.scanWaitTime) + "s")
+               
+                VStack {
+                    HStack {
+                        Text("Scanning speed")
+                        Spacer()
+                        Text(String(format: "%.1f", scanningOptions.scanWaitTime) + "s")
+                    }
+                    Slider(
+                        value: $scanningOptions.scanWaitTime,
+                        in: 0.3...10,
+                        step: 0.1
+                    )
+                    Text("The length of time that Echo will wait before moving onto the next item")
+                        .font(.footnote)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                Slider(
-                    value: $scanningOptions.scanWaitTime,
-                    in: 0.3...10,
-                    step: 0.1
-                )
-                Text("The length of time that Echo will wait before moving onto the next item")
-                    .font(.footnote)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Divider().padding(.vertical, 6)
+
                 Toggle("Scan on app launch", isOn: $scanningOptions.scanOnAppLaunch)
-                Divider().padding(.vertical, 6)
                 Toggle("Scan after selection", isOn: $scanningOptions.scanAfterSelection)
-                Divider().padding(.vertical, 6)
                 Stepper(
                     value: $scanningOptions.scanLoops,
                     in: 1...10,
                     step: 1
                 ) {
                     Text("Scan **\(scanningOptions.scanLoops)** times before stopping")
-                        .fixedSize()
                 }
-
-            }
-            Spacer()
-        }.padding(.horizontal)
+            }, header: {}, footer: {
+                // swiftlint:disable:next line_length
+                Text("Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time.")
+            })
+            .navigationTitle("Scanning Options")
+        }
     }
 }
 

@@ -21,101 +21,84 @@ struct VoiceOptionsArea: View {
     var playSample: () -> Void
     
     var body: some View {
-        VStack {
-            Text(title)
-                .font(.headline)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Text(helpText)
-                .font(.subheadline)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            GroupBox {
-                Button(action: {
-                    playSample()
-                }, label: {
-                    Image(systemName: "play.circle")
-                    Text("Play Sample")
+        Section(content: {
+            Button(action: {
+                playSample()
+            }, label: {
+                Label("Play Sample", systemImage: "play.circle")
+            })
+            NavigationLink(destination: {
+                VoicePicker(
+                    voiceId: $voiceId,
+                    voiceName: $voiceName
+                )
+            }, label: {
+                HStack {
+                    Text("Voice")
                     Spacer()
-                })
-                Divider().padding(.vertical, 6)
-                NavigationLink(destination: {
-                    VoicePicker(
-                        voiceId: $voiceId,
-                        voiceName: $voiceName
-                    )
-                }, label: {
-                    HStack {
-                        Text("Voice")
-                        Spacer()
-                        Text(voiceName)
-                            .foregroundStyle(.gray)
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
-                    }.foregroundStyle(.black)
-                   
-                })
-                Divider().padding(.vertical, 6)
-                VStack {
-                    HStack {
-                        Text("Pitch")
-                        Spacer()
-                        Text(String(Int(pitch)))
-                            .foregroundStyle(.gray)
-                    }
-                    Slider(
-                        value: $pitch,
-                        in: 0...100,
-                        onEditingChanged: { isEditing in
-                            if isEditing == false {
-                                playSample()
-                            }
-                        }
-                    )
+                    Text(voiceName)
+                        .foregroundStyle(.gray)
+                }.foregroundStyle(.black)
+               
+            })
+            VStack {
+                HStack {
+                    Text("Pitch")
+                    Spacer()
+                    Text(String(Int(pitch)))
+                        .foregroundStyle(.gray)
                 }
-                Divider().padding(.vertical, 6)
-                VStack {
-                    HStack {
-                        Text("Volume")
-                        Spacer()
-                        Text(String(Int(volume)))
-                            .foregroundStyle(.gray)
-                    }
-                    Slider(
-                        value: $volume,
-                        in: 0...100,
-                        onEditingChanged: { isEditing in
-                            if isEditing == false {
-                                playSample()
-                            }
+                Slider(
+                    value: $pitch,
+                    in: 0...100,
+                    onEditingChanged: { isEditing in
+                        if isEditing == false {
+                            playSample()
                         }
-                    )
-                }
-                Divider().padding(.vertical, 6)
-                VStack {
-                    HStack {
-                        Text("Rate")
-                        Spacer()
-                        Text(String(Int(rate)))
-                            .foregroundStyle(.gray)
                     }
-                    Slider(
-                        value: $rate,
-                        in: 0...100,
-                        onEditingChanged: { isEditing in
-                            if isEditing == false {
-                                playSample()
-                            }
-                        }
-                    )
+                )
+            }
+            VStack {
+                HStack {
+                    Text("Volume")
+                    Spacer()
+                    Text(String(Int(volume)))
+                        .foregroundStyle(.gray)
                 }
-                
+                Slider(
+                    value: $volume,
+                    in: 0...100,
+                    onEditingChanged: { isEditing in
+                        if isEditing == false {
+                            playSample()
+                        }
+                    }
+                )
             }
             
-            Spacer()
-        }
+            VStack {
+                HStack {
+                    Text("Rate")
+                    Spacer()
+                    Text(String(Int(rate)))
+                        .foregroundStyle(.gray)
+                }
+                Slider(
+                    value: $rate,
+                    in: 0...100,
+                    onEditingChanged: { isEditing in
+                        if isEditing == false {
+                            playSample()
+                        }
+                    }
+                )
+            }
             
-            .padding()
-            .navigationTitle("Voice Options")
+        }, header: {
+            Text(title)
+        }, footer: {
+            Text(helpText)
+        })
+        .navigationTitle("Voice Options")
     }
 }

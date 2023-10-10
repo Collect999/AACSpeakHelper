@@ -12,6 +12,7 @@
 		D517430A2A6FFBBA00E14EE0 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D51743092A6FFBBA00E14EE0 /* SQLite */; };
 		D517430C2A7AA8BB00E14EE0 /* SlowAndBadPrediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D517430B2A7AA8BB00E14EE0 /* SlowAndBadPrediction.swift */; };
 		D51743132A7AA94100E14EE0 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51743122A7AA94100E14EE0 /* Items.swift */; };
+		D536A5B32AD5865B00F8DB9F /* AddSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536A5B22AD5865B00F8DB9F /* AddSwitch.swift */; };
 		D57A517F2ACF084300FC7716 /* ScanningOptionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57A517E2ACF084300FC7716 /* ScanningOptionsPage.swift */; };
 		D57A51812ACF0E3700FC7716 /* ScanningOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57A51802ACF0E3700FC7716 /* ScanningOptions.swift */; };
 		D58005192AC6D92D008BDC33 /* VoicePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58005182AC6D92D008BDC33 /* VoicePicker.swift */; };
@@ -40,6 +41,7 @@
 		D51743062A6FF72300E14EE0 /* dictionary.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionary.sqlite; sourceTree = "<group>"; };
 		D517430B2A7AA8BB00E14EE0 /* SlowAndBadPrediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlowAndBadPrediction.swift; sourceTree = "<group>"; };
 		D51743122A7AA94100E14EE0 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		D536A5B22AD5865B00F8DB9F /* AddSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSwitch.swift; sourceTree = "<group>"; };
 		D57A517E2ACF084300FC7716 /* ScanningOptionsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningOptionsPage.swift; sourceTree = "<group>"; };
 		D57A51802ACF0E3700FC7716 /* ScanningOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningOptions.swift; sourceTree = "<group>"; };
 		D58005182AC6D92D008BDC33 /* VoicePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicePicker.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			children = (
 				D58005182AC6D92D008BDC33 /* VoicePicker.swift */,
 				D5E26B422AC2E77A003545BE /* ScrollLock.swift */,
+				D536A5B22AD5865B00F8DB9F /* AddSwitch.swift */,
 				D5DB64732ACD82FD00E41867 /* VoiceOptions.swift */,
 				D5DB64712ACC5E6500E41867 /* OnScreenArrows.swift */,
 			);
@@ -307,6 +310,7 @@
 				D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */,
 				D517430C2A7AA8BB00E14EE0 /* SlowAndBadPrediction.swift in Sources */,
 				D5DB64742ACD82FD00E41867 /* VoiceOptions.swift in Sources */,
+				D536A5B32AD5865B00F8DB9F /* AddSwitch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

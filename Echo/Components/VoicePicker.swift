@@ -16,68 +16,57 @@ struct VoicePicker: View {
     
     @Binding var voiceId: String
     @Binding var voiceName: String
-
+    
     var body: some View {
-        ScrollView {
-            VStack {
-                ForEach(voiceList.sortedKeys(), id: \.self) { lang in
-                    VStack {
-                        Text(getLanguageAndRegion(lang))
-                            .font(.caption)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                        GroupBox {
-                            VStack {
-                                let voices = voiceList.voicesForLang(lang)
-                                ForEach(Array(voices.enumerated()), id: \.element) { index, voice in
-                                    VStack {
-                                        Button(action: {
-                                            voiceId = voice.identifier
-                                            voiceName = "\(voice.name) (\(getLanguage(voice.language)))"
-                                        }, label: {
-                                            HStack {
-                                                Text(voice.name)
-                                                    .foregroundStyle(colorScheme == .light ? .black : .white)
-                                                Spacer()
-                                                if voiceId == voice.identifier {
-                                                    Image(systemName: "checkmark")
-                                                }
-                                            }.padding(.vertical, 4)
-                                        })
-                                        if index + 1 < voices.count {
-                                            Divider()
-                                        }
-                                    }
+        Form {
+            ForEach(voiceList.sortedKeys(), id: \.self) { lang in
+                Section(content: {
+                    let voices = voiceList.voicesForLang(lang)
+                    ForEach(Array(voices.enumerated()), id: \.element) { _, voice in
+                        Button(action: {
+                            voiceId = voice.identifier
+                            voiceName = "\(voice.name) (\(getLanguage(voice.language)))"
+                        }, label: {
+                            HStack {
+                                Text(voice.name)
+                                    .foregroundStyle(colorScheme == .light ? .black : .white)
+                                Spacer()
+                                if voiceId == voice.identifier {
+                                    Image(systemName: "checkmark")
                                 }
                             }
-                        }
-                    }.padding(.vertical)
-                }
+                        })
+                    }
+                },
+                header: {
+                    Text(getLanguageAndRegion(lang))
+                })
             }
-        }.padding(.horizontal)
+            
+        }
     }
 }
 
 private struct PreviewWrapper: View {
     @State var voiceId = ""
     @State var voiceName = ""
-
+    
     var body: some View {
         NavigationStack {
             Text("Main Page")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    navigationDestination(isPresented: .constant(true), destination: {
-                        VoicePicker(
-                            voiceId: $voiceId,
-                            voiceName: $voiceName
-                        )
-                    })
-                    
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        navigationDestination(isPresented: .constant(true), destination: {
+                            VoicePicker(
+                                voiceId: $voiceId,
+                                voiceName: $voiceName
+                            )
+                        })
+                        
+                    }
                 }
-            }
-            .navigationTitle("Voice Options")
-            .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("Voice Options")
+                .navigationBarTitleDisplayMode(.inline)
             
         }
         
@@ -88,6 +77,6 @@ struct VoicePickerPage_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
         PreviewWrapper().preferredColorScheme(.light)
         PreviewWrapper().preferredColorScheme(.dark)
-
+        
     }
 }
