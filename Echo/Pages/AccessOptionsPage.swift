@@ -35,7 +35,26 @@ struct AccessOptionsPage: View {
             })
             
             Section(content: {
-                Toggle("Switch Control", isOn: .constant(false))
+                Toggle("Switch Control", isOn: $accessOptions.enableSwitchControl)
+                
+                ForEach(accessOptions.listOfSwitches) { currentSwitch in
+                    NavigationLink(destination: {
+                        AddSwitch(
+                            switchName: currentSwitch.name,
+                            selectedKey: currentSwitch.key,
+                            tapAction: currentSwitch.tapAction,
+                            id: currentSwitch.id
+                        )
+                    }, label: {
+                        HStack {
+                            Text(currentSwitch.name)
+                            Spacer()
+                            Text(keyToDisplay(currentSwitch.key))
+                                .foregroundStyle(.gray)
+                        }
+                    })
+                }
+                  
                 Button(action: {
                     showNewSwitchSheet.toggle()
                 }, label: {
@@ -51,7 +70,7 @@ struct AccessOptionsPage: View {
             accessOptions.save()
         }
         .sheet(isPresented: $showNewSwitchSheet) {
-            AddSwitch(sheetState: $showNewSwitchSheet)
+            AddSwitch()
         }
     }
 }
@@ -67,6 +86,18 @@ private struct PreviewWrapper: View {
                     navigationDestination(isPresented: .constant(true), destination: {
                         AccessOptionsPage()
                             .environmentObject(accessOptions)
+                            .onAppear {
+                                self.accessOptions.addSwitch(
+                                    name: "Demo Switch",
+                                    key: .downArrow,
+                                    tapAction: .back
+                                )
+                                self.accessOptions.addSwitch(
+                                    name: "Another One",
+                                    key: .upArrow,
+                                    tapAction: .next
+                                )
+                            }
                     })
                     
                 }

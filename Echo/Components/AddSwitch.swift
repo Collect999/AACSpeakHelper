@@ -8,73 +8,189 @@
 import Foundation
 import SwiftUI
 
-struct InlineTextField: View {
-    @Binding var text: String
-    var label: String
-    var placeholder: String = "Required"
+struct DetectSwitch: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @FocusState private var focused: Bool
+    @Binding var selectedKey: KeyEquivalent?
     
     var body: some View {
         Form {
-            TextField(text: $text, prompt: Text("Required")) {
-                Text("Username")
+            VStack {
+                ProgressView()
+                Text("Activate your external switch")
+                    .font(.title2)
+                Text("""
+                 External switches can be a bluetooth or wired device such as a keyboard, controller or switch
+                 """)
+                .font(.caption)
             }
-            SecureField(text: $text, prompt: Text("Required")) {
-                Text("Password")
-            }
+            .frame(maxWidth: .infinity)
+            .multilineTextAlignment(.center)
         }
-//        HStack {
-//            LabeledContent(label) {
-//                TextField(
-//                    text: $text,
-//                    prompt: Text(placeholder)af
-//                ) {
-//                    Text(label)
-//                }
-//            }
-//            Button(action: {
-//                
-//            }, label: {
-//                Image(systemName: "chevron.right")
-//            })
-//        }
+        .focusable()
+        .focused($focused)
+        .onKeyPress { press in
+            selectedKey = press.key
+            self.presentationMode.wrappedValue.dismiss()
+            return .handled
+        }
+        .onAppear {
+            focused = true
+        }
     }
 }
 
 struct AddSwitch: View {
-    @Binding var sheetState: Bool
+    @EnvironmentObject var accessOptions: AccessOptions
+    @Environment(\.presentationMode) var presentationMode
+    
     @State var switchName = ""
+    @State var selectedKey: KeyEquivalent?
+    @State var tapAction: Action = .next
+    @State var doubleAction: Action = .none
+    @State var holdAction: Action = .none
+    
+    @State var id: UUID?
+    
+    var isButtonEnabled: Bool {
+        if switchName == "" { return true }
+        if selectedKey == nil { return true }
+        
+        return false
+    }
     
     var body: some View {
-        VStack {
-            
-            HStack {
-                Spacer()
-                Button(action: {
-                    sheetState.toggle()
-                }, label: {
-                    Text("Cancel")
+        NavigationView {
+            Form {
+                Section(content: {
+                    TextField("Switch Name", text: $switchName, prompt: Text("Required"))
+                }, header: {
+                    Text("Switch Name")
                 })
-            }
-            GroupBox {
-                InlineTextField(
-                    text: $switchName,
-                    label: "Switch Name"
-                )
+                Section(content: {
+                    if let unwrappedKey = selectedKey {
+                        HStack {
+                            Text("Selected Key")
+                            Spacer()
+                            Text(keyToDisplay(unwrappedKey))
+                                .foregroundStyle(.gray)
+                        }
+                    }
+                    
+                    NavigationLink(destination: {
+                        DetectSwitch(selectedKey: $selectedKey)
+                    }, label: {
+                        Label("Detect Switch", systemImage: "button.programmable.square")
+                    })
+
+                }, header: {
+                    Text("Switch Key")
+                }, footer: {
+                    // swiftlint:disable:next line_length
+                    Text("Let Echo know what switch you want to use by pressing it. If you change your mind you can reset the chosen switch.")
+                })
                 
+                Section(content: {
+                    Picker("Single Tap", selection: $tapAction) {
+                        ForEach(Action.allCases) { action in
+                            Text(action.display)
+                        }
+                    }.pickerStyle(.navigationLink)
+//                    Picker("Double Tap", selection: $doubleAction) {
+//                        ForEach(Action.allCases) { action in
+//                            Text(action.display)
+//                        }
+//                    }.pickerStyle(.navigationLink)
+//                    Picker("Hold", selection: $holdAction) {
+//                        ForEach(Action.allCases) { action in
+//                            Text(action.display)
+//                        }
+//                    }.pickerStyle(.navigationLink)
+                }, header: {
+                   Text("Actions")
+                }, footer: {
+                    Text("These are the actions that will happen when you tap or hold your switch")
+                })
+                
+                if id != nil {
+                    Section(content: {
+                        Button(action: {
+                            if let unwrappedKey = selectedKey, let unwrappedId = id {
+                                accessOptions.updateSwitch(
+                                    id: unwrappedId,
+                                    name: switchName,
+                                    key: unwrappedKey,
+                                    tapAction: tapAction
+                                )
+                            }
+                            
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Text("Save Changes")
+                        })
+  
+                        .disabled(isButtonEnabled)
+                        Button(action: {
+                            if let unwrappedId = id {
+                                accessOptions.deleteSwitch(id: unwrappedId)
+                            }
+                            
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Label("Delete Switch",systemImage: "trash")
+                                .foregroundColor(.red)
+                        })
+                        
+                    }, footer: {
+                        Text("A switch name and switch key must be entered before you can save changes switch.")
+                    })
+                } else {
+                    Section(content: {
+                        Button(action: {
+                            if let unwrappedKey = selectedKey {
+                                accessOptions.addSwitch(
+                                    name: switchName,
+                                    key: unwrappedKey,
+                                    tapAction: tapAction
+                                )
+                            }
+                            
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Text("Add New Switch")
+                        })
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .disabled(isButtonEnabled)
+                    }, footer: {
+                        Text("A switch name and switch key must be entered before you can save the new switch.")
+                    })
+                }
+
             }
-            Button(action: {
-                sheetState.toggle()
-            }, label: {
-                Text("Add Switch")
-            }).buttonStyle(.borderedProminent)
-            Spacer()
-        }.padding()
+            
+            .toolbar {
+                if id == nil {
+                    
+                    
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Text("Cancel")
+                        })
+                    }
+                }
+            }
+        }
+        .navigationTitle("Switch: \(switchName)")
+
     }
 }
 
-private struct PreviewWrapper: View {
+private struct PreviewWrapperAdd: View {
     @State var sheetState: Bool = true
-
+    @StateObject var accessOptions = AccessOptions()
+    
     var body: some View {
         
         Button(action: {
@@ -83,16 +199,47 @@ private struct PreviewWrapper: View {
             Text("Open")
         })
             .sheet(isPresented: $sheetState) {
-                AddSwitch(sheetState: $sheetState)
+                AddSwitch()
+                    .environmentObject(accessOptions)
             }
         
     }
 }
 
+private struct PreviewWrapperEdit: View {
+    @State var sheetState: Bool = true
+    @StateObject var accessOptions = AccessOptions()
+    
+    var body: some View {
+        
+        NavigationStack {
+            Text("Main Page")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    navigationDestination(isPresented: .constant(true), destination: {
+                        AddSwitch(
+                            switchName: "My Switch",
+                            selectedKey: .upArrow,
+                            tapAction: .next,
+                            id: UUID()
+                        )
+                            .environmentObject(accessOptions)
+                            
+                    })
+                    
+                }
+            }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+
+    }
+}
+
 struct AddSwitch_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
-        PreviewWrapper().preferredColorScheme(.light)
-        PreviewWrapper().preferredColorScheme(.dark)
+        PreviewWrapperAdd()
+        PreviewWrapperEdit()
 
     }
 }
