@@ -20,6 +20,9 @@ struct ContentView: SwiftUI.View {
                             right: { items.select(userInteraction: true) }
                         )
                     }
+                    if accessOptions.enableSwitchControl {
+                        KeyPressController()
+                    }
                     VStack {
                         
                         HStack {
