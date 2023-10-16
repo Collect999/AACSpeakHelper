@@ -63,14 +63,18 @@ struct Switch: Identifiable, Decodable, Encodable {
 }
 
 enum Action: String, CaseIterable, Identifiable, Codable {
-    case next, back, none
+    case next, back, none, fast
     var id: Self { self }
     
+    static public var tapCases: [Action] = [.next, .back, .none]
+    static public var holdCases: [Action] = [.next, .back, .none, .fast]
+
     var display: String {
         switch self {
         case .none: return "None"
         case .next: return "Go to the next item"
         case .back: return "Go to the previous item"
+        case .fast: return "Quickly scan through the items"
         }
     }
     

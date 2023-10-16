@@ -92,17 +92,12 @@ struct AddSwitch: View {
                 
                 Section(content: {
                     Picker("Single Tap", selection: $tapAction) {
-                        ForEach(Action.allCases) { action in
+                        ForEach(Action.tapCases) { action in
                             Text(action.display)
                         }
                     }.pickerStyle(.navigationLink)
-//                    Picker("Double Tap", selection: $doubleAction) {
-//                        ForEach(Action.allCases) { action in
-//                            Text(action.display)
-//                        }
-//                    }.pickerStyle(.navigationLink)
                     Picker("Hold", selection: $holdAction) {
-                        ForEach(Action.allCases) { action in
+                        ForEach(Action.holdCases) { action in
                             Text(action.display)
                         }
                     }.pickerStyle(.navigationLink)

@@ -39,6 +39,8 @@ struct KeyPressController: View {
             items.next(userInteraction: true)
         case .back:
             items.back(userInteraction: true)
+        case .fast:
+            items.startFastScan()
         }
     }
     
@@ -95,6 +97,9 @@ struct KeyPressController: View {
                     
                     // The key was held for longer than the threshold
                     if currentKeyStage == .held {
+                        if currentSwitch.holdAction == .fast {
+                            items.stopFastScan()
+                        }
                         print("Hold Press Release", press.key.character.debugDescription)
                     }
                     

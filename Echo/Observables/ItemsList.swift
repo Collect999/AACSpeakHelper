@@ -24,6 +24,8 @@ class ItemsList: ObservableObject {
     
     var workItem: DispatchWorkItem?
     
+    var isFastScan: Bool = false
+    
     init() {
         predictor = SlowAndBadPrediciton()
         items = []
@@ -94,6 +96,30 @@ class ItemsList: ObservableObject {
         workItem = newWorkItem
         let timeInterval = scanningOptions?.scanWaitTime ?? 3
         DispatchQueue.main.asyncAfter(deadline: .now() + timeInterval, execute: newWorkItem)
+    }
+    
+    func startFastScan() {
+        print("FAST SCANNING")
+        let currentIndex = self.getIndexOfSelectedItem()
+        let newIndex = (currentIndex + 1) % items.count
+        
+        let wrappedIndex = newIndex < 0 ? items.count + newIndex : newIndex
+        
+        let newItem = items[wrappedIndex]
+        
+        selectedUUID = newItem.id
+        isFastScan = true
+        
+        voiceEngine?.playFastCue(newItem.details.speakText) {
+            if self.isFastScan {
+                self.startFastScan()
+            }
+        }
+    }
+    
+    func stopFastScan() {
+        print("STOP FAST SCANNING")
+        isFastScan = false
     }
     
     func move(moveBy: Int = 1, reset: Bool = false) {

@@ -81,6 +81,15 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         self.synthesizer.speak(utterance)
     }
     
+    func playFastCue(_ text: String, cb: (() -> Void)? = {}) {
+        play(text, voiceOptions: VoiceOptions(
+            voiceId: cueVoiceOptions.voiceId,
+            rate: 75,
+            pitch: cueVoiceOptions.pitch,
+            volume: cueVoiceOptions.volume
+        ), cb: cb)
+    }
+    
     func playCue(_ text: String, cb: (() -> Void)? = {}) {
         play(text, voiceOptions: cueVoiceOptions, cb: cb)
     }
