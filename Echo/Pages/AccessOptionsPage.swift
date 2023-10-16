@@ -43,6 +43,7 @@ struct AccessOptionsPage: View {
                             switchName: currentSwitch.name,
                             selectedKey: currentSwitch.key,
                             tapAction: currentSwitch.tapAction,
+                            holdAction: currentSwitch.holdAction,
                             id: currentSwitch.id
                         )
                     }, label: {
@@ -90,12 +91,14 @@ private struct PreviewWrapper: View {
                                 self.accessOptions.addSwitch(
                                     name: "Demo Switch",
                                     key: .downArrow,
-                                    tapAction: .back
+                                    tapAction: .back,
+                                    holdAction: .none
                                 )
                                 self.accessOptions.addSwitch(
                                     name: "Another One",
                                     key: .upArrow,
-                                    tapAction: .next
+                                    tapAction: .next,
+                                    holdAction: .none
                                 )
                             }
                     })

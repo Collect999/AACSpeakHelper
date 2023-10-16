@@ -101,11 +101,11 @@ struct AddSwitch: View {
 //                            Text(action.display)
 //                        }
 //                    }.pickerStyle(.navigationLink)
-//                    Picker("Hold", selection: $holdAction) {
-//                        ForEach(Action.allCases) { action in
-//                            Text(action.display)
-//                        }
-//                    }.pickerStyle(.navigationLink)
+                    Picker("Hold", selection: $holdAction) {
+                        ForEach(Action.allCases) { action in
+                            Text(action.display)
+                        }
+                    }.pickerStyle(.navigationLink)
                 }, header: {
                    Text("Actions")
                 }, footer: {
@@ -120,7 +120,8 @@ struct AddSwitch: View {
                                     id: unwrappedId,
                                     name: switchName,
                                     key: unwrappedKey,
-                                    tapAction: tapAction
+                                    tapAction: tapAction,
+                                    holdAction: holdAction
                                 )
                             }
                             
@@ -137,7 +138,7 @@ struct AddSwitch: View {
                             
                             presentationMode.wrappedValue.dismiss()
                         }, label: {
-                            Label("Delete Switch",systemImage: "trash")
+                            Label("Delete Switch", systemImage: "trash")
                                 .foregroundColor(.red)
                         })
                         
@@ -151,7 +152,8 @@ struct AddSwitch: View {
                                 accessOptions.addSwitch(
                                     name: switchName,
                                     key: unwrappedKey,
-                                    tapAction: tapAction
+                                    tapAction: tapAction,
+                                    holdAction: holdAction
                                 )
                             }
                             
@@ -170,8 +172,6 @@ struct AddSwitch: View {
             
             .toolbar {
                 if id == nil {
-                    
-                    
                     ToolbarItem(placement: .cancellationAction) {
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()

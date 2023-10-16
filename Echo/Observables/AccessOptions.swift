@@ -13,17 +13,20 @@ struct Switch: Identifiable, Decodable, Encodable {
     var name: String
     var key: KeyEquivalent
     var tapAction: Action
+    var holdAction: Action
     
     init(
         id: UUID,
         name: String,
         key: KeyEquivalent,
-        tapAction: Action
+        tapAction: Action,
+        holdAction: Action
     ) {
         self.id = id
         self.name = name
         self.key = key
         self.tapAction = tapAction
+        self.holdAction = holdAction
     }
     
     enum CodingKeys: CodingKey {
@@ -31,6 +34,7 @@ struct Switch: Identifiable, Decodable, Encodable {
         case name
         case tapAction
         case key
+        case holdAction
     }
     
     init(from decoder: Decoder) throws {
@@ -39,6 +43,7 @@ struct Switch: Identifiable, Decodable, Encodable {
         self.id = try container.decode(UUID.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         self.tapAction = try container.decode(Action.self, forKey: .tapAction)
+        self.holdAction = try container.decode(Action.self, forKey: .holdAction)
 
         let key = try container.decode(String.self, forKey: .key)
         self.key = KeyEquivalent(Character(key))
@@ -52,6 +57,7 @@ struct Switch: Identifiable, Decodable, Encodable {
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(tapAction, forKey: .tapAction)
+        try container.encode(holdAction, forKey: .holdAction)
         try container.encode(encodableKey, forKey: .key)
     }
 }
@@ -77,20 +83,21 @@ class AccessOptions: ObservableObject {
 
     @Published var listOfSwitches: [Switch] = []
     
-    func addSwitch(name: String, key: KeyEquivalent, tapAction: Action) {
+    func addSwitch(name: String, key: KeyEquivalent, tapAction: Action, holdAction: Action) {
         listOfSwitches.append(
             Switch(
                 id: UUID(),
                 name: name,
                 key: key,
-                tapAction: tapAction
+                tapAction: tapAction,
+                holdAction: holdAction
             )
         )
         
         save()
     }
     
-    func updateSwitch(id: UUID, name: String, key: KeyEquivalent, tapAction: Action) {
+    func updateSwitch(id: UUID, name: String, key: KeyEquivalent, tapAction: Action, holdAction: Action) {
         
         listOfSwitches = listOfSwitches.map { current in
             if current.id == id {
@@ -98,7 +105,8 @@ class AccessOptions: ObservableObject {
                     id: id,
                     name: name,
                     key: key,
-                    tapAction: tapAction
+                    tapAction: tapAction,
+                    holdAction: holdAction
                 )
             } else {
                 return current
