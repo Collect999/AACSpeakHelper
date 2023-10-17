@@ -34,7 +34,12 @@ struct OnScreenArrows: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .offset(CGSize(width: 0, height: 3))
-                                .accessibilityLabel("Arrow pointing up")
+                                .accessibilityLabel(
+                                    String(
+                                        localized: "Arrow pointing up",
+                                        comment: "An accessibility label for the up arrow image"
+                                    )
+                                )
                         }
                         Spacer()
                         
@@ -48,7 +53,12 @@ struct OnScreenArrows: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .rotationEffect(.degrees(-90))
-                                .accessibilityLabel("Arrow pointing left")
+                                .accessibilityLabel(
+                                    String(
+                                        localized: "Arrow pointing left",
+                                        comment: "An accessibility label for the left arrow image"
+                                    )
+                                )
                         }
                         Spacer()
                         Button {
@@ -58,7 +68,11 @@ struct OnScreenArrows: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .rotationEffect(.degrees(90))
-                                .accessibilityLabel("Arrow pointing right")
+                                .accessibilityLabel(
+                                    String(
+                                        localized: "Arrow pointing right",
+                                        comment: "An accessibility label for the right arrow image"
+                                    ))
                         }
                         
                     }
@@ -74,7 +88,11 @@ struct OnScreenArrows: View {
                                 .aspectRatio(contentMode: .fit)
                                 .rotationEffect(.degrees(180))
                                 .offset(CGSize(width: 0, height: -3))
-                                .accessibilityLabel("Arrow pointing down")
+                                .accessibilityLabel(
+                                    String(
+                                        localized: "Arrow pointing down",
+                                        comment: "An accessibility label for the down arrow image"
+                                    ))
                         }
                         Spacer()
                         

@@ -71,14 +71,38 @@ enum Action: String, CaseIterable, Identifiable, Codable {
 
     var display: String {
         switch self {
-        case .none: return "None"
-        case .next: return "Go to the next item"
-        case .back: return "Go to the previous item"
-        case .fast: return "Quickly scan through the items"
-        case .select: return "Select the currently selected item"
-        case .delete: return "Delete the last inputted letter"
-        case .clear: return "Clear all the inputted text"
-        case .startScanning: return "Start scanning from the current item, scanning must be enabled"
+        case .none: return String(
+            localized: "None",
+            comment: "Label for action that happens on a keypress"
+        )
+        case .next: return String(
+            localized: "Go to the next item",
+            comment: "Label for action that happens on a keypress"
+        )
+        case .back: return String(
+            localized: "Go to the previous item",
+            comment: "Label for action that happens on a keypress"
+        )
+        case .fast: return String(
+            localized: "Quickly scan through the items",
+            comment: "Label for action that happens on a keypress"
+        )
+        case .select: return String(
+            localized: "Select the currently selected item",
+            comment: "Label for action that happens on a keypress"
+        )
+        case .delete: return String(
+            localized: "Delete the last inputted letter",
+            comment: "Label for action that happens on a keypress"
+        )
+        case .clear: return String(
+            localized: "Clear all the inputted text",
+            comment: "Label for action that happens on a keypress"
+        )
+        case .startScanning: return String(
+            localized: "Start scanning from the current item, scanning must be enabled",
+            comment: "Label for action that happens on a keypress"
+        )
         }
     }
     

@@ -26,7 +26,7 @@ struct ContentView: SwiftUI.View {
                     VStack {
                         
                         HStack {
-                            Text(">")
+                            Image(systemName: "chevron.right")
                             
                             GeometryReader { geoReader in
                                 ScrollView {
@@ -87,7 +87,12 @@ struct ContentView: SwiftUI.View {
                     }
                 }
             }
-                .navigationTitle("Echo: Auditory Scanning")
+                .navigationTitle(
+                    String(
+                        localized: "Echo: Auditory Scanning",
+                        comment: "The main navigation title for the whole app"
+                    )
+                )
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {

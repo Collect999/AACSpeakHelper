@@ -53,7 +53,7 @@ struct KeyPressController: View {
     }
     
     var body: some View {
-        Text("Capturing Keys")
+        Text("Capturing Keys", comment: "This text is never actually shown to the user.")
             .opacity(0)
             .focusable()
             .focused($focused)

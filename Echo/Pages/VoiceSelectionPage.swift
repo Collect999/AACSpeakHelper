@@ -67,9 +67,15 @@ struct VoiceSelectionPage: View {
     var body: some View {
         Form {
                 VoiceOptionsArea(
-                    title: "Speaking Voice",
+                    title: String(
+                        localized: "Speaking Voice",
+                        comment: "The heading for the options that control the speaking voice"
+                    ),
                     // swiftlint:disable:next line_length
-                    helpText: "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice.",
+                    helpText: String(
+                        localized: "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice.",
+                        comment: "The footer for the options that control the speaking voice"
+                    ),
                     pitch: $speakingPitch,
                     rate: $speakingRate,
                     volume: $speakingVolume,
@@ -83,15 +89,24 @@ struct VoiceSelectionPage: View {
                             volume: Float(speakingVolume)
                         )
                         voiceEngine.play(
-                            "Thank you for using Echo, this is your speaking voice.",
+                            String(
+                                localized: "Thank you for using Echo, this is your speaking voice.",
+                                comment: "This is text is read aloud by the Text-To-Speech system as a preview"
+                            ),
                             voiceOptions: speakingVoice
                         )
                     }
                 )
                 VoiceOptionsArea(
-                    title: "Cue Voice",
+                    title: String(
+                        localized: "Cue Voice",
+                        comment: "The heading for the options that control the cue voice"
+                    ),
                     // swiftlint:disable:next line_length
-                    helpText: "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you.",
+                    helpText: String(
+                        localized: "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you.",
+                        comment: "The footer for the options that control the cue voice"
+                    ),
                     pitch: $cuePitch,
                     rate: $cueRate,
                     volume: $cueVolume,

@@ -1,0 +1,261 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "<BACKSPACE>" : {
+      "comment" : "A description of the backspace key on a keyboard, please use all caps and <>"
+    },
+    "<CLEAR>" : {
+      "comment" : "A description of the clear key on a keyboard, please use all caps and <>"
+    },
+    "<DELETE FORWARD>" : {
+      "comment" : "A description of the delete forward key on a keyboard, please use all caps and <>"
+    },
+    "<DELETE>" : {
+      "comment" : "A description of the delete key on a keyboard, please use all caps and <>"
+    },
+    "<DOWN ARROW>" : {
+      "comment" : "A description of the down arrow on a keyboard, please use all caps and <>"
+    },
+    "<END>" : {
+      "comment" : "A description of the end key on a keyboard, please use all caps and <>"
+    },
+    "<ENTER>" : {
+      "comment" : "A description of the enter key on a keyboard, please use all caps and <>"
+    },
+    "<ESC>" : {
+      "comment" : "A description of the escape key on a keyboard, please use all caps and <>"
+    },
+    "<HOME>" : {
+      "comment" : "A description of the home key on a keyboard, please use all caps and <>"
+    },
+    "<LEFT ARROW>" : {
+      "comment" : "A description of the left arrow on a keyboard, please use all caps and <>"
+    },
+    "<PAGE UP>" : {
+      "comment" : "A description of the page up key on a keyboard, please use all caps and <>"
+    },
+    "<RIGHT ARROW>" : {
+      "comment" : "A description of the right arrow on a keyboard, please use all caps and <>"
+    },
+    "<SPACE>" : {
+      "comment" : "A description of the space bar key on a keyboard, please use all caps and <>"
+    },
+    "<TAB>" : {
+      "comment" : "A description of the tab key on a keyboard, please use all caps and <>"
+    },
+    "<UP ARROW>" : {
+      "comment" : "A description of the up arrow key on a keyboard, please use all caps and <>"
+    },
+    ">" : {
+
+    },
+    "A switch name and switch key must be entered before you can save changes switch." : {
+      "comment" : "The footer for the save button area of adding a new switch"
+    },
+    "A switch name and switch key must be entered before you can save the new switch." : {
+      "comment" : "The footer to to the save button that explains what the required fields are."
+    },
+    "Access Methods" : {
+      "comment" : "Label for the navigation link to the access methods options page"
+    },
+    "Actions" : {
+      "comment" : "The header of the actions area when adding a new switch"
+    },
+    "Activate your external switch" : {
+      "comment" : "Shown when detecting the switch press when adding a new switch"
+    },
+    "Add New Switch" : {
+      "comment" : "Label on button that adds switch and saves it"
+    },
+    "Add Switch" : {
+      "comment" : "Button label to add a new switch to the list"
+    },
+    "Arrow pointing down" : {
+      "comment" : "An accessibility label for the down arrow image"
+    },
+    "Arrow pointing left" : {
+      "comment" : "An accessibility label for the left arrow image"
+    },
+    "Arrow pointing right" : {
+      "comment" : "An accessibility label for the right arrow image"
+    },
+    "Arrow pointing up" : {
+      "comment" : "An accessibility label for the up arrow image"
+    },
+    "Back" : {
+      "comment" : "The button text for the navigation back button"
+    },
+    "Cancel" : {
+      "comment" : "The cancel toolbar button to stop adding a new switch"
+    },
+    "Capturing Keys" : {
+      "comment" : "This text is never actually shown to the user."
+    },
+    "Clear" : {
+      "comment" : "The label for the button that will clear all the text that has been inputted"
+    },
+    "Clear all the inputted text" : {
+      "comment" : "Label for action that happens on a keypress"
+    },
+    "Control Echo using switch presses to perform actions. Add new switches and change what they trigger." : {
+      "comment" : "Footer description describing what switch access is"
+    },
+    "Cue Voice" : {
+      "comment" : "The heading for the options that control the cue voice"
+    },
+    "Current Sentence: " : {
+      "comment" : "This label prefixes the current full sentance in the scrollable area. Make sure to leave the colon and space"
+    },
+    "Current Word: " : {
+      "comment" : "This label prefixes the current word in the scrollable area. Make sure to leave the colon and space"
+    },
+    "Delete Switch" : {
+      "comment" : "The label for the button to delete a switch"
+    },
+    "Delete the last inputted letter" : {
+      "comment" : "Label for action that happens on a keypress"
+    },
+    "Detect Switch" : {
+      "comment" : "Label for a NavigationLink that will get a user to press their external switch"
+    },
+    "Echo: Auditory Scanning" : {
+      "comment" : "The main navigation title for the whole app"
+    },
+    "External switches can be a bluetooth or wired device such as a keyboard, controller or switch" : {
+      "comment" : "Explains what an external switch is"
+    },
+    "Go to the next item" : {
+      "comment" : "Label for action that happens on a keypress"
+    },
+    "Go to the previous item" : {
+      "comment" : "Label for action that happens on a keypress"
+    },
+    "Hold" : {
+      "comment" : "The label that is shown next to the single hold action"
+    },
+    "Let Echo know what switch you want to use by pressing it. If you change your mind you can reset the chosen switch." : {
+      "comment" : "A description of how detecting switches works and how to reset it"
+    },
+    "Main Page" : {
+      "comment" : "Placeholder text for preview"
+    },
+    "None" : {
+      "comment" : "Label for action that happens on a keypress"
+    },
+    "On-screen" : {
+      "comment" : "Header for on screen arrow options area"
+    },
+    "Open" : {
+      "comment" : "Label for open button (preview only)"
+    },
+    "Pitch" : {
+      "comment" : "Label for a slider that controls the pitch of a voice"
+    },
+    "Play Sample" : {
+      "comment" : "Label for button that plays an audio sample"
+    },
+    "Quickly scan through the items" : {
+      "comment" : "Label for action that happens on a keypress"
+    },
+    "Rate" : {
+      "comment" : "Label for a slider that controls the rate of a voice"
+    },
+    "Required" : {
+      "comment" : "Prompt for required text input"
+    },
+    "Save Changes" : {
+      "comment" : "The label for the save changes button"
+    },
+    "Scan **%lld** times before stopping" : {
+      "comment" : "A label that outlines the number of scanning loops the app will go on. Please leave the value in bold."
+    },
+    "Scan after selection" : {
+      "comment" : "Label for toggle that controls when scanning starts"
+    },
+    "Scan on app launch" : {
+      "comment" : "Label for toggle that controls when scanning starts"
+    },
+    "Scanning" : {
+      "comment" : "Label for the navigation link to the scanning options page\nLabel for toggle to turn scanning off and on"
+    },
+    "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time." : {
+      "comment" : "The footer explaining what scanning loops is"
+    },
+    "Scanning Options" : {
+      "comment" : "The navigation title for the scanning options page"
+    },
+    "Scanning speed" : {
+      "comment" : "Slider label to control the speed of scanning"
+    },
+    "Select the currently selected item" : {
+      "comment" : "Label for action that happens on a keypress"
+    },
+    "Selected Key" : {
+      "comment" : "Label for showing the value of the key that has been selected for an external switch"
+    },
+    "Settings" : {
+      "comment" : "The navigation title for the settings page"
+    },
+    "Show on-screen arrows" : {
+      "comment" : "Label for toggle for on screen arrows"
+    },
+    "Single Tap" : {
+      "comment" : "The label that is shown next to the single tap action"
+    },
+    "Speaking Voice" : {
+      "comment" : "The heading for the options that control the speaking voice"
+    },
+    "Start scanning from the current item, scanning must be enabled" : {
+      "comment" : "Label for action that happens on a keypress"
+    },
+    "Swipe up, down, left or right to control Echo\n   • **Right:** Select the current item\n   • **Down:** Go to the next item in the list\n   • **Left:** Remove the last entered character\n   • **Up:** Go to the previous item in the list" : {
+      "comment" : "A description of all the swiping gestures. Please use the same format including bold text"
+    },
+    "Swiping gestures" : {
+      "comment" : "Toggle for swiping gestures"
+    },
+    "Switch Control" : {
+      "comment" : "Label for toggle to turn switch control off and on"
+    },
+    "Switch Key" : {
+      "comment" : "Header text for the switch keyboard area"
+    },
+    "Switch Name" : {
+      "comment" : "Label for switch name TextField"
+    },
+    "Switch: %@" : {
+      "comment" : "The navigation title when editing a given switch. It contains the user entered name after the colon"
+    },
+    "Thank you for using Echo, this is your speaking voice." : {
+      "comment" : "This is text is read aloud by the Text-To-Speech system as a preview"
+    },
+    "The length of time that Echo will wait before moving onto the next item" : {
+      "comment" : "A description of what scanning speed does"
+    },
+    "These are the actions that will happen when you tap or hold your switch" : {
+      "comment" : "The footer description of the area of the actions area when adding a new switch"
+    },
+    "Undo" : {
+      "comment" : "The label for the button that will remove the last character. Also known as backspace"
+    },
+    "Voice" : {
+      "comment" : "Label for NavigationLink that takes you to a voice picker page"
+    },
+    "Voice Options" : {
+      "comment" : "The navigation title for the voice options page"
+    },
+    "Voice Selection" : {
+      "comment" : "Label for the navigation link to the voice options page"
+    },
+    "Volume" : {
+      "comment" : "Label for a slider that controls the volume of a voice"
+    },
+    "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you." : {
+      "comment" : "The footer for the options that control the cue voice"
+    },
+    "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice." : {
+      "comment" : "The footer for the options that control the speaking voice"
+    }
+  },
+  "version" : "1.0"
+}

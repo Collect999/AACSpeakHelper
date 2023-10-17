@@ -16,26 +16,47 @@ struct AccessOptionsPage: View {
     var body: some View {
         Form {
             Section(content: {
-                Toggle("Show on-screen arrows", isOn: $accessOptions.showOnScreenArrows)
+                Toggle(
+                    String(
+                        localized: "Show on-screen arrows",
+                        comment: "Label for toggle for on screen arrows"
+                    ),
+                    isOn: $accessOptions.showOnScreenArrows
+                )
             }, header: {
-                Text("On-screen")
+                Text("On-screen", comment: "Header for on screen arrow options area")
             })
             
             Section(content: {
-                Toggle("Swiping gestures", isOn: $accessOptions.allowSwipeGestures)
+                Toggle(
+                    String(
+                        localized: "Swiping gestures",
+                        comment: "Toggle for swiping gestures"
+                    ),
+                    isOn: $accessOptions.allowSwipeGestures
+                )
 
             }, footer: {
-                Text("""
+                Text(
+            """
             Swipe up, down, left or right to control Echo
                • **Right:** Select the current item
                • **Down:** Go to the next item in the list
                • **Left:** Remove the last entered character
                • **Up:** Go to the previous item in the list
-            """)
+            """,
+                     comment: "A description of all the swiping gestures. Please use the same format including bold text"
+                )
             })
             
             Section(content: {
-                Toggle("Switch Control", isOn: $accessOptions.enableSwitchControl)
+                Toggle(
+                    String(
+                        localized: "Switch Control",
+                        comment: "Label for toggle to turn switch control off and on"
+                    ),
+                    isOn: $accessOptions.enableSwitchControl
+                )
                 
                 ForEach(accessOptions.listOfSwitches) { currentSwitch in
                     NavigationLink(destination: {
@@ -59,12 +80,21 @@ struct AccessOptionsPage: View {
                 Button(action: {
                     showNewSwitchSheet.toggle()
                 }, label: {
-                    Label("Add Switch", systemImage: "plus.circle.fill")
+                    Label(
+                        String(
+                            localized: "Add Switch",
+                            comment: "Button label to add a new switch to the list"
+                        ),
+                        systemImage: "plus.circle.fill"
+                    )
                 })
             }, footer: {
-                Text("""
+                Text(
+                """
                 Control Echo using switch presses to perform actions. Add new switches and change what they trigger.
-                """)
+                """,
+                comment: "Footer description describing what switch access is"
+                )
             })
         }
         .onDisappear {

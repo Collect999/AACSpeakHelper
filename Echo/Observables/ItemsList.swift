@@ -70,8 +70,22 @@ class ItemsList: ObservableObject {
     
     func loadEngine(_ voiceEngine: VoiceEngine) {
         self.voiceEngine = voiceEngine
-        self.undoItem = Item(actionType: .backspace, display: "Undo", voiceEngine: voiceEngine)
-        self.clearItem = Item(actionType: .clear, display: "Clear", voiceEngine: voiceEngine)
+        self.undoItem = Item(
+            actionType: .backspace,
+            display: String(
+                localized: "Undo",
+                comment: "The label for the button that will remove the last character. Also known as backspace"
+            ),
+            voiceEngine: voiceEngine
+        )
+        self.clearItem = Item(
+            actionType: .clear,
+            display: String(
+                localized: "Clear",
+                comment: "The label for the button that will clear all the text that has been inputted"
+            ),
+            voiceEngine: voiceEngine
+        )
     }
     
     func loadScanning(_ scanning: ScanningOptions) {
@@ -214,7 +228,11 @@ class ItemsList: ObservableObject {
             let predictions = self.predictor.predict(enteredText: self.enteredText)
             var prefixItems: [Item] = []
             
-            let finishedText = "Current Sentence: " + self.enteredText
+            let currentSentencePrefix = String(
+                localized: "Current Sentence: ",
+                comment: "This label prefixes the current full sentance in the scrollable area. Make sure to leave the colon and space"
+            )
+            let finishedText = currentSentencePrefix + self.enteredText
             
             guard let unwrappedEngine = self.voiceEngine else {
                 print("Something went very wrong")
@@ -227,12 +245,16 @@ class ItemsList: ObservableObject {
                 prefixItems.append(fullSentenceItem)
             }
             
+            let currentWordPrefix = String(
+                localized: "Current Word: ",
+                comment: "This label prefixes the current word in the scrollable area. Make sure to leave the colon and space"
+            )
             let splitBySpace = self.enteredText.components(separatedBy: "·")
             let prefix = splitBySpace.last ?? ""
-            let prefixWithHyphens = "Current Word: " + String(Array(prefix.split(separator: "")).joined(separator: "·"))
+            let prefixWithHyphens = currentWordPrefix + String(Array(prefix.split(separator: "")).joined(separator: "·"))
             let prefixItem = Item(
                 letter: "·",
-                display: "Current Word: " + prefix,
+                display: currentWordPrefix + prefix,
                 speakText: prefixWithHyphens,
                 isPredicted: true
             )

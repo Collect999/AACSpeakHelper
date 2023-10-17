@@ -17,28 +17,42 @@ struct SettingsPage: View {
                 NavigationLink(destination: {
                     VoiceSelectionPage()
                 }, label: {
-                    Text("Voice Selection")
+                    Text(
+                        "Voice Selection",
+                        comment: "Label for the navigation link to the voice options page"
+                    )
                         .font(.callout.weight(.medium))
                         .foregroundStyle(.black)
                 })
                 NavigationLink(destination: {
                     AccessOptionsPage()
                 }, label: {
-                    Text("Access Methods")
+                    Text(
+                        "Access Methods",
+                        comment: "Label for the navigation link to the access methods options page"
+                    )
                         .font(.callout.weight(.medium))
                         .foregroundStyle(.black)
                 })
                 NavigationLink(destination: {
                     ScanningOptionsPage()
                 }, label: {
-                    Text("Scanning")
+                    Text(
+                        "Scanning",
+                        comment: "Label for the navigation link to the scanning options page"
+                    )
                         .font(.callout.weight(.medium))
                         .foregroundStyle(.black)
                 })
             }
         }
         .navigationBarBackButtonHidden(true)
-        .navigationTitle("Settings")
+        .navigationTitle(
+            String(
+                localized: "Settings",
+                comment: "The navigation title for the settings page"
+            )
+        )
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 Button(action: {
@@ -46,7 +60,7 @@ struct SettingsPage: View {
                 }, label: {
                     HStack {
                         Image(systemName: "chevron.left")
-                        Text("Back")
+                        Text("Back", comment: "The button text for the navigation back button")
                     }
                 })
             }

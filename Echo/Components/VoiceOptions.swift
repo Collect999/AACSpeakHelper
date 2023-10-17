@@ -25,7 +25,13 @@ struct VoiceOptionsArea: View {
             Button(action: {
                 playSample()
             }, label: {
-                Label("Play Sample", systemImage: "play.circle")
+                Label(
+                    String(
+                        localized: "Play Sample",
+                        comment: "Label for button that plays an audio sample"
+                    ),
+                    systemImage: "play.circle"
+                )
             })
             NavigationLink(destination: {
                 VoicePicker(
@@ -34,7 +40,10 @@ struct VoiceOptionsArea: View {
                 )
             }, label: {
                 HStack {
-                    Text("Voice")
+                    Text(
+                        "Voice",
+                        comment: "Label for NavigationLink that takes you to a voice picker page"
+                    )
                     Spacer()
                     Text(voiceName)
                         .foregroundStyle(.gray)
@@ -43,7 +52,10 @@ struct VoiceOptionsArea: View {
             })
             VStack {
                 HStack {
-                    Text("Pitch")
+                    Text(
+                        "Pitch",
+                        comment: "Label for a slider that controls the pitch of a voice"
+                    )
                     Spacer()
                     Text(String(Int(pitch)))
                         .foregroundStyle(.gray)
@@ -60,7 +72,10 @@ struct VoiceOptionsArea: View {
             }
             VStack {
                 HStack {
-                    Text("Volume")
+                    Text(
+                        "Volume",
+                        comment: "Label for a slider that controls the volume of a voice"
+                    )
                     Spacer()
                     Text(String(Int(volume)))
                         .foregroundStyle(.gray)
@@ -78,7 +93,10 @@ struct VoiceOptionsArea: View {
             
             VStack {
                 HStack {
-                    Text("Rate")
+                    Text(
+                        "Rate",
+                        comment: "Label for a slider that controls the rate of a voice"
+                    )
                     Spacer()
                     Text(String(Int(rate)))
                         .foregroundStyle(.gray)
@@ -99,6 +117,11 @@ struct VoiceOptionsArea: View {
         }, footer: {
             Text(helpText)
         })
-        .navigationTitle("Voice Options")
+        .navigationTitle(
+            String(
+                localized: "Voice Options",
+                comment: "The navigation title for the voice options page"
+            )
+        )
     }
 }
