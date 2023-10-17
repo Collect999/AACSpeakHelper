@@ -63,11 +63,11 @@ struct Switch: Identifiable, Decodable, Encodable {
 }
 
 enum Action: String, CaseIterable, Identifiable, Codable {
-    case next, back, none, fast
+    case next, back, none, fast, select, delete, clear, startScanning
     var id: Self { self }
     
-    static public var tapCases: [Action] = [.next, .back, .none]
-    static public var holdCases: [Action] = [.next, .back, .none, .fast]
+    static public var tapCases: [Action] = [.next, .back, .none, .select, .delete, .clear, .startScanning]
+    static public var holdCases: [Action] = [.next, .back, .none, .fast, .select, .delete, .clear, .startScanning]
 
     var display: String {
         switch self {
@@ -75,6 +75,10 @@ enum Action: String, CaseIterable, Identifiable, Codable {
         case .next: return "Go to the next item"
         case .back: return "Go to the previous item"
         case .fast: return "Quickly scan through the items"
+        case .select: return "Select the currently selected item"
+        case .delete: return "Delete the last inputted letter"
+        case .clear: return "Clear all the inputted text"
+        case .startScanning: return "Start scanning from the current item, scanning must be enabled"
         }
     }
     

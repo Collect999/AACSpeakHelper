@@ -18,6 +18,7 @@ class ItemsList: ObservableObject {
     
     var predictor: PredictionEngine
     var undoItem: Item?
+    var clearItem: Item?
     
     var voiceEngine: VoiceEngine?
     var scanningOptions: ScanningOptions?
@@ -31,6 +32,7 @@ class ItemsList: ObservableObject {
         items = []
         selectedUUID = UUID()
         undoItem = nil
+        clearItem = nil
         
         let predictions = predictor.predict(enteredText: enteredText)
         
@@ -58,13 +60,18 @@ class ItemsList: ObservableObject {
         }
     }
     
-    func startScanning() {
+    func startScanningOnAppLaunch() {
         self.moveToUUID(target: selectedUUID, isAppLaunch: true, isAfterSelection: false)
+    }
+    
+    func startScanningOnKeyPress() {
+        self.moveToUUID(target: selectedUUID, isAppLaunch: false, isAfterSelection: false, isKeyPress: true)
     }
     
     func loadEngine(_ voiceEngine: VoiceEngine) {
         self.voiceEngine = voiceEngine
         self.undoItem = Item(actionType: .backspace, display: "Undo", voiceEngine: voiceEngine)
+        self.clearItem = Item(actionType: .clear, display: "Clear", voiceEngine: voiceEngine)
     }
     
     func loadScanning(_ scanning: ScanningOptions) {
@@ -99,7 +106,6 @@ class ItemsList: ObservableObject {
     }
     
     func startFastScan() {
-        print("FAST SCANNING")
         let currentIndex = self.getIndexOfSelectedItem()
         let newIndex = (currentIndex + 1) % items.count
         
@@ -118,7 +124,6 @@ class ItemsList: ObservableObject {
     }
     
     func stopFastScan() {
-        print("STOP FAST SCANNING")
         isFastScan = false
     }
     
@@ -158,10 +163,12 @@ class ItemsList: ObservableObject {
         }
     }
     
-    func moveToUUID(target: UUID, isAppLaunch: Bool, isAfterSelection: Bool) {
+    func moveToUUID(target: UUID, isAppLaunch: Bool, isAfterSelection: Bool, isKeyPress: Bool = false) {
         if let newItem = items.first(where: { $0.id == target }) {
             voiceEngine?.playCue(newItem.details.speakText) {
-                if isAppLaunch && (self.scanningOptions?.scanOnAppLaunch ?? false) {
+                if isKeyPress {
+                    self.setNextMoveTimer()
+                } else if isAppLaunch && (self.scanningOptions?.scanOnAppLaunch ?? false) {
                     self.setNextMoveTimer()
                 } else if isAfterSelection && (self.scanningOptions?.scanAfterSelection ?? false) {
                     self.setNextMoveTimer()
@@ -169,9 +176,6 @@ class ItemsList: ObservableObject {
             }
             self.selectedUUID = target
         } else {
-            print("=======")
-            print("ID NOT FOUND")
-            print("=======")
             self.move(reset: true)
         }
     }
@@ -186,7 +190,11 @@ class ItemsList: ObservableObject {
     }
     
     func backspace(userInteraction: Bool = false) {
-        select(overrideItem: undoItem)
+        select(overrideItem: undoItem, userInteraction: userInteraction)
+    }
+    
+    func clear(userInteraction: Bool = false) {
+        select(overrideItem: clearItem, userInteraction: userInteraction)
     }
     
     /***

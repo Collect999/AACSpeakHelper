@@ -99,20 +99,16 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     }
     
     func load() {
-        print("Loading voice options to UserDefaults")
-        
         if let speakingVoiceData = UserDefaults.standard.data(forKey: "speakingVoiceOptions") {
             do {
                 let decoder = JSONDecoder()
                 speakingVoiceOptions = try decoder.decode(VoiceOptions.self, from: speakingVoiceData)
-                print("Loaded speaking voice, ", speakingVoiceOptions.voiceId)
 
             } catch {
                 self.setSpeakingVoiceToDefault()
             }
         } else {
             self.setSpeakingVoiceToDefault()
-            print("Nothing found so saving default speaking voice, ", speakingVoiceOptions.voiceId)
             self.saveSpeakingOptions()
         }
         
@@ -120,13 +116,11 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
             do {
                 let decoder = JSONDecoder()
                 cueVoiceOptions = try decoder.decode(VoiceOptions.self, from: cueVoiceData)
-                print("Loaded cue voice, ", cueVoiceOptions.voiceId)
             } catch {
                 self.setCueVoiceToDefault()
             }
         } else {
             self.setCueVoiceToDefault()
-            print("Nothing found so saving default cue voice, ", cueVoiceOptions.voiceId)
             self.saveCueOptions()
         }
     }

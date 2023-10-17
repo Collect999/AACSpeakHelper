@@ -58,6 +58,20 @@ class BackspaceItem: ItemProtocol, Identifiable {
     }
 }
 
+class ClearItem: ItemProtocol, Identifiable {
+    var id = UUID()
+    var displayText: String = "Clear"
+    var speakText = "Clear"
+
+    func select(enteredText: String, cb: @escaping (_ enteredText: String) -> Void) {
+        cb("")
+    }
+    
+    func isPredicted() -> Bool {
+        return false
+    }
+}
+
 class LetterItem: ItemProtocol, Identifiable {
     var id = UUID()
     var letter: String
@@ -157,16 +171,18 @@ struct Item: Identifiable {
     }
     
     init(actionType: ItemActionType, display: String, voiceEngine: VoiceEngine) {
-       if actionType == .backspace {
+        switch actionType {
+        case .backspace:
             self.details = BackspaceItem(display)
-        } else if actionType == .finish {
+        case .finish:
             self.details = FinishItem(display, voiceEngine: voiceEngine)
-        } else {
-            self.details = LetterItem("An error occurred")
+        case .clear:
+            self.details = ClearItem()
         }
+
     }
     
     enum ItemActionType {
-        case backspace, finish
+        case backspace, finish, clear
     }
 }

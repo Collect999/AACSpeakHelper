@@ -41,6 +41,14 @@ struct KeyPressController: View {
             items.back(userInteraction: true)
         case .fast:
             items.startFastScan()
+        case .clear:
+            items.clear(userInteraction: true)
+        case .delete:
+            items.backspace(userInteraction: true)
+        case .select:
+            items.select(userInteraction: true)
+        case .startScanning:
+            items.startScanningOnKeyPress()
         }
     }
     
@@ -71,9 +79,7 @@ struct KeyPressController: View {
                     // Shedule hold callback
                     let newWorkItem = DispatchWorkItem(block: {
                         let keyStage = keyMap[press.key] ?? .unpressed
-                        
-                        print("Held threshold met", keyStage)
-                        
+                                                
                         if keyStage == .pressed {
                             self.keyMap.updateValue(.held, forKey: press.key)
                             
@@ -90,8 +96,6 @@ struct KeyPressController: View {
                 if press.phase == .up {
                     // Normal length press
                     if currentKeyStage == .pressed {
-                        print("Normal Press Release", press.key.character.debugDescription)
-                        
                         doAction(action: currentSwitch.tapAction)
                     }
                     
@@ -100,7 +104,6 @@ struct KeyPressController: View {
                         if currentSwitch.holdAction == .fast {
                             items.stopFastScan()
                         }
-                        print("Hold Press Release", press.key.character.debugDescription)
                     }
                     
                     self.keyMap.updateValue(.unpressed, forKey: press.key)

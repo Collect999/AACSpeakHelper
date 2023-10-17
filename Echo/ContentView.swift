@@ -106,7 +106,7 @@ struct ContentView: SwiftUI.View {
                 .onAppear {
                     items.allowScanning()
                     if scanOptions.scanOnAppLaunch {
-                        items.startScanning()
+                        items.startScanningOnAppLaunch()
                     }
                 }
         }
