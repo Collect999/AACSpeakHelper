@@ -2,8 +2,8 @@ const fs = require("fs");
 const sqlite3 = require("sqlite3");
 const path = require("path");
 
-const LANGUAGE = "es";
-const FREQUENCY_FILE = "./es.json";
+const LANGUAGE = "he";
+const FREQUENCY_FILE = "./he.json";
 
 const freqList = JSON.parse(
   fs.readFileSync(FREQUENCY_FILE).toLocaleString()
