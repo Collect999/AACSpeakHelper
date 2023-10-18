@@ -2,8 +2,11 @@ const fs = require("fs");
 const sqlite3 = require("sqlite3");
 const path = require("path");
 
+const LANGUAGE = "ar";
+const FREQUENCY_FILE = "./ar.json";
+
 const freqList = JSON.parse(
-  fs.readFileSync("./bncfrequency.json").toLocaleString()
+  fs.readFileSync(FREQUENCY_FILE).toLocaleString()
 ).words;
 
 const dbPath = path.join(__dirname, "../Echo/dictionary.sqlite");
@@ -13,8 +16,12 @@ const db = new sqlite3.Database(dbPath);
 
 for (const item of freqList) {
   console.log(item);
-  db.run(`INSERT INTO words (word, score) VALUES ($word, $score)`, {
-    $word: item.v,
-    $score: item.w,
-  });
+  db.run(
+    `INSERT INTO words (word, score, language) VALUES ($word, $score, $language)`,
+    {
+      $word: item.v,
+      $score: item.w,
+      $language: LANGUAGE,
+    }
+  );
 }
