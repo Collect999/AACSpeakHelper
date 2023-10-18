@@ -16,11 +16,11 @@ class ItemsList: ObservableObject {
     
     var disableScanningAsHidden = false
     
-    var predictor: PredictionEngine
     var undoItem: Item?
     var clearItem: Item?
     
     var voiceEngine: VoiceEngine?
+    var spelling: SpellingOptions?
     var scanningOptions: ScanningOptions?
     
     var workItem: DispatchWorkItem?
@@ -28,19 +28,10 @@ class ItemsList: ObservableObject {
     var isFastScan: Bool = false
     
     init() {
-        predictor = SlowAndBadPrediciton()
         items = []
         selectedUUID = UUID()
         undoItem = nil
         clearItem = nil
-        
-        let predictions = predictor.predict(enteredText: enteredText)
-        
-        items = predictions + items
-        
-        if let firstItem = items.first {
-            selectedUUID = firstItem.id
-        }
     }
     
     func cancelScanning() {
@@ -86,6 +77,17 @@ class ItemsList: ObservableObject {
             ),
             voiceEngine: voiceEngine
         )
+    }
+    
+    func loadSpelling(_ spellingOptions: SpellingOptions) {
+        self.spelling = spellingOptions
+        let predictions = spellingOptions.predict(enteredText: enteredText)
+
+        items = predictions + items
+
+        if let firstItem = items.first {
+            selectedUUID = firstItem.id
+        }
     }
     
     func loadScanning(_ scanning: ScanningOptions) {
@@ -225,7 +227,12 @@ class ItemsList: ObservableObject {
         currentItem.details.select(enteredText: enteredText) { newText in
             self.enteredText = newText
             
-            let predictions = self.predictor.predict(enteredText: self.enteredText)
+            guard let predictor = self.spelling else {
+                print("Something went very wrong")
+                return
+            }
+            
+            let predictions = predictor.predict(enteredText: self.enteredText)
             var prefixItems: [Item] = []
             
             let currentSentencePrefix = String(

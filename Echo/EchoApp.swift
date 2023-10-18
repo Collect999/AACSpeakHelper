@@ -13,6 +13,7 @@ struct EchoApp: App {
     @StateObject var itemsList: ItemsList = ItemsList()
     @StateObject var accessOptions: AccessOptions = AccessOptions()
     @StateObject var scanningOptions: ScanningOptions = ScanningOptions()
+    @StateObject var spellingOptions: SpellingOptions = SpellingOptions()
     
     var body: some Scene {
         WindowGroup {
@@ -21,9 +22,11 @@ struct EchoApp: App {
                 .environmentObject(itemsList)
                 .environmentObject(accessOptions)
                 .environmentObject(scanningOptions)
+                .environmentObject(spellingOptions)
                 .onAppear {
                     voiceEngine.load()
                     accessOptions.load()
+                    itemsList.loadSpelling(spellingOptions)
                     itemsList.loadEngine(voiceEngine)
                     itemsList.loadScanning(scanningOptions)
                 }

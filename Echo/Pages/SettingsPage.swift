@@ -44,6 +44,16 @@ struct SettingsPage: View {
                         .font(.callout.weight(.medium))
                         .foregroundStyle(.black)
                 })
+                NavigationLink(destination: {
+                    SpellingAndAlphabetPage()
+                }, label: {
+                    Text(
+                        "Spelling & Alphabet",
+                        comment: "Label for the navigation link to the spelling, alphabet and predictions options page"
+                    )
+                        .font(.callout.weight(.medium))
+                        .foregroundStyle(.black)
+                })
             }
         }
         .navigationBarBackButtonHidden(true)

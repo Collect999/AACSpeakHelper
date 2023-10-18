@@ -1,21 +1,29 @@
 //
-//  Prediction.swift
+//  SpellingOptions.swift
 //  Echo
 //
-//  Created by Gavin Henderson on 02/08/2023.
+//  Created by Gavin Henderson on 18/10/2023.
 //
 
 import Foundation
+import SwiftUI
 import SQLite
 
-// This is slow an ineffecient
-// It brute forces the dictionary every time
-// No error handling
-// Probably very poor SQLite practice, i reckon it might drop the connection if you leave the app in the background
-// It does some basic word prediction, but it doesnt count the weight of the word just if its specific enough
-class SlowAndBadPrediciton: PredictionEngine {
+struct PredictionLanguage {
+    var alphabet: [String]
+}
+
+class SpellingOptions: ObservableObject {
+    @AppStorage("letterPrediction") var letterPrediction: Bool = true
+    @AppStorage("wordPrediction") var wordPrediction: Bool = true
+    @AppStorage("wordPredictionLimit") var wordPredictionLimit: Int = 3
+    
     var dbConn: Connection?
     var wordsTable: SQLite.Table?
+    
+    var language = PredictionLanguage(
+        alphabet: "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
+    )
     
     init() {
         do {
@@ -30,12 +38,12 @@ class SlowAndBadPrediciton: PredictionEngine {
             print(error)
         }
     }
-    
+
     func predict(enteredText: String) -> [Item] {
         guard let db = dbConn else { return [] }
         guard let words = wordsTable else { return [] }
         
-        let alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ",")
+        let alphabet = language.alphabet
         let alphabetItems = alphabet.map { currentPrediction in
             return Item(letter: currentPrediction, isPredicted: true)
         }
@@ -56,7 +64,9 @@ class SlowAndBadPrediciton: PredictionEngine {
             let wordExpression = Expression<String>("word")
             let scoreExpression = Expression<Int>("score")
             
-            let query = words.filter(wordExpression.like(prefix + "%"))
+            let query = words
+                .filter(wordExpression.like(prefix + "%"))
+                .order(scoreExpression.desc)
             
             for word in try db.prepare(query) {
                 let nextCharPos = prefix.count
@@ -89,18 +99,19 @@ class SlowAndBadPrediciton: PredictionEngine {
         }.map { currentPrediction in
             return Item(letter: currentPrediction, isPredicted: true)
         }
-                
-        if wordPredictions.count <= 3 {
-            let wordItems = wordPredictions.map { word in
+        
+        let finalAlphabet = letterPrediction ? sortedAlphabet : alphabetItems
+        
+        if wordPrediction {
+            let wordItems = wordPredictions.prefix(wordPredictionLimit).map { word in
                 let wordWithoutPrefix = String(word.dropFirst(prefix.count))
-                
+
                 return Item(letter: wordWithoutPrefix+"·", display: word, speakText: word, isPredicted: true)
             }
             
-            return wordItems + sortedAlphabet
+            return wordItems + finalAlphabet
         }
         
-        return sortedAlphabet
+        return finalAlphabet
     }
-    
 }

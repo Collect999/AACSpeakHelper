@@ -46,9 +46,6 @@
     "<UP ARROW>" : {
       "comment" : "A description of the up arrow key on a keyboard, please use all caps and <>"
     },
-    ">" : {
-
-    },
     "A switch name and switch key must be entered before you can save changes switch." : {
       "comment" : "The footer for the save button area of adding a new switch"
     },
@@ -136,6 +133,9 @@
     "Let Echo know what switch you want to use by pressing it. If you change your mind you can reset the chosen switch." : {
       "comment" : "A description of how detecting switches works and how to reset it"
     },
+    "Letter prediction" : {
+      "comment" : "Label for toggle to turn letter based prediction off and on"
+    },
     "Main Page" : {
       "comment" : "Placeholder text for preview"
     },
@@ -153,6 +153,12 @@
     },
     "Play Sample" : {
       "comment" : "Label for button that plays an audio sample"
+    },
+    "Prediction" : {
+      "comment" : "Label for the section in settings about prediction"
+    },
+    "Prediction helps you to get to the words you want to speak faster" : {
+      "comment" : "Footer for the section in settings about prediction"
     },
     "Quickly scan through the items" : {
       "comment" : "Label for action that happens on a keypress"
@@ -205,6 +211,9 @@
     "Speaking Voice" : {
       "comment" : "The heading for the options that control the speaking voice"
     },
+    "Spelling & Alphabet" : {
+      "comment" : "Label for the navigation link to the spelling, alphabet and predictions options page"
+    },
     "Start scanning from the current item, scanning must be enabled" : {
       "comment" : "Label for action that happens on a keypress"
     },
@@ -249,6 +258,12 @@
     },
     "Volume" : {
       "comment" : "Label for a slider that controls the volume of a voice"
+    },
+    "Word prediction" : {
+      "comment" : "Label for toggle to turn word prediction off and on"
+    },
+    "Word prediction limit" : {
+      "comment" : "Label for the stepper that controls word prediction limit"
     },
     "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you." : {
       "comment" : "The footer for the options that control the cue voice"
