@@ -14,6 +14,7 @@ struct PredictionLanguage: Hashable, Identifiable {
     var display: String
     var alphabet: [String]
     var databaseLanguageCode: String
+    var acceptedPreferredLangs: [String]
     
     static public var english = PredictionLanguage(
         id: "en",
@@ -22,7 +23,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the English language when setting prediction language"
         ),
         alphabet: "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".components(separatedBy: ","),
-        databaseLanguageCode: "en"
+        databaseLanguageCode: "en",
+        acceptedPreferredLangs: ["en"]
     )
     
     static public var arabic = PredictionLanguage(
@@ -32,7 +34,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the Arabic language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "چ,ج,ح,خ,ه,ع,غ,ف,ق,ث,ص,ض,گ,ک,م,ن,ت,ا,ل,ب,ی,س,ش,و,پ,د,ذ,ر,ز,ط,ظ".components(separatedBy: ","),
-        databaseLanguageCode: "ar"
+        databaseLanguageCode: "ar",
+        acceptedPreferredLangs: ["ar"]
     )
     
     static public var welsh = PredictionLanguage(
@@ -42,7 +45,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the Welsh language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "a,b,c,ch,d,dd,e,f,ff,g,ng,h,i,j,l,ll,m,n,o,p,ph,r,rh,s,t,th,u,w,y".components(separatedBy: ","),
-        databaseLanguageCode: "cy"
+        databaseLanguageCode: "cy",
+        acceptedPreferredLangs: ["cy"]
     )
     
     static public var spanish = PredictionLanguage(
@@ -52,7 +56,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the Spanish language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "a,á,b,c,d,e,é,f,g,h,i,í,j,k,l,m,n,ñ,o,ó,p,q,r,s,t,u,ú,ü,v,w,x,y,z".components(separatedBy: ","),
-        databaseLanguageCode: "es"
+        databaseLanguageCode: "es",
+        acceptedPreferredLangs: ["es"]
     )
     
     static public var hebrew = PredictionLanguage(
@@ -62,7 +67,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the Hebrew language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "א,בּ,ב,גּ,ג,דּ,ד,ה,ו,ז,ח,ט,י,כּ,כ,ךּ,ך,ל,מ,ם,נ,ן,ס,ע,פּ,פ,ף,צ,ץ,ק,ר,שׁ,שׂ,תּ,ת".components(separatedBy: ","),
-        databaseLanguageCode: "he"
+        databaseLanguageCode: "he",
+        acceptedPreferredLangs: ["he"]
     )
     
     static public var croatian = PredictionLanguage(
@@ -72,7 +78,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the Croatian language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "a,b,c,ć,č,d,đ,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,š,t,u,v,w,x,z,ž".components(separatedBy: ","),
-        databaseLanguageCode: "hr"
+        databaseLanguageCode: "hr",
+        acceptedPreferredLangs: ["hr"]
     )
 
     static public var maori = PredictionLanguage(
@@ -82,7 +89,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the Māori language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "a,ā,e,ē,h,i,ī,k,m,n,ng,o,ō,p,r,t,u,ū,w,wh".components(separatedBy: ","),
-        databaseLanguageCode: "mi"
+        databaseLanguageCode: "mi",
+        acceptedPreferredLangs: ["mi"]
     )
     
     static public var polish = PredictionLanguage(
@@ -92,7 +100,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the Polish language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "a,ä,ą,b,c,ć,d,e,ę,f,g,h,i,j,k,l,ĺ,ł,m,n,ń,o,ó,p,r,s,ś,t,u,w,x,y,z,ź,ż".components(separatedBy: ","),
-        databaseLanguageCode: "pl"
+        databaseLanguageCode: "pl",
+        acceptedPreferredLangs: ["pl"]
     )
     
     static public var portuguese = PredictionLanguage(
@@ -102,7 +111,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the portuguese language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "a,ª,á,à,ă,â,å,ä,ã,b,c,ç,d,e,é,è,ê,f,g,h,i,í,ì,ï,j,k,l,m,n,ñ,o,º,ó,ò,ô,õ,p,q,r,s,t,u,ú,ü,v,w,x,y,z".components(separatedBy: ","),
-        databaseLanguageCode: "pt"
+        databaseLanguageCode: "pt",
+        acceptedPreferredLangs: ["pt", "pt-PT", "pt-BR"]
     )
     
     static public var urdu = PredictionLanguage(
@@ -112,7 +122,8 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the urdu language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "آ,ئ,ا,ب,پ,ت,ث,ٹ,ج,چ,ح,خ,د,ذ,ڈ,ر,ز,ڑ,س,ش,ص,ض,ط,ظ,ع,غ,ف,ق,ك,ک,گ,ل,م,ن,ں,ه,ھ,ہ,و,ى,ي,ی,ے".components(separatedBy: ","),
-        databaseLanguageCode: "ur"
+        databaseLanguageCode: "ur",
+        acceptedPreferredLangs: ["ur"]
     )
     
     static public var yidish = PredictionLanguage(
@@ -122,10 +133,11 @@ struct PredictionLanguage: Hashable, Identifiable {
             comment: "The label for the Yiddish language when setting prediction language, make sure to include the experimental tag"
         ),
         alphabet: "א,ב,ג,ד,ה,ו,װ,ז,ח,ט,י,ײ,כ,ך,ל,מ,ם,נ,ן,ס,ע,פ,ף,צ,ץ,ק,ר,ש,ת".components(separatedBy: ","),
-        databaseLanguageCode: "yi"
+        databaseLanguageCode: "yi",
+        acceptedPreferredLangs: ["yi"]
     )
     
-    static public var allLanguages: [PredictionLanguage] = [.english, .welsh, .arabic, .spanish, .hebrew, .croatian, .maori, .polish, .urdu, .yidish]
+    static public var allLanguages: [PredictionLanguage] = [.english, .welsh, .arabic, .spanish, .hebrew, .croatian, .maori, .polish, .urdu, .yidish, .portuguese]
     static public var defaultLanguage: PredictionLanguage = .english
 }
 
@@ -133,7 +145,7 @@ class SpellingOptions: ObservableObject {
     @AppStorage("letterPrediction") var letterPrediction: Bool = true
     @AppStorage("wordPrediction") var wordPrediction: Bool = true
     @AppStorage("wordPredictionLimit") var wordPredictionLimit: Int = 3
-    @AppStorage("predictionLanguage") var predictionLanguage: String = PredictionLanguage.defaultLanguage.id
+    @AppStorage("predictionLanguage") var predictionLanguage: String = "DEFAULT"
     
     var dbConn: Connection?
     var wordsTable: SQLite.Table?
@@ -148,6 +160,16 @@ class SpellingOptions: ObservableObject {
     }
     
     init() {
+        if predictionLanguage == "DEFAULT" {
+            let usersLanguage: String = Locale.preferredLanguages.first ?? "en"
+            
+            let defaultLang = PredictionLanguage.allLanguages.first { current in
+                return current.acceptedPreferredLangs.contains(usersLanguage)
+            }
+            
+            predictionLanguage = defaultLang?.id ?? PredictionLanguage.defaultLanguage.id
+        }
+        
         do {
             let path = Bundle.main.path(forResource: "dictionary", ofType: "sqlite")!
             let db = try Connection(path, readonly: true)
