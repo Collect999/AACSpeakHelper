@@ -67,6 +67,9 @@
     "Add Switch" : {
       "comment" : "Button label to add a new switch to the list"
     },
+    "Arabic (Experimental)" : {
+      "comment" : "The label for the Arabic language when setting prediction language, make sure to include the experimental tag"
+    },
     "Arrow pointing down" : {
       "comment" : "An accessibility label for the down arrow image"
     },
@@ -97,6 +100,9 @@
     "Control Echo using switch presses to perform actions. Add new switches and change what they trigger." : {
       "comment" : "Footer description describing what switch access is"
     },
+    "Croatian (Experimental)" : {
+      "comment" : "The label for the Croatian language when setting prediction language, make sure to include the experimental tag"
+    },
     "Cue Voice" : {
       "comment" : "The heading for the options that control the cue voice"
     },
@@ -118,6 +124,9 @@
     "Echo: Auditory Scanning" : {
       "comment" : "The main navigation title for the whole app"
     },
+    "English" : {
+      "comment" : "The label for the English language when setting prediction language"
+    },
     "External switches can be a bluetooth or wired device such as a keyboard, controller or switch" : {
       "comment" : "Explains what an external switch is"
     },
@@ -127,8 +136,14 @@
     "Go to the previous item" : {
       "comment" : "Label for action that happens on a keypress"
     },
+    "Hebrew (Experimental)" : {
+      "comment" : "The label for the Hebrew language when setting prediction language, make sure to include the experimental tag"
+    },
     "Hold" : {
       "comment" : "The label that is shown next to the single hold action"
+    },
+    "Language" : {
+      "comment" : "The label that is shown next to the language picker"
     },
     "Let Echo know what switch you want to use by pressing it. If you change your mind you can reset the chosen switch." : {
       "comment" : "A description of how detecting switches works and how to reset it"
@@ -138,6 +153,9 @@
     },
     "Main Page" : {
       "comment" : "Placeholder text for preview"
+    },
+    "Māori (Experimental)" : {
+      "comment" : "The label for the Māori language when setting prediction language, make sure to include the experimental tag"
     },
     "None" : {
       "comment" : "Label for action that happens on a keypress"
@@ -154,11 +172,20 @@
     "Play Sample" : {
       "comment" : "Label for button that plays an audio sample"
     },
+    "Polish (Experimental)" : {
+      "comment" : "The label for the Polish language when setting prediction language, make sure to include the experimental tag"
+    },
+    "Portuguese (Experimental)" : {
+      "comment" : "The label for the portuguese language when setting prediction language, make sure to include the experimental tag"
+    },
     "Prediction" : {
       "comment" : "Label for the section in settings about prediction"
     },
     "Prediction helps you to get to the words you want to speak faster" : {
       "comment" : "Footer for the section in settings about prediction"
+    },
+    "Prediction Language" : {
+      "comment" : "Header for the language settings"
     },
     "Quickly scan through the items" : {
       "comment" : "Label for action that happens on a keypress"
@@ -182,7 +209,7 @@
       "comment" : "Label for toggle that controls when scanning starts"
     },
     "Scanning" : {
-      "comment" : "Label for the navigation link to the scanning options page\nLabel for toggle to turn scanning off and on"
+      "comment" : "Label for toggle to turn scanning off and on\nLabel for the navigation link to the scanning options page"
     },
     "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time." : {
       "comment" : "The footer explaining what scanning loops is"
@@ -207,6 +234,9 @@
     },
     "Single Tap" : {
       "comment" : "The label that is shown next to the single tap action"
+    },
+    "Spanish (Experimental)" : {
+      "comment" : "The label for the Spanish language when setting prediction language, make sure to include the experimental tag"
     },
     "Speaking Voice" : {
       "comment" : "The heading for the options that control the speaking voice"
@@ -238,6 +268,9 @@
     "Thank you for using Echo, this is your speaking voice." : {
       "comment" : "This is text is read aloud by the Text-To-Speech system as a preview"
     },
+    "The language chosen here will change the alphabet that is shown and will change which words are used for prediction" : {
+      "comment" : "Footer for the language settings"
+    },
     "The length of time that Echo will wait before moving onto the next item" : {
       "comment" : "A description of what scanning speed does"
     },
@@ -246,6 +279,9 @@
     },
     "Undo" : {
       "comment" : "The label for the button that will remove the last character. Also known as backspace"
+    },
+    "Urdu (Experimental)" : {
+      "comment" : "The label for the urdu language when setting prediction language, make sure to include the experimental tag"
     },
     "Voice" : {
       "comment" : "Label for NavigationLink that takes you to a voice picker page"
@@ -259,11 +295,17 @@
     "Volume" : {
       "comment" : "Label for a slider that controls the volume of a voice"
     },
+    "Welsh (Experimental)" : {
+      "comment" : "The label for the Welsh language when setting prediction language, make sure to include the experimental tag"
+    },
     "Word prediction" : {
       "comment" : "Label for toggle to turn word prediction off and on"
     },
     "Word prediction limit" : {
       "comment" : "Label for the stepper that controls word prediction limit"
+    },
+    "Yiddish (Experimental)" : {
+      "comment" : "The label for the Yiddish language when setting prediction language, make sure to include the experimental tag"
     },
     "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you." : {
       "comment" : "The footer for the options that control the cue voice"

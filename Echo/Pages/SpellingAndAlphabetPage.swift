@@ -56,6 +56,27 @@ struct SpellingAndAlphabetPage: View {
                     comment: "Footer for the section in settings about prediction"
                 )
             })
+            
+            Section(content: {
+                Picker(
+                    String(
+                        localized: "Language",
+                        comment: "The label that is shown next to the language picker"
+                    ),
+                    selection: spellingOptions.$predictionLanguage
+                ) {
+                    ForEach(PredictionLanguage.allLanguages) { language in
+                        Text(language.display).tag(language.id)
+                    }
+                }.pickerStyle(.navigationLink)
+            }, header: {
+                Text("Prediction Language", comment: "Header for the language settings")
+            }, footer: {
+                Text(
+                    "The language chosen here will change the alphabet that is shown and will change which words are used for prediction",
+                    comment: "Footer for the language settings"
+                )
+            })
         }
     }
 }
