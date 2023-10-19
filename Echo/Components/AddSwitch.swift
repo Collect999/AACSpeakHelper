@@ -95,7 +95,6 @@ struct AddSwitch: View {
                 }, header: {
                     Text("Switch Key", comment: "Header text for the switch keyboard area")
                 }, footer: {
-                    // swiftlint:disable:next line_length
                     Text(
                         "Let Echo know what switch you want to use by pressing it. If you change your mind you can reset the chosen switch.",
                         comment: "A description of how detecting switches works and how to reset it"

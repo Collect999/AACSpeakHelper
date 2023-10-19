@@ -71,7 +71,6 @@ struct VoiceSelectionPage: View {
                         localized: "Speaking Voice",
                         comment: "The heading for the options that control the speaking voice"
                     ),
-                    // swiftlint:disable:next line_length
                     helpText: String(
                         localized: "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice.",
                         comment: "The footer for the options that control the speaking voice"
@@ -102,7 +101,6 @@ struct VoiceSelectionPage: View {
                         localized: "Cue Voice",
                         comment: "The heading for the options that control the cue voice"
                     ),
-                    // swiftlint:disable:next line_length
                     helpText: String(
                         localized: "Your cue voice is the voice that is used to speak information to you. Select the options tht you want to hear when Echo is talking to you.",
                         comment: "The footer for the options that control the cue voice"

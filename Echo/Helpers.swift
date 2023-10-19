@@ -18,6 +18,7 @@ func getLanguage(_ givenLocale: String) -> String {
     return currentLocale.localizedString(forLanguageCode: givenLocale) ?? "Unknown"
 }
 
+// swiftlint:disable function_body_length
 func keyToDisplay(_ key: KeyEquivalent) -> String {
     let deleteKey = KeyEquivalent("\u{7F}")
     
@@ -81,8 +82,9 @@ func keyToDisplay(_ key: KeyEquivalent) -> String {
         .tab: String(
             localized: "<TAB>",
             comment: "A description of the tab key on a keyboard, please use all caps and <>"
-        ),
+        )
     ]
     
     return keyMap[key] ?? "Key: \"\(key.character.description)\""
 }
+// swiftlint:enable function_body_length

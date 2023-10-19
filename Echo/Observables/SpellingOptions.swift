@@ -183,6 +183,7 @@ class SpellingOptions: ObservableObject {
         }
     }
 
+    // swiftlint:disable function_body_length
     func predict(enteredText: String) -> [Item] {
         guard let db = dbConn else { return [] }
         guard let words = wordsTable else { return [] }
@@ -260,4 +261,6 @@ class SpellingOptions: ObservableObject {
         
         return finalAlphabet
     }
+    // swiftlint:enable function_body_length
+
 }

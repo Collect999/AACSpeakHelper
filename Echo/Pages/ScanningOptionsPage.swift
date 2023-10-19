@@ -66,7 +66,6 @@ struct ScanningOptionsPage: View {
                     )
                 }
             }, header: {}, footer: {
-                // swiftlint:disable:next line_length
                 Text(
                     "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time.",
                     comment: "The footer explaining what scanning loops is"
