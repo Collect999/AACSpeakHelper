@@ -6,6 +6,9 @@ struct ContentView: SwiftUI.View {
     @EnvironmentObject var items: ItemsList
     @EnvironmentObject var accessOptions: AccessOptions
     @EnvironmentObject var scanOptions: ScanningOptions
+    @EnvironmentObject var spelling: SpellingOptions
+    
+    @State var lastLangId: String?
     
     var body: some SwiftUI.View {
         NavigationStack {
@@ -109,6 +112,15 @@ struct ContentView: SwiftUI.View {
                     items.cancelScanning()
                 }
                 .onAppear {
+                    if let unwrappedLangId = lastLangId {
+                        if unwrappedLangId != spelling.language.id {
+                            items.clear(userInteraction: false)
+                            lastLangId = spelling.language.id
+                        }
+                    } else {
+                        lastLangId = spelling.language.id
+                    }
+                    
                     items.allowScanning()
                     if scanOptions.scanOnAppLaunch {
                         items.startScanningOnAppLaunch()
