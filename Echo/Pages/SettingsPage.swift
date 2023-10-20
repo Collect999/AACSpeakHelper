@@ -8,45 +8,62 @@
 import Foundation
 import SwiftUI
 
-struct SettingsPage: View {
+enum SettingsPath: CaseIterable, Identifiable {
+    case voice, access, scanning, spelling
+     
+    var id: String {
+        switch self {
+        case .voice: return "voice"
+        case .access: return "access"
+        case .scanning: return "scanning"
+        case .spelling: return "spelling"
+        }
+    }
+    
+    @ViewBuilder var page: some View {
+        switch self {
+        case .voice: VoiceSelectionPage()
+        case .access: AccessOptionsPage()
+        case .scanning:  ScanningOptionsPage()
+        case .spelling: SpellingAndAlphabetPage()
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .voice: return String(
+            localized: "Voice Selection",
+            comment: "Label for the navigation link to the voice options page"
+        )
+        case .access: return String(
+            localized: "Access Methods",
+            comment: "Label for the navigation link to the access methods options page"
+        )
+        case .scanning: return String(
+            localized: "Scanning",
+            comment: "Label for the navigation link to the scanning options page"
+        )
+        case .spelling: return String(
+            localized: "Spelling & Alphabet",
+            comment: "Label for the navigation link to the spelling, alphabet and predictions options page"
+        )
+        }
+    }
+}
+
+struct SettingsPagePhone: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         Form {
             Group {
-                NavigationLink(destination: {
-                    VoiceSelectionPage()
-                }, label: {
-                    Text(
-                        "Voice Selection",
-                        comment: "Label for the navigation link to the voice options page"
-                    )
-                })
-                NavigationLink(destination: {
-                    AccessOptionsPage()
-                }, label: {
-                    Text(
-                        "Access Methods",
-                        comment: "Label for the navigation link to the access methods options page"
-                    )
-                })
-                NavigationLink(destination: {
-                    ScanningOptionsPage()
-                }, label: {
-                    Text(
-                        "Scanning",
-                        comment: "Label for the navigation link to the scanning options page"
-                    )
-
-                })
-                NavigationLink(destination: {
-                    SpellingAndAlphabetPage()
-                }, label: {
-                    Text(
-                        "Spelling & Alphabet",
-                        comment: "Label for the navigation link to the spelling, alphabet and predictions options page"
-                    )
-                })
+                ForEach(SettingsPath.allCases) { settingPage in
+                    NavigationLink(destination: {
+                        settingPage.page
+                    }, label: {
+                        Text(settingPage.description)
+                    })
+                }
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -71,6 +88,55 @@ struct SettingsPage: View {
     }
 }
 
+struct SettingsPagePad: View {
+    @State private var selection: SettingsPath? = .voice
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    var body: some View {
+        NavigationSplitView {
+            List(SettingsPath.allCases, id: \.self, selection: $selection) { path in
+                NavigationLink(path.description, value: path)
+            }
+        } detail: {
+            if let unwrappedSelection = selection {
+                unwrappedSelection.page
+            } else {
+                VoiceSelectionPage()
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationTitle(
+            String(
+                localized: "Settings",
+                comment: "The navigation title for the settings page"
+            )
+        )
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Back", comment: "The button text for the navigation back button")
+                    }
+                })
+            }
+        }
+    }
+}
+
+// Not a huge fan of this if im honest
+struct SettingsPage: View {
+    var body: some View {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            SettingsPagePad()
+        } else {
+            SettingsPagePhone()
+        }
+    }
+}
+
 private struct PreviewWrapper: View {
     var body: some View {
         NavigationStack {
@@ -84,7 +150,6 @@ private struct PreviewWrapper: View {
                 }
             }
             .navigationTitle("Echo: Auditory Scanning")
-            .navigationBarTitleDisplayMode(.inline)
             
         }
         

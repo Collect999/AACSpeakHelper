@@ -78,6 +78,12 @@ struct SpellingAndAlphabetPage: View {
                 )
             })
         }
+        .navigationTitle(
+            String(
+                localized: "Spelling & Alphabet Options",
+                comment: "The navigation title for the Spelling & Alphabet options page"
+            )
+        )
     }
 }
 

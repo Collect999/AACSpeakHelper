@@ -55,6 +55,9 @@
     "Access Methods" : {
       "comment" : "Label for the navigation link to the access methods options page"
     },
+    "Access Options" : {
+      "comment" : "The navigation title for the access options page"
+    },
     "Actions" : {
       "comment" : "The header of the actions area when adding a new switch"
     },
@@ -209,7 +212,7 @@
       "comment" : "Label for toggle that controls when scanning starts"
     },
     "Scanning" : {
-      "comment" : "Label for the navigation link to the scanning options page\nLabel for toggle to turn scanning off and on"
+      "comment" : "Label for toggle to turn scanning off and on\nLabel for the navigation link to the scanning options page"
     },
     "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time." : {
       "comment" : "The footer explaining what scanning loops is"
@@ -243,6 +246,9 @@
     },
     "Spelling & Alphabet" : {
       "comment" : "Label for the navigation link to the spelling, alphabet and predictions options page"
+    },
+    "Spelling & Alphabet Options" : {
+      "comment" : "The navigation title for the Spelling & Alphabet options page"
     },
     "Start scanning from the current item, scanning must be enabled" : {
       "comment" : "Label for action that happens on a keypress"

@@ -131,6 +131,12 @@ struct VoiceSelectionPage: View {
         .onDisappear {
             save()
         }
+        .navigationTitle(
+            String(
+                localized: "Voice Options",
+                comment: "The navigation title for the voice options page"
+            )
+        )
     }
 }
 

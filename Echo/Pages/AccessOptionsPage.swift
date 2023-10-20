@@ -103,6 +103,12 @@ struct AccessOptionsPage: View {
         .sheet(isPresented: $showNewSwitchSheet) {
             AddSwitch()
         }
+        .navigationTitle(
+            String(
+                localized: "Access Options",
+                comment: "The navigation title for the access options page"
+            )
+        )
     }
 }
 

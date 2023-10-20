@@ -47,7 +47,7 @@ struct VoiceOptionsArea: View {
                     Spacer()
                     Text(voiceName)
                         .foregroundStyle(.gray)
-                }/*.foregroundStyle(.black)*/
+                }
                
             })
             VStack {
@@ -117,11 +117,5 @@ struct VoiceOptionsArea: View {
         }, footer: {
             Text(helpText)
         })
-        .navigationTitle(
-            String(
-                localized: "Voice Options",
-                comment: "The navigation title for the voice options page"
-            )
-        )
     }
 }
