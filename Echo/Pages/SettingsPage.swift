@@ -21,8 +21,6 @@ struct SettingsPage: View {
                         "Voice Selection",
                         comment: "Label for the navigation link to the voice options page"
                     )
-                        .font(.callout.weight(.medium))
-                        .foregroundStyle(.black)
                 })
                 NavigationLink(destination: {
                     AccessOptionsPage()
@@ -31,8 +29,6 @@ struct SettingsPage: View {
                         "Access Methods",
                         comment: "Label for the navigation link to the access methods options page"
                     )
-                        .font(.callout.weight(.medium))
-                        .foregroundStyle(.black)
                 })
                 NavigationLink(destination: {
                     ScanningOptionsPage()
@@ -41,8 +37,7 @@ struct SettingsPage: View {
                         "Scanning",
                         comment: "Label for the navigation link to the scanning options page"
                     )
-                        .font(.callout.weight(.medium))
-                        .foregroundStyle(.black)
+
                 })
                 NavigationLink(destination: {
                     SpellingAndAlphabetPage()
@@ -51,8 +46,6 @@ struct SettingsPage: View {
                         "Spelling & Alphabet",
                         comment: "Label for the navigation link to the spelling, alphabet and predictions options page"
                     )
-                        .font(.callout.weight(.medium))
-                        .foregroundStyle(.black)
                 })
             }
         }

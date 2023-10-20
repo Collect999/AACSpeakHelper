@@ -47,7 +47,7 @@ struct VoiceOptionsArea: View {
                     Spacer()
                     Text(voiceName)
                         .foregroundStyle(.gray)
-                }.foregroundStyle(.black)
+                }/*.foregroundStyle(.black)*/
                
             })
             VStack {
