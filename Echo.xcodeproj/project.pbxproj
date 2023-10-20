@@ -26,6 +26,7 @@
 		D5A488A02ADFDAD400E9A635 /* SpellingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A4889F2ADFDAD400E9A635 /* SpellingOptions.swift */; };
 		D5C005712AC58C7A007C21B2 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C005702AC58C7A007C21B2 /* SettingsPage.swift */; };
 		D5C005732AC5CEF9007C21B2 /* VoiceSelectionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C005722AC5CEF9007C21B2 /* VoiceSelectionPage.swift */; };
+		D5D848E32AE2C5C800D89C88 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5D848E22AE2C5C800D89C88 /* SwiftUIIntrospect */; };
 		D5DB645F2ACC514800E41867 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB645E2ACC514800E41867 /* View.swift */; };
 		D5DB64612ACC518900E41867 /* VoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB64602ACC518900E41867 /* VoiceEngine.swift */; };
 		D5DB64662ACC5A6A00E41867 /* ItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB64652ACC5A6A00E41867 /* ItemsList.swift */; };
@@ -97,6 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D517430A2A6FFBBA00E14EE0 /* SQLite in Frameworks */,
+				D5D848E32AE2C5C800D89C88 /* SwiftUIIntrospect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +261,7 @@
 			name = Echo;
 			packageProductDependencies = (
 				D51743092A6FFBBA00E14EE0 /* SQLite */,
+				D5D848E22AE2C5C800D89C88 /* SwiftUIIntrospect */,
 			);
 			productName = Echo;
 			productReference = D5965DF92A61995A003C9208 /* Echo.app */;
@@ -294,6 +297,7 @@
 			mainGroup = D5965DF02A61995A003C9208;
 			packageReferences = (
 				D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */,
+				D5D848E12AE2C5C800D89C88 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = D5965DFA2A61995A003C9208 /* Products */;
 			projectDirPath = "";
@@ -665,6 +669,14 @@
 				minimumVersion = 0.14.1;
 			};
 		};
+		D5D848E12AE2C5C800D89C88 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -672,6 +684,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D51743082A6FFBBA00E14EE0 /* XCRemoteSwiftPackageReference "SQLite" */;
 			productName = SQLite;
+		};
+		D5D848E22AE2C5C800D89C88 /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5D848E12AE2C5C800D89C88 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = SwiftUIIntrospect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
