@@ -70,6 +70,12 @@
     "Add Switch" : {
       "comment" : "Button label to add a new switch to the list"
     },
+    "Alphabet Order" : {
+      "comment" : "The label that is shown next to the alphabet order picker"
+    },
+    "Alphabetical Order" : {
+      "comment" : "The value for the order of the alphabet"
+    },
     "Arabic (Experimental)" : {
       "comment" : "The label for the Arabic language when setting prediction language, make sure to include the experimental tag"
     },
@@ -133,6 +139,9 @@
     "External switches can be a bluetooth or wired device such as a keyboard, controller or switch" : {
       "comment" : "Explains what an external switch is"
     },
+    "Frequency Order" : {
+      "comment" : "The value for the order of the alphabet"
+    },
     "Go to the next item" : {
       "comment" : "Label for action that happens on a keypress"
     },
@@ -147,6 +156,9 @@
     },
     "Language" : {
       "comment" : "The label that is shown next to the language picker"
+    },
+    "Language and Alphabet" : {
+      "comment" : "Header for the language settings"
     },
     "Let Echo know what switch you want to use by pressing it. If you change your mind you can reset the chosen switch." : {
       "comment" : "A description of how detecting switches works and how to reset it"
@@ -187,9 +199,6 @@
     "Prediction helps you to get to the words you want to speak faster" : {
       "comment" : "Footer for the section in settings about prediction"
     },
-    "Prediction Language" : {
-      "comment" : "Header for the language settings"
-    },
     "Quickly scan through the items" : {
       "comment" : "Label for action that happens on a keypress"
     },
@@ -212,7 +221,7 @@
       "comment" : "Label for toggle that controls when scanning starts"
     },
     "Scanning" : {
-      "comment" : "Label for the navigation link to the scanning options page\nLabel for toggle to turn scanning off and on"
+      "comment" : "Label for toggle to turn scanning off and on\nLabel for the navigation link to the scanning options page"
     },
     "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time." : {
       "comment" : "The footer explaining what scanning loops is"

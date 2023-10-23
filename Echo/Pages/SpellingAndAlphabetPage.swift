@@ -69,8 +69,19 @@ struct SpellingAndAlphabetPage: View {
                         Text(language.display).tag(language.id)
                     }
                 }.pickerStyle(.navigationLink)
+                Picker(
+                    String(
+                        localized: "Alphabet Order",
+                        comment: "The label that is shown next to the alphabet order picker"
+                    ),
+                    selection: spellingOptions.$characterOrderId
+                ) {
+                    ForEach(CharacterOrder.allCases) { order in
+                        Text(order.display).tag(order.id)
+                    }
+                }
             }, header: {
-                Text("Prediction Language", comment: "Header for the language settings")
+                Text("Language and Alphabet", comment: "Header for the language settings")
             }, footer: {
                 Text(
                     "The language chosen here will change the alphabet that is shown and will change which words are used for prediction",
