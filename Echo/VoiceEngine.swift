@@ -45,6 +45,8 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, Anal
     @Published var speakingVoiceOptions: VoiceOptions = VoiceOptions()
     @Published var cueVoiceOptions: VoiceOptions = VoiceOptions()
     
+    var analytics: Analytics?
+    
     var synthesizer = AVSpeechSynthesizer()
     
     var callback: (() -> Void)?
@@ -104,14 +106,18 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, Anal
     }
     
     func playCue(_ text: String, cb: (() -> Void)? = {}) {
+        analytics?.event(.readCue)
         play(text, voiceOptions: cueVoiceOptions, cb: cb)
     }
     
     func playSpeaking(_ text: String, cb: (() -> Void)? = {}) {
+        analytics?.event(.readSpeak)
         play(text, voiceOptions: speakingVoiceOptions, cb: cb)
     }
     
-    func load() {
+    func load(analytics: Analytics? = nil) {
+        self.analytics = analytics
+        
         if let speakingVoiceData = UserDefaults.standard.data(forKey: "speakingVoiceOptions") {
             do {
                 let decoder = JSONDecoder()

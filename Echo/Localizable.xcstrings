@@ -328,6 +328,12 @@
     "Welsh (Experimental)" : {
       "comment" : "The label for the Welsh language when setting prediction language, make sure to include the experimental tag"
     },
+    "When something is read out in the cue voice" : {
+      "comment" : "A label for an analytics event"
+    },
+    "When something is read out in the speaking voice" : {
+      "comment" : "A label for an analytics event"
+    },
     "When the app is opened" : {
       "comment" : "A label for an analytics event"
     },

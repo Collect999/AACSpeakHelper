@@ -11,11 +11,21 @@ import SwiftUI
 
 enum AnalyticKey: String, CaseIterable {
     case appLaunch
+    case readCue
+    case readSpeak
     
     var explaination: String {
         switch self {
         case .appLaunch: return String(
             localized: "When the app is opened",
+            comment: "A label for an analytics event"
+        )
+        case .readCue: return String(
+            localized: "When something is read out in the cue voice",
+            comment: "A label for an analytics event"
+        )
+        case .readSpeak: return String(
+            localized: "When something is read out in the speaking voice",
             comment: "A label for an analytics event"
         )
         }
