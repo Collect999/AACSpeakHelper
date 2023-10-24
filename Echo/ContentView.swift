@@ -7,6 +7,7 @@ struct ContentView: SwiftUI.View {
     @EnvironmentObject var accessOptions: AccessOptions
     @EnvironmentObject var scanOptions: ScanningOptions
     @EnvironmentObject var spelling: SpellingOptions
+    @EnvironmentObject var analytics: Analytics
     
     @State var lastLangId: String?
     
@@ -61,21 +62,25 @@ struct ContentView: SwiftUI.View {
                             up: {
                                 if accessOptions.allowSwipeGestures {
                                     items.back(userInteraction: true)
+                                    analytics.userInteraction(type: "Swipe", extraInfo: "UP")
                                 }
                             },
                             down: {
                                 if accessOptions.allowSwipeGestures {
                                     items.next(userInteraction: true)
+                                    analytics.userInteraction(type: "Swipe", extraInfo: "DOWN")
                                 }
                             },
                             left: {
                                 if accessOptions.allowSwipeGestures {
                                     items.backspace(userInteraction: true)
+                                    analytics.userInteraction(type: "Swipe", extraInfo: "LEFT")
                                 }
                             },
                             right: {
                                 if accessOptions.allowSwipeGestures {
                                     items.select(userInteraction: true)
+                                    analytics.userInteraction(type: "Swipe", extraInfo: "RIGHT")
                                 }
                             }
                         )

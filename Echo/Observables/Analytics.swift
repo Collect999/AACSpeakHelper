@@ -13,6 +13,7 @@ enum AnalyticKey: String, CaseIterable {
     case appLaunch
     case readCue
     case readSpeak
+    case userInteraction
     
     var explanation: String {
         switch self {
@@ -26,6 +27,10 @@ enum AnalyticKey: String, CaseIterable {
         )
         case .readSpeak: return String(
             localized: "When something is read out in the speaking voice",
+            comment: "A label for an analytics event"
+        )
+        case .userInteraction: return String(
+            localized: "When you press a switch, use the arrow or swipe on the screen",
             comment: "A label for an analytics event"
         )
         }
@@ -70,13 +75,24 @@ class Analytics: ObservableObject {
             posthog = PHGPostHog.shared()
         }
     }
+    
+    func userInteraction(type: String, extraInfo: String) {
+        event(.userInteraction, extraProperties: [
+            "interactionType": type,
+            "extraInfo": extraInfo
+        ])
+    }
         
-    func event(_ key: AnalyticKey) {
-        let properties: [String: Any] = [:]
+    func event(_ key: AnalyticKey, extraProperties: [String: String] = [:]) {
+        let setProperties: [String: Any] = [:]
             .merging(voiceEngine?.getAnalyticData() ?? [:], uniquingKeysWith: { (current, _) in current })
             .merging(accessOptions?.getAnalyticData() ?? [:], uniquingKeysWith: { (current, _) in current })
             .merging(scanningOptions?.getAnalyticData() ?? [:], uniquingKeysWith: { (current, _) in current })
             .merging(spellingOptions?.getAnalyticData() ?? [:], uniquingKeysWith: { (current, _) in current })
+        
+        let properties = [
+            "$set": setProperties
+        ].merging(extraProperties, uniquingKeysWith: { (current, _) in current })
 
         if let unwrappedPosthog = posthog, allowAnalytics == true {
             print("======")
@@ -86,9 +102,7 @@ class Analytics: ObservableObject {
             print("======")
             unwrappedPosthog.capture(
                 key.rawValue,
-                properties: [
-                    "$set": properties
-                ]
+                properties: properties
             )
         } else {
             print("======")

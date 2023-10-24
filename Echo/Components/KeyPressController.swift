@@ -21,6 +21,7 @@ enum KeyStage {
 struct KeyPressController: View {
     @EnvironmentObject var items: ItemsList
     @EnvironmentObject var accessOptions: AccessOptions
+    @EnvironmentObject var analytics: Analytics
     
     @FocusState var focused
         
@@ -64,6 +65,10 @@ struct KeyPressController: View {
                 // We only want to capture buttons that the user has specifed
                 guard let currentSwitch = accessOptions.listOfSwitches.first(where: { $0.key == press.key }) else {
                     return .ignored
+                }
+                
+                if press.phase == .down {
+                    analytics.userInteraction(type: "SwitchPress", extraInfo: keyToDisplay(press.key))
                 }
                 
                 let currentKeyStage = keyMap[press.key] ?? .unpressed

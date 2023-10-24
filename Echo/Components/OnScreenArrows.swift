@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct OnScreenArrows: View {
+    @EnvironmentObject var analytics: Analytics
+    
     // Thanks to https://sarunw.com/posts/move-view-around-with-drag-gesture-in-swiftui/
     @AppStorage("arrowLocationX") var locationX: Double = 300
     @AppStorage("arrowLocationY") var locationY: Double = 200
@@ -29,6 +31,7 @@ struct OnScreenArrows: View {
                         Spacer()
                         Button {
                             up()
+                            analytics.userInteraction(type: "OnScreenArrows", extraInfo: "UP")
                         } label: {
                             Image("SingleArrow")
                                 .resizable()
@@ -48,6 +51,7 @@ struct OnScreenArrows: View {
                         
                         Button {
                             left()
+                            analytics.userInteraction(type: "OnScreenArrows", extraInfo: "LEFT")
                         } label: {
                             Image("SingleArrow")
                                 .resizable()
@@ -63,6 +67,7 @@ struct OnScreenArrows: View {
                         Spacer()
                         Button {
                             right()
+                            analytics.userInteraction(type: "OnScreenArrows", extraInfo: "RIGHT")
                         } label: {
                             Image("SingleArrow")
                                 .resizable()
@@ -82,6 +87,7 @@ struct OnScreenArrows: View {
                         Spacer()
                         Button {
                             down()
+                            analytics.userInteraction(type: "OnScreenArrows", extraInfo: "DOWN")
                         } label: {
                             Image("SingleArrow")
                                 .resizable()
