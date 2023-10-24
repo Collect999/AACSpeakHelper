@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 enum SettingsPath: CaseIterable, Identifiable {
-    case voice, access, scanning, spelling
+    case voice, access, scanning, spelling, analytics
      
     var id: String {
         switch self {
@@ -17,6 +17,7 @@ enum SettingsPath: CaseIterable, Identifiable {
         case .access: return "access"
         case .scanning: return "scanning"
         case .spelling: return "spelling"
+        case .analytics: return "analytics"
         }
     }
     
@@ -26,6 +27,7 @@ enum SettingsPath: CaseIterable, Identifiable {
         case .access: AccessOptionsPage()
         case .scanning:  ScanningOptionsPage()
         case .spelling: SpellingAndAlphabetPage()
+        case .analytics: AnalyticsOptions()
         }
     }
     
@@ -46,6 +48,10 @@ enum SettingsPath: CaseIterable, Identifiable {
         case .spelling: return String(
             localized: "Spelling & Alphabet",
             comment: "Label for the navigation link to the spelling, alphabet and predictions options page"
+        )
+        case .analytics: return String(
+            localized: "Analytics & Tracking",
+            comment: "Label for the navigation link to the tracking options page"
         )
         }
     }

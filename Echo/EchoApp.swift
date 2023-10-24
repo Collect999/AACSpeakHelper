@@ -14,6 +14,7 @@ struct EchoApp: App {
     @StateObject var accessOptions: AccessOptions = AccessOptions()
     @StateObject var scanningOptions: ScanningOptions = ScanningOptions()
     @StateObject var spellingOptions: SpellingOptions = SpellingOptions()
+    @StateObject var analytics: Analytics = Analytics()
     
     var body: some Scene {
         WindowGroup {
@@ -23,12 +24,18 @@ struct EchoApp: App {
                 .environmentObject(accessOptions)
                 .environmentObject(scanningOptions)
                 .environmentObject(spellingOptions)
+                .environmentObject(analytics)
                 .onAppear {
                     voiceEngine.load()
                     accessOptions.load()
                     itemsList.loadSpelling(spellingOptions)
                     itemsList.loadEngine(voiceEngine)
                     itemsList.loadScanning(scanningOptions)
+                    
+                    analytics.load(
+                        voiceEngine: voiceEngine, accessOptions: accessOptions, scanningOptions: scanningOptions, spellingOptions: spellingOptions
+                    )
+                    analytics.event(.appLaunch)
                 }
                 .onDisappear {
                     voiceEngine.save()

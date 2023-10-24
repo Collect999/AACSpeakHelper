@@ -108,12 +108,21 @@ enum Action: String, CaseIterable, Identifiable, Codable {
     
 }
 
-class AccessOptions: ObservableObject {
+class AccessOptions: ObservableObject, Analytic {
     @AppStorage("showOnScreenArrows") var showOnScreenArrows = true
     @AppStorage("allowSwipeGestures") var allowSwipeGestures = true
     @AppStorage("enableSwitchControl") var enableSwitchControl = true
 
     @Published var listOfSwitches: [Switch] = []
+    
+    func getAnalyticData() -> [String: Any] {
+        return [
+            "showOnScreenArrows": showOnScreenArrows,
+            "allowSwipeGestures": allowSwipeGestures,
+            "enableSwitchControl": enableSwitchControl,
+            "switchCount": listOfSwitches.count
+        ]
+    }
     
     func addSwitch(name: String, key: KeyEquivalent, tapAction: Action, holdAction: Action) {
         listOfSwitches.append(

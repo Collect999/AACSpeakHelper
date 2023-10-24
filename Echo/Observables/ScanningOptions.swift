@@ -8,10 +8,20 @@
 import Foundation
 import SwiftUI
 
-class ScanningOptions: ObservableObject {
+class ScanningOptions: ObservableObject, Analytic {    
     @AppStorage("scanning") var scanning = true
     @AppStorage("scanWaitTime") var scanWaitTime: Double = 2
     @AppStorage("scanLoops") var scanLoops: Int = 3
     @AppStorage("scanOnLaunch") var scanOnAppLaunch = true
     @AppStorage("scanAfterSelection") var scanAfterSelection = true
+    
+    func getAnalyticData() -> [String: Any] {
+        return [
+            "scanning": scanning,
+            "scanWaitTime": scanWaitTime,
+            "scanLoops": scanLoops,
+            "scanOnLaunch": scanOnAppLaunch,
+            "scanAfterSelection": scanAfterSelection
+        ]
+    }
 }

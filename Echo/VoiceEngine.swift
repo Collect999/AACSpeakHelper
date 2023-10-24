@@ -41,7 +41,7 @@ class VoiceOptions: Codable {
     }
 }
 
-class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
+class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, Analytic {
     @Published var speakingVoiceOptions: VoiceOptions = VoiceOptions()
     @Published var cueVoiceOptions: VoiceOptions = VoiceOptions()
     
@@ -50,6 +50,19 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     var callback: (() -> Void)?
     
     var lastIssuedUtterance: AVSpeechUtterance?
+    
+    func getAnalyticData() -> [String: Any] {
+        return [
+            "cueVoiceVoiceId": cueVoiceOptions.voiceId,
+            "cueVoiceRate": cueVoiceOptions.rate,
+            "cueVoicePitch": cueVoiceOptions.pitch,
+            "cueVoiceVolume": cueVoiceOptions.volume,
+            "speakingVoiceVoiceId": speakingVoiceOptions.voiceId,
+            "speakingVoiceRate": speakingVoiceOptions.rate,
+            "speakingVoicePitch": speakingVoiceOptions.pitch,
+            "speakingVoiceVolume": speakingVoiceOptions.volume
+        ]
+    }
     
     override init() {
         super.init()

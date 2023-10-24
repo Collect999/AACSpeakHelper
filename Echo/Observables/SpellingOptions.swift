@@ -154,8 +154,8 @@ struct PredictionLanguage: Hashable, Identifiable {
 }
 
 enum CharacterOrder: String, CaseIterable, Identifiable {
-    case alphabetical = "alphabetical"
-    case frequency = "frequency"
+    case alphabetical
+    case frequency
     
     var id: String {
         switch self {
@@ -180,7 +180,7 @@ enum CharacterOrder: String, CaseIterable, Identifiable {
     public static var defaultOrder: CharacterOrder = .alphabetical
 }
 
-class SpellingOptions: ObservableObject {
+class SpellingOptions: ObservableObject, Analytic {
     @AppStorage("letterPrediction") var letterPrediction: Bool = true
     @AppStorage("wordPrediction") var wordPrediction: Bool = true
     @AppStorage("wordPredictionLimit") var wordPredictionLimit: Int = 3
@@ -210,6 +210,16 @@ class SpellingOptions: ObservableObject {
         case .frequency:
             return language.frequency
         }
+    }
+    
+    func getAnalyticData() -> [String: Any] {
+        return [
+            "letterPrediction": letterPrediction,
+            "wordPrediction": wordPrediction,
+            "wordPredictionLimit": wordPredictionLimit,
+            "predictionLanguage": predictionLanguage,
+            "characterOrderId": characterOrderId
+        ]
     }
     
     init() {

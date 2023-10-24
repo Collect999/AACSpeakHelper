@@ -38,4 +38,3 @@ struct ScrollLock<Content: View>: SwiftUI.View {
         }
     }
 }
-
