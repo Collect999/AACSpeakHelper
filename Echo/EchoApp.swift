@@ -24,6 +24,7 @@ struct EchoApp: App {
                 .environmentObject(accessOptions)
                 .environmentObject(scanningOptions)
                 .environmentObject(spellingOptions)
+                .environmentObject(analytics)
                 .onAppear {
                     voiceEngine.load(analytics: analytics)
                     accessOptions.load()
