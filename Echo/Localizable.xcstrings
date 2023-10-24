@@ -85,6 +85,9 @@
     "Analytics & Tracking" : {
       "comment" : "Label for the navigation link to the tracking options page"
     },
+    "Analytics ID" : {
+      "comment" : "Label for the section that shows the users analytics ID"
+    },
     "Arabic (Experimental)" : {
       "comment" : "The label for the Arabic language when setting prediction language, make sure to include the experimental tag"
     },
@@ -120,6 +123,12 @@
     },
     "Control Echo using switch presses to perform actions. Add new switches and change what they trigger." : {
       "comment" : "Footer description describing what switch access is"
+    },
+    "Copied!" : {
+      "comment" : "Label thats shown when text is copied"
+    },
+    "Copy to clipboard" : {
+      "comment" : "Label thats shown prompting the user to copy text"
     },
     "Croatian (Experimental)" : {
       "comment" : "The label for the Croatian language when setting prediction language, make sure to include the experimental tag"
@@ -236,7 +245,7 @@
       "comment" : "Label for toggle that controls when scanning starts"
     },
     "Scanning" : {
-      "comment" : "Label for the navigation link to the scanning options page\nLabel for toggle to turn scanning off and on"
+      "comment" : "Label for toggle to turn scanning off and on\nLabel for the navigation link to the scanning options page"
     },
     "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time." : {
       "comment" : "The footer explaining what scanning loops is"
@@ -306,6 +315,9 @@
     },
     "These are the actions that will happen when you tap or hold your switch" : {
       "comment" : "The footer description of the area of the actions area when adding a new switch"
+    },
+    "This ID is used to identify you in the analytics collected. Do not share it unless you are willing to be identified." : {
+      "comment" : "Explanation of what an ID is"
     },
     "Undo" : {
       "comment" : "The label for the button that will remove the last character. Also known as backspace"

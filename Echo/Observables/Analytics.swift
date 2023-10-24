@@ -14,7 +14,7 @@ enum AnalyticKey: String, CaseIterable {
     case readCue
     case readSpeak
     
-    var explaination: String {
+    var explanation: String {
         switch self {
         case .appLaunch: return String(
             localized: "When the app is opened",
@@ -46,6 +46,13 @@ class Analytics: ObservableObject {
     
     var posthog: PHGPostHog?
     
+    var anonId: String {
+        if let unwrappedPosthog = posthog {
+            return unwrappedPosthog.getAnonymousId()
+        }
+        return "UNKNOWN"
+    }
+    
     func load(voiceEngine: VoiceEngine, accessOptions: AccessOptions, scanningOptions: ScanningOptions, spellingOptions: SpellingOptions) {
         self.voiceEngine = voiceEngine
         self.accessOptions = accessOptions
@@ -74,6 +81,7 @@ class Analytics: ObservableObject {
         if let unwrappedPosthog = posthog, allowAnalytics == true {
             print("======")
             print("Event sent:", key.rawValue)
+            print("ID", unwrappedPosthog.getAnonymousId())
             print(properties)
             print("======")
             unwrappedPosthog.capture(

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AnalyticsOptions: View {
     @EnvironmentObject var analytics: Analytics
+    @State var isCopied: Bool = false
     
     var body: some View {
         Form {
@@ -33,10 +34,36 @@ struct AnalyticsOptions: View {
                     
                     Events:
                     \(AnalyticKey.allCases.map({ x in
-                        return "• " + x.explaination
+                        return "• " + x.explanation
                     }).joined(separator: "\n"))
                     """,
                 comment: "A description of the analytics that we capture.")
+            })
+            Section(content: {
+                VStack {
+                    Text(analytics.anonId)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.1)
+                    Button(
+                        isCopied ?
+                            String(localized: "Copied!", comment: "Label thats shown when text is copied")
+                            :
+                            String(localized: "Copy to clipboard", comment: "Label thats shown prompting the user to copy text"),
+                        systemImage: "clipboard",
+                        action: {
+                            UIPasteboard.general.string = analytics.anonId
+                            isCopied = true
+                        }
+                    )
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }, header: {
+                Text("Analytics ID", comment: "Label for the section that shows the users analytics ID")
+            }, footer: {
+                Text(
+                    "This ID is used to identify you in the analytics collected. Do not share it unless you are willing to be identified.",
+                    comment: "Explanation of what an ID is"
+                )
             })
         }
         .navigationTitle(
