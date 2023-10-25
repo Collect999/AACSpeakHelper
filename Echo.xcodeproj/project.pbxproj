@@ -10,6 +10,7 @@
 		D507A94B2AE7C2C4003EC583 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = D507A94A2AE7C2C4003EC583 /* PostHog */; };
 		D507A94D2AE7C32C003EC583 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507A94C2AE7C32C003EC583 /* Analytics.swift */; };
 		D507A94F2AE7D587003EC583 /* AnalyticsOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507A94E2AE7D587003EC583 /* AnalyticsOptions.swift */; };
+		D507A9512AE90B65003EC583 /* MeasuringUtterancesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D507A9502AE90B65003EC583 /* MeasuringUtterancesTests.swift */; };
 		D512DA952ACEBDCA00660524 /* Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D512DA942ACEBDCA00660524 /* Comparable.swift */; };
 		D51743072A6FF72300E14EE0 /* dictionary.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D51743062A6FF72300E14EE0 /* dictionary.sqlite */; };
 		D517430A2A6FFBBA00E14EE0 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = D51743092A6FFBBA00E14EE0 /* SQLite */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		D507A94C2AE7C32C003EC583 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		D507A94E2AE7D587003EC583 /* AnalyticsOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsOptions.swift; sourceTree = "<group>"; };
+		D507A9502AE90B65003EC583 /* MeasuringUtterancesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasuringUtterancesTests.swift; sourceTree = "<group>"; };
 		D512DA942ACEBDCA00660524 /* Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comparable.swift; sourceTree = "<group>"; };
 		D51743062A6FF72300E14EE0 /* dictionary.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionary.sqlite; sourceTree = "<group>"; };
 		D51743122A7AA94100E14EE0 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				D574BCAD2AE170B800C50EDC /* PredictionTests.swift */,
+				D507A9502AE90B65003EC583 /* MeasuringUtterancesTests.swift */,
 			);
 			path = EchoTests;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D574BCAE2AE170B800C50EDC /* PredictionTests.swift in Sources */,
+				D507A9512AE90B65003EC583 /* MeasuringUtterancesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -245,7 +245,7 @@
       "comment" : "Label for toggle that controls when scanning starts"
     },
     "Scanning" : {
-      "comment" : "Label for the navigation link to the scanning options page\nLabel for toggle to turn scanning off and on"
+      "comment" : "Label for toggle to turn scanning off and on\nLabel for the navigation link to the scanning options page"
     },
     "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time." : {
       "comment" : "The footer explaining what scanning loops is"
@@ -347,6 +347,12 @@
       "comment" : "A label for an analytics event"
     },
     "When the app is opened" : {
+      "comment" : "A label for an analytics event"
+    },
+    "When you enter a full word we log if it was predicted or not. We do not log the word" : {
+      "comment" : "A label for an analytics event"
+    },
+    "When you enter a letter we log if it was predicted or not. We do not log the word" : {
       "comment" : "A label for an analytics event"
     },
     "When you press a switch, use the arrow or swipe on the screen" : {
