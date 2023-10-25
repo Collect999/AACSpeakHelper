@@ -26,6 +26,8 @@ struct EchoApp: App {
                 .environmentObject(spellingOptions)
                 .environmentObject(analytics)
                 .onAppear {
+                    itemsList.loadAnalytics(analytics)
+                    spellingOptions.loadAnalytics(analytics: analytics)
                     voiceEngine.load(analytics: analytics)
                     accessOptions.load()
                     itemsList.loadSpelling(spellingOptions)

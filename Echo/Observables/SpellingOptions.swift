@@ -186,7 +186,9 @@ class SpellingOptions: ObservableObject, Analytic {
     @AppStorage("wordPredictionLimit") var wordPredictionLimit: Int = 3
     @AppStorage("predictionLanguage") var predictionLanguage: String = "DEFAULT"
     @AppStorage("characterOrder") var characterOrderId: String = CharacterOrder.defaultOrder.id
-
+    
+    var analytics: Analytics?
+    
     var dbConn: Connection?
     var wordsTable: SQLite.Table?
     
@@ -222,6 +224,10 @@ class SpellingOptions: ObservableObject, Analytic {
         ]
     }
     
+    func loadAnalytics(analytics: Analytics) {
+        self.analytics = analytics
+    }
+    
     init() {
         if predictionLanguage == "DEFAULT" {
             let usersLanguage: String = Locale.preferredLanguages.first ?? "en"
@@ -253,7 +259,7 @@ class SpellingOptions: ObservableObject, Analytic {
         
         let alphabet = currentAlphabet
         let alphabetItems = alphabet.map { currentPrediction in
-            return Item(letter: currentPrediction, isPredicted: true)
+            return Item(letter: currentPrediction, letterType: .letter, analytics: self.analytics)
         }
         
         var alphabetScores: [String: Int] = [:]
@@ -307,7 +313,11 @@ class SpellingOptions: ObservableObject, Analytic {
                             
             return firstScore > secondScore
         }.map { currentPrediction in
-            return Item(letter: currentPrediction, isPredicted: true)
+            let isPredictedLetter = alphabetScores[currentPrediction, default: 0] > 0
+            
+            return Item(
+                letter: currentPrediction,
+                letterType: isPredictedLetter ? .predictedLetter : .letter, analytics: self.analytics)
         }
         
         let finalAlphabet = letterPrediction ? sortedAlphabet : alphabetItems
@@ -316,7 +326,7 @@ class SpellingOptions: ObservableObject, Analytic {
             let wordItems = wordPredictions.prefix(wordPredictionLimit).map { word in
                 let wordWithoutPrefix = String(word.dropFirst(prefix.count))
 
-                return Item(letter: wordWithoutPrefix+"·", display: word, speakText: word, isPredicted: true)
+                return Item(letter: wordWithoutPrefix+"·", display: word, speakText: word, letterType: .predictedWord, analytics: self.analytics)
             }
             
             return wordItems + finalAlphabet

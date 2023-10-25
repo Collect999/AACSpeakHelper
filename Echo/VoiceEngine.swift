@@ -111,7 +111,15 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, Anal
     }
     
     func playSpeaking(_ text: String, cb: (() -> Void)? = {}) {
-        analytics?.event(.readSpeak)
+        let numberOfWords = getNumberOfWords(text)
+        let averageWordLength = getAverageWordLength(text)
+        let totalUtteranceLength = getTotalUtteranceLength(text)
+        
+        analytics?.utteranceSpoken(
+            numberOfWords: numberOfWords,
+            averageWordLength: averageWordLength,
+            totalUtteranceLength: totalUtteranceLength
+        )
         play(text, voiceOptions: speakingVoiceOptions, cb: cb)
     }
     

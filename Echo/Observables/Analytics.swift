@@ -14,6 +14,8 @@ enum AnalyticKey: String, CaseIterable {
     case readCue
     case readSpeak
     case userInteraction
+    case wordAdded
+    case letterAdded
     
     var explanation: String {
         switch self {
@@ -31,6 +33,14 @@ enum AnalyticKey: String, CaseIterable {
         )
         case .userInteraction: return String(
             localized: "When you press a switch, use the arrow or swipe on the screen",
+            comment: "A label for an analytics event"
+        )
+        case .wordAdded: return String(
+            localized: "When you enter a full word we log if it was predicted or not. We do not log the word",
+            comment: "A label for an analytics event"
+        )
+        case .letterAdded: return String(
+            localized: "When you enter a letter we log if it was predicted or not. We do not log the word",
             comment: "A label for an analytics event"
         )
         }
@@ -58,6 +68,18 @@ class Analytics: ObservableObject {
         return "UNKNOWN"
     }
     
+    func setupPostHog() -> PHGPostHog? {
+        let configuration = PHGPostHogConfiguration(apiKey: "phc_Iu0qJYNNfok6scjPSnKIYF1EKgWDCMpuc8vYGYMLMip", host: "https://app.posthog.com")
+        
+        configuration.captureApplicationLifecycleEvents = true
+        configuration.recordScreenViews = false
+        configuration.flushAt = 1
+        
+        PHGPostHog.setup(with: configuration)
+        
+        return PHGPostHog.shared()
+    }
+    
     func load(voiceEngine: VoiceEngine, accessOptions: AccessOptions, scanningOptions: ScanningOptions, spellingOptions: SpellingOptions) {
         self.voiceEngine = voiceEngine
         self.accessOptions = accessOptions
@@ -65,14 +87,7 @@ class Analytics: ObservableObject {
         self.spellingOptions = spellingOptions
         
         if allowAnalytics {
-            let configuration = PHGPostHogConfiguration(apiKey: "phc_Iu0qJYNNfok6scjPSnKIYF1EKgWDCMpuc8vYGYMLMip", host: "https://app.posthog.com")
-            
-            configuration.captureApplicationLifecycleEvents = true
-            configuration.recordScreenViews = false
-            configuration.flushAt = 1
-            
-            PHGPostHog.setup(with: configuration)
-            posthog = PHGPostHog.shared()
+            self.posthog = self.setupPostHog()
         }
     }
     
@@ -82,8 +97,24 @@ class Analytics: ObservableObject {
             "extraInfo": extraInfo
         ])
     }
-        
-    func event(_ key: AnalyticKey, extraProperties: [String: String] = [:]) {
+    
+    func wordAdded(isPredicted: Bool) {
+        event(.wordAdded, extraProperties: ["isPredicted": isPredicted])
+    }
+    
+    func letterAdded(isPredicted: Bool) {
+        event(.letterAdded, extraProperties: ["isPredicted": isPredicted])
+    }
+    
+    func utteranceSpoken(numberOfWords: Int, averageWordLength: Int, totalUtteranceLength: Int) {
+        event(.readSpeak, extraProperties: [
+            "numberOfWords": numberOfWords,
+            "averageWordLength": averageWordLength,
+            "totalUtteranceLength": totalUtteranceLength
+        ])
+    }
+    
+    func event(_ key: AnalyticKey, extraProperties: [String: Any] = [:]) {
         let setProperties: [String: Any] = [:]
             .merging(voiceEngine?.getAnalyticData() ?? [:], uniquingKeysWith: { (current, _) in current })
             .merging(accessOptions?.getAnalyticData() ?? [:], uniquingKeysWith: { (current, _) in current })
@@ -95,20 +126,23 @@ class Analytics: ObservableObject {
         ].merging(extraProperties, uniquingKeysWith: { (current, _) in current })
 
         if let unwrappedPosthog = posthog, allowAnalytics == true {
-            print("======")
-            print("Event sent:", key.rawValue)
-            print("ID", unwrappedPosthog.getAnonymousId())
-            print(properties)
-            print("======")
+            print("ANALYTICS EVENT: ", key.rawValue, extraProperties)
             unwrappedPosthog.capture(
                 key.rawValue,
                 properties: properties
             )
+        } else if allowAnalytics == true {
+            self.posthog = self.setupPostHog()
+            
+            if let unwrappedPosthog = posthog {
+                unwrappedPosthog.capture(
+                    key.rawValue,
+                    properties: properties
+                )
+                print("ANALYTICS EVENT (NEW): ", key.rawValue, extraProperties)
+            }
         } else {
-            print("======")
-            print("Event sent, but analytics disabled:", key.rawValue)
-            print(properties)
-            print("======")
+            print("ANALYTICS EVENT (SUPRESSED): ", key.rawValue, extraProperties)
         }
     }
 }

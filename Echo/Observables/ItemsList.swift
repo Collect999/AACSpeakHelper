@@ -22,6 +22,7 @@ class ItemsList: ObservableObject {
     var voiceEngine: VoiceEngine?
     var spelling: SpellingOptions?
     var scanningOptions: ScanningOptions?
+    var analytics: Analytics?
     
     var workItem: DispatchWorkItem?
     
@@ -88,6 +89,10 @@ class ItemsList: ObservableObject {
         if let firstItem = items.first {
             selectedUUID = firstItem.id
         }
+    }
+    
+    func loadAnalytics(_ analytics: Analytics) {
+        self.analytics = analytics
     }
     
     func loadScanning(_ scanning: ScanningOptions) {
@@ -263,7 +268,8 @@ class ItemsList: ObservableObject {
                 letter: "·",
                 display: currentWordPrefix + prefix,
                 speakText: prefixWithHyphens,
-                isPredicted: true
+                letterType: .word,
+                analytics: self.analytics
             )
             if prefix.count > 0 {
                 prefixItems.append(prefixItem)

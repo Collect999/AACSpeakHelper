@@ -25,10 +25,6 @@ class FinishItem: ItemProtocol, Identifiable {
             cb("")
         }
     }
-    
-    func isPredicted() -> Bool {
-        return false
-    }
 }
 
 class BackspaceItem: ItemProtocol, Identifiable {
@@ -52,10 +48,6 @@ class BackspaceItem: ItemProtocol, Identifiable {
         mutableCopy.removeLast()
         cb(mutableCopy)
     }
-    
-    func isPredicted() -> Bool {
-        return false
-    }
 }
 
 class ClearItem: ItemProtocol, Identifiable {
@@ -66,67 +58,61 @@ class ClearItem: ItemProtocol, Identifiable {
     func select(enteredText: String, cb: @escaping (_ enteredText: String) -> Void) {
         cb("")
     }
-    
-    func isPredicted() -> Bool {
-        return false
-    }
+}
+
+enum LetterItemType {
+    case letter
+    case predictedLetter
+    case predictedWord
+    case word
 }
 
 class LetterItem: ItemProtocol, Identifiable {
     var id = UUID()
     var letter: String
     var displayText: String
-    var predicted: Bool
     var speakText: String
     
-    init(_ letter: String) {
+    var letterType: LetterItemType
+    
+    var analytics: Analytics?
+    
+    init(_ letter: String, letterType: LetterItemType, analytics: Analytics? = nil) {
         self.letter = letter
         self.displayText = letter
-        self.predicted = false
         self.speakText = letter
+        self.letterType = letterType
+        self.analytics = analytics
     }
     
-    init(_ letter: String, isPredicted: Bool) {
-        self.letter = letter
-        self.displayText = letter
-        self.predicted = isPredicted
-        self.speakText = letter
-
-    }
-    
-    init(_ letter: String, display: String) {
+    init(_ letter: String, display: String, letterType: LetterItemType, analytics: Analytics? = nil) {
         self.letter = letter
         self.displayText = display
-        self.predicted = false
         self.speakText = letter
+        self.letterType = letterType
+        self.analytics = analytics
     }
     
-    init(_ letter: String, display: String, speakText: String) {
+    init(_ letter: String, display: String, speakText: String, letterType: LetterItemType, analytics: Analytics? = nil) {
         self.letter = letter
         self.displayText = display
-        self.predicted = false
         self.speakText = speakText
-    }
-    
-    init(_ letter: String, display: String, speakText: String, isPredicted: Bool) {
-        self.letter = letter
-        self.displayText = display
-        self.predicted = isPredicted
-        self.speakText = speakText
-    }
-    
-    init(_ letter: String, display: String, isPredicted: Bool) {
-        self.letter = letter
-        self.displayText = display
-        self.predicted = isPredicted
-        self.speakText = letter
-    }
-  
-    func isPredicted() -> Bool {
-        return self.predicted
+        self.letterType = letterType
+        self.analytics = analytics
     }
     
     func select(enteredText: String, cb: @escaping (_ enteredText: String) -> Void) {
+        switch letterType {
+        case .letter:
+            analytics?.letterAdded(isPredicted: false)
+        case .predictedLetter:
+            analytics?.letterAdded(isPredicted: true)
+        case .predictedWord:
+            analytics?.wordAdded(isPredicted: true)
+        case .word:
+            analytics?.wordAdded(isPredicted: false)
+        }
+        
         cb(enteredText + letter)
     }
 }
@@ -140,7 +126,6 @@ protocol ItemProtocol: Identifiable {
     var displayText: String { get }
     var speakText: String { get }
     func select(enteredText: String, cb: @escaping (_ enteredText: String) -> Void)
-    func isPredicted() -> Bool
 }
 
 // We need this kinda annoying container due to:
@@ -149,27 +134,18 @@ struct Item: Identifiable {
     var details: any ItemProtocol
     var id: UUID { details.id }
     
-    init(letter: String) {
-        self.details = LetterItem(letter)
+    init(letter: String, letterType: LetterItemType, analytics: Analytics? = nil) {
+        self.details = LetterItem(letter, letterType: letterType, analytics: analytics)
     }
     
-    init(letter: String, isPredicted: Bool) {
-        self.details = LetterItem(letter, isPredicted: isPredicted)
+    init(letter: String, display: String, letterType: LetterItemType, analytics: Analytics? = nil) {
+        self.details = LetterItem(letter, display: display, letterType: letterType, analytics: analytics)
+    }
+    
+    init(letter: String, display: String, speakText: String, letterType: LetterItemType, analytics: Analytics? = nil) {
+        self.details = LetterItem(letter, display: display, speakText: speakText, letterType: letterType, analytics: analytics)
+    }
 
-    }
-    
-    init(letter: String, display: String) {
-        self.details = LetterItem(letter, display: display)
-    }
-    
-    init(letter: String, display: String, speakText: String) {
-        self.details = LetterItem(letter, display: display, speakText: speakText)
-    }
-    
-    init(letter: String, display: String, speakText: String, isPredicted: Bool) {
-        self.details = LetterItem(letter, display: display, speakText: speakText, isPredicted: isPredicted)
-    }
-    
     init(actionType: ItemActionType, display: String, voiceEngine: VoiceEngine) {
         switch actionType {
         case .backspace:
