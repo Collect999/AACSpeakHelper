@@ -18,6 +18,26 @@ func getLanguage(_ givenLocale: String) -> String {
     return currentLocale.localizedString(forLanguageCode: givenLocale) ?? "Unknown"
 }
 
+func getNumberOfWords(_ text: String) -> Int {
+    return text.components(separatedBy: " ").count
+}
+
+func getAverageWordLength(_ text: String) -> Int {
+    let wordLength = text.components(separatedBy: " ").map { x in
+        return x.count
+    }
+    
+    let sumOfChars = wordLength.reduce(0, +)
+
+    let average = Double(sumOfChars) / Double(wordLength.count)
+    
+    return Int(average.rounded())
+}
+
+func getTotalUtteranceLength(_ text: String) -> Int {
+    return text.count
+}
+
 // swiftlint:disable function_body_length
 func keyToDisplay(_ key: KeyEquivalent) -> String {
     let deleteKey = KeyEquivalent("\u{7F}")
