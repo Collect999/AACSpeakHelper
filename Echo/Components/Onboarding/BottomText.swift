@@ -24,4 +24,3 @@ struct BottomText: View {
             .multilineTextAlignment(.center)
     }
 }
-

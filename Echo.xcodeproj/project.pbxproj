@@ -49,6 +49,7 @@
 		D5EDA4A32AEBF2AE00727B90 /* OnScreenArrowsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A22AEBF2AD00727B90 /* OnScreenArrowsOnboarding.swift */; };
 		D5EDA4A52AEBF2CF00727B90 /* Intro.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A42AEBF2CF00727B90 /* Intro.swift */; };
 		D5EDA4A72AEBF3BF00727B90 /* SecondStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */; };
+		D5EDA4A92AEBF4CD00727B90 /* Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		D5EDA4A22AEBF2AD00727B90 /* OnScreenArrowsOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnScreenArrowsOnboarding.swift; sourceTree = "<group>"; };
 		D5EDA4A42AEBF2CF00727B90 /* Intro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intro.swift; sourceTree = "<group>"; };
 		D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondStep.swift; sourceTree = "<group>"; };
+		D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swipe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 				D5EDA49E2AEBF1C800727B90 /* ButtonStyles.swift */,
 				D5EDA4A22AEBF2AD00727B90 /* OnScreenArrowsOnboarding.swift */,
 				D5EDA4A42AEBF2CF00727B90 /* Intro.swift */,
+				D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */,
 				D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */,
 				D5EDA4A02AEBF1EA00727B90 /* BottomText.swift */,
 			);
@@ -438,6 +441,7 @@
 				D512DA952ACEBDCA00660524 /* Comparable.swift in Sources */,
 				D5C005732AC5CEF9007C21B2 /* VoiceSelectionPage.swift in Sources */,
 				D5DB646F2ACC5D0600E41867 /* Helpers.swift in Sources */,
+				D5EDA4A92AEBF4CD00727B90 /* Swipe.swift in Sources */,
 				D58005192AC6D92D008BDC33 /* VoicePicker.swift in Sources */,
 				D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */,
 				D5EDA49F2AEBF1C800727B90 /* ButtonStyles.swift in Sources */,

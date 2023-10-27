@@ -130,6 +130,9 @@
     "Control **Echo** using an arrow keypad on screen." : {
       "comment" : "Explain of Echo onboarding process"
     },
+    "Control Echo using Swipes" : {
+      "comment" : "Explaination of swipe controls"
+    },
     "Control Echo using switch presses to perform actions. Add new switches and change what they trigger." : {
       "comment" : "Footer description describing what switch access is"
     },
@@ -160,11 +163,17 @@
     "Detect Switch" : {
       "comment" : "Label for a NavigationLink that will get a user to press their external switch"
     },
+    "Disable" : {
+      "comment" : "Label to disable swipe"
+    },
     "Done" : {
       "comment" : "The label for the button to exit onboarding"
     },
     "Echo: Auditory Scanning" : {
       "comment" : "The main navigation title for the whole app"
+    },
+    "Enable" : {
+      "comment" : "Label to enable swipe"
     },
     "English" : {
       "comment" : "The label for the English language when setting prediction language"
@@ -188,7 +197,7 @@
       "comment" : "The label for the Hebrew language when setting prediction language, make sure to include the experimental tag"
     },
     "Hide" : {
-
+      "comment" : "Label to hide arrows"
     },
     "Hold" : {
       "comment" : "The label that is shown next to the single hold action"
@@ -233,7 +242,7 @@
       "comment" : "Header for on screen arrow options area"
     },
     "Onscreen Arrows" : {
-
+      "comment" : "Label for onboarding picker"
     },
     "Open" : {
       "comment" : "Label for open button (preview only)"
@@ -299,7 +308,7 @@
       "comment" : "The navigation title for the settings page"
     },
     "Show" : {
-
+      "comment" : "Label to show arrows"
     },
     "Show on-screen arrows" : {
       "comment" : "Label for toggle for on screen arrows"
@@ -325,8 +334,14 @@
     "Start scanning from the current item, scanning must be enabled" : {
       "comment" : "Label for action that happens on a keypress"
     },
+    "Swipe Gestures" : {
+      "comment" : "Label for swipe picker"
+    },
     "Swipe up, down, left or right to control Echo\n   • **Right:** Select the current item\n   • **Down:** Go to the next item in the list\n   • **Left:** Remove the last entered character\n   • **Up:** Go to the previous item in the list" : {
       "comment" : "A description of all the swiping gestures. Please use the same format including bold text"
+    },
+    "Swipe?" : {
+      "comment" : "Header for swipe onboarding page"
     },
     "Swiping gestures" : {
       "comment" : "Toggle for swiping gestures"
