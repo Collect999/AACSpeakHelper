@@ -28,7 +28,7 @@ struct SwipeOnboarding: View {
                     comment: "Header for swipe onboarding page"
                 ),
                 bottomText: AttributedString(
-                    localized: "Control Echo using Swipes",
+                    localized: "Control **Echo** using Swipes",
                     comment: "Explaination of swipe controls"
                 )
             )

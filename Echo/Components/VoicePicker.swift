@@ -11,6 +11,7 @@ import AVFAudio
 
 struct VoicePicker: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @StateObject var voiceList = AvailableVoices()
     
@@ -26,6 +27,7 @@ struct VoicePicker: View {
                         Button(action: {
                             voiceId = voice.identifier
                             voiceName = "\(voice.name) (\(getLanguage(voice.language)))"
+                            presentationMode.wrappedValue.dismiss()  
                         }, label: {
                             HStack {
                                 Text(voice.name)

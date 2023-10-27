@@ -50,6 +50,7 @@
 		D5EDA4A52AEBF2CF00727B90 /* Intro.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A42AEBF2CF00727B90 /* Intro.swift */; };
 		D5EDA4A72AEBF3BF00727B90 /* SecondStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */; };
 		D5EDA4A92AEBF4CD00727B90 /* Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */; };
+		D5EDA4AB2AEC032600727B90 /* CueVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4AA2AEC032600727B90 /* CueVoice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		D5EDA4A42AEBF2CF00727B90 /* Intro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intro.swift; sourceTree = "<group>"; };
 		D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondStep.swift; sourceTree = "<group>"; };
 		D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swipe.swift; sourceTree = "<group>"; };
+		D5EDA4AA2AEC032600727B90 /* CueVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueVoice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +264,7 @@
 			children = (
 				D5EDA49E2AEBF1C800727B90 /* ButtonStyles.swift */,
 				D5EDA4A22AEBF2AD00727B90 /* OnScreenArrowsOnboarding.swift */,
+				D5EDA4AA2AEC032600727B90 /* CueVoice.swift */,
 				D5EDA4A42AEBF2CF00727B90 /* Intro.swift */,
 				D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */,
 				D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */,
@@ -430,6 +433,7 @@
 				D5DB645F2ACC514800E41867 /* View.swift in Sources */,
 				D5DB64782ACDC39500E41867 /* AccessOptions.swift in Sources */,
 				D5C005712AC58C7A007C21B2 /* SettingsPage.swift in Sources */,
+				D5EDA4AB2AEC032600727B90 /* CueVoice.swift in Sources */,
 				D5DB64612ACC518900E41867 /* VoiceEngine.swift in Sources */,
 				D507A94F2AE7D587003EC583 /* AnalyticsOptions.swift in Sources */,
 				D57A517F2ACF084300FC7716 /* ScanningOptionsPage.swift in Sources */,

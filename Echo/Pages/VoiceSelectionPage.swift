@@ -117,7 +117,13 @@ struct VoiceSelectionPage: View {
                             pitch: Float(cuePitch),
                             volume: Float(cueVolume)
                         )
-                        voiceEngine.play("Thank you for using Echo, this is your cue voice", voiceOptions: cueVoice)
+                        voiceEngine.play(
+                            String(
+                                localized: "Thank you for using Echo, this is your cue voice",
+                                comment: "This is text is read aloud by the Text-To-Speech system as a preview"
+                            ),
+                            voiceOptions: cueVoice
+                        )
                     }
                 )
         }

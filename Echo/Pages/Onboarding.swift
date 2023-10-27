@@ -13,6 +13,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
     case secondStep = 1
     case onScreenArrows = 2
     case swipeOnboarding = 3
+    case cueVoice =  4
 
     var id: String {
         switch self {
@@ -20,6 +21,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         case .secondStep: "second"
         case .onScreenArrows: "arrows"
         case .swipeOnboarding: "swipe"
+        case .cueVoice: "cueVoice"
         }
     }
     
@@ -29,6 +31,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         case .secondStep: SecondStep()
         case .onScreenArrows: OnScreenArrowsOnboarding()
         case .swipeOnboarding: SwipeOnboarding()
+        case .cueVoice: CueVoiceOnboarding()
         }
     }
 }
@@ -91,13 +94,16 @@ struct Onboarding: View {
 
 struct OnboardingWrapper: View {
     @StateObject var access: AccessOptions = AccessOptions()
+    @StateObject var voiceEngine: VoiceEngine = VoiceEngine()
     
     var body: some View {
         ZStack {
             Onboarding(endOnboarding: {
                 print("Done")
             })
-        }.environmentObject(access)
+        }
+        .environmentObject(access)
+        .environmentObject(voiceEngine)
     }
 }
 
