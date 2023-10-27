@@ -80,14 +80,51 @@ struct SecondStep: View {
     }
 }
 
+struct OnScreenArrowsOnboarding: View {
+    @EnvironmentObject var access: AccessOptions
+    
+    var body: some View {
+        VStack {
+            VStack {
+                Spacer()
+                Image("Arrows")
+                    .resizable()
+                    .frame(width: 200, height: 200)
+                    .accessibilityLabel(String(localized: "A four way arrow keypad", comment: "Accessibility label for arrows"))
+                Spacer()
+            }
+           
+            BottomText(
+                topText: AttributedString(
+                    localized: "On Screen Arrows?",
+                    comment: "Getting started onboarding"
+                ),
+                bottomText: AttributedString(
+                    localized: "Control **Echo** using an arrow keypad on screen.",
+                    comment: "Explain of Echo onboarding process"
+                )
+            )
+            Picker(String(localized: "Onscreen Arrows", comment: "Label for onboarding picker"), selection: access.$showOnScreenArrows) {
+                Text("Hide", comment: "Label to hide arrows").tag(false)
+                Text("Show", comment: "Label to show arrows").tag(true)
+            }
+            .pickerStyle(.segmented)
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 64)
+    }
+}
+
 enum OnboardingSteps: Int, CaseIterable, Identifiable {
     case introVideo = 0
     case secondStep = 1
-    
+    case onScreenArrows = 2
+
     var id: String {
         switch self {
         case .introVideo: "intro"
         case .secondStep: "second"
+        case .onScreenArrows: "arrows"
         }
     }
     
@@ -95,6 +132,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         switch self {
         case .introVideo: IntroStep()
         case .secondStep: SecondStep()
+        case .onScreenArrows: OnScreenArrowsOnboarding()
         }
     }
 }
@@ -173,10 +211,20 @@ struct IntroStep: View {
     }
 }
 
+struct OnboardingWrapper: View {
+    @StateObject var access: AccessOptions = AccessOptions()
+    
+    var body: some View {
+        ZStack {
+            Onboarding(endOnboarding: {
+                print("Done")
+            })
+        }.environmentObject(access)
+    }
+}
+
 struct Onboarding_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
-        Onboarding(endOnboarding: {
-            print("Done")
-        })
+        OnboardingWrapper()
     }
 }

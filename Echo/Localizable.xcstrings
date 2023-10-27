@@ -46,6 +46,9 @@
     "<UP ARROW>" : {
       "comment" : "A description of the up arrow key on a keyboard, please use all caps and <>"
     },
+    "A four way arrow keypad" : {
+      "comment" : "Accessibility label for arrows"
+    },
     "A switch name and switch key must be entered before you can save changes switch." : {
       "comment" : "The footer for the save button area of adding a new switch"
     },
@@ -124,6 +127,9 @@
     "Communication for the visual impaired" : {
       "comment" : "Explain what Echo is"
     },
+    "Control **Echo** using an arrow keypad on screen." : {
+      "comment" : "Explain of Echo onboarding process"
+    },
     "Control Echo using switch presses to perform actions. Add new switches and change what they trigger." : {
       "comment" : "Footer description describing what switch access is"
     },
@@ -169,6 +175,9 @@
     "Frequency Order" : {
       "comment" : "The value for the order of the alphabet"
     },
+    "Getting Started" : {
+      "comment" : "Getting started onboarding"
+    },
     "Go to the next item" : {
       "comment" : "Label for action that happens on a keypress"
     },
@@ -177,6 +186,9 @@
     },
     "Hebrew (Experimental)" : {
       "comment" : "The label for the Hebrew language when setting prediction language, make sure to include the experimental tag"
+    },
+    "Hide" : {
+
     },
     "Hold" : {
       "comment" : "The label that is shown next to the single hold action"
@@ -196,6 +208,9 @@
     "Let Echo know what switch you want to use by pressing it. If you change your mind you can reset the chosen switch." : {
       "comment" : "A description of how detecting switches works and how to reset it"
     },
+    "Lets setup **Echo**. You can change your settings at any time." : {
+      "comment" : "Explain of Echo onboarding process"
+    },
     "Letter prediction" : {
       "comment" : "Label for toggle to turn letter based prediction off and on"
     },
@@ -211,8 +226,14 @@
     "None" : {
       "comment" : "Label for action that happens on a keypress"
     },
+    "On Screen Arrows?" : {
+      "comment" : "Getting started onboarding"
+    },
     "On-screen" : {
       "comment" : "Header for on screen arrow options area"
+    },
+    "Onscreen Arrows" : {
+
     },
     "Open" : {
       "comment" : "Label for open button (preview only)"
@@ -257,7 +278,7 @@
       "comment" : "Label for toggle that controls when scanning starts"
     },
     "Scanning" : {
-      "comment" : "Label for toggle to turn scanning off and on\nLabel for the navigation link to the scanning options page"
+      "comment" : "Label for the navigation link to the scanning options page\nLabel for toggle to turn scanning off and on"
     },
     "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time." : {
       "comment" : "The footer explaining what scanning loops is"
@@ -276,6 +297,9 @@
     },
     "Settings" : {
       "comment" : "The navigation title for the settings page"
+    },
+    "Show" : {
+
     },
     "Show on-screen arrows" : {
       "comment" : "Label for toggle for on screen arrows"
@@ -333,9 +357,6 @@
     },
     "This ID is used to identify you in the analytics collected. Do not share it unless you are willing to be identified." : {
       "comment" : "Explanation of what an ID is"
-    },
-    "This is an example step" : {
-      "comment" : "Temp text"
     },
     "Undo" : {
       "comment" : "The label for the button that will remove the last character. Also known as backspace"
