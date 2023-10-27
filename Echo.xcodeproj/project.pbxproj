@@ -44,6 +44,11 @@
 		D5DB64782ACDC39500E41867 /* AccessOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB64772ACDC39500E41867 /* AccessOptions.swift */; };
 		D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E26B422AC2E77A003545BE /* ScrollLock.swift */; };
 		D5EDA49C2AEBB1DF00727B90 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA49B2AEBB1DF00727B90 /* VideoPlayer.swift */; };
+		D5EDA49F2AEBF1C800727B90 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA49E2AEBF1C800727B90 /* ButtonStyles.swift */; };
+		D5EDA4A12AEBF1EA00727B90 /* BottomText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A02AEBF1EA00727B90 /* BottomText.swift */; };
+		D5EDA4A32AEBF2AE00727B90 /* OnScreenArrowsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A22AEBF2AD00727B90 /* OnScreenArrowsOnboarding.swift */; };
+		D5EDA4A52AEBF2CF00727B90 /* Intro.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A42AEBF2CF00727B90 /* Intro.swift */; };
+		D5EDA4A72AEBF3BF00727B90 /* SecondStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +101,11 @@
 		D5DB64772ACDC39500E41867 /* AccessOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessOptions.swift; sourceTree = "<group>"; };
 		D5E26B422AC2E77A003545BE /* ScrollLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLock.swift; sourceTree = "<group>"; };
 		D5EDA49B2AEBB1DF00727B90 /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		D5EDA49E2AEBF1C800727B90 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		D5EDA4A02AEBF1EA00727B90 /* BottomText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomText.swift; sourceTree = "<group>"; };
+		D5EDA4A22AEBF2AD00727B90 /* OnScreenArrowsOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnScreenArrowsOnboarding.swift; sourceTree = "<group>"; };
+		D5EDA4A42AEBF2CF00727B90 /* Intro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intro.swift; sourceTree = "<group>"; };
+		D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondStep.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +223,7 @@
 				D536A5B22AD5865B00F8DB9F /* AddSwitch.swift */,
 				D5DB64732ACD82FD00E41867 /* VoiceOptions.swift */,
 				D5DB64712ACC5E6500E41867 /* OnScreenArrows.swift */,
+				D5EDA49D2AEBF13900727B90 /* Onboarding */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -242,6 +253,18 @@
 				D5DB646C2ACC5CE100E41867 /* AvailableVoices.swift */,
 			);
 			path = Observables;
+			sourceTree = "<group>";
+		};
+		D5EDA49D2AEBF13900727B90 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D5EDA49E2AEBF1C800727B90 /* ButtonStyles.swift */,
+				D5EDA4A22AEBF2AD00727B90 /* OnScreenArrowsOnboarding.swift */,
+				D5EDA4A42AEBF2CF00727B90 /* Intro.swift */,
+				D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */,
+				D5EDA4A02AEBF1EA00727B90 /* BottomText.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,19 +414,23 @@
 				D5DB646D2ACC5CE100E41867 /* AvailableVoices.swift in Sources */,
 				D5DB64762ACDBA0C00E41867 /* AccessOptionsPage.swift in Sources */,
 				D507A94D2AE7C32C003EC583 /* Analytics.swift in Sources */,
+				D5EDA4A72AEBF3BF00727B90 /* SecondStep.swift in Sources */,
 				D5DB64662ACC5A6A00E41867 /* ItemsList.swift in Sources */,
 				D5965DFF2A61995A003C9208 /* ContentView.swift in Sources */,
 				D57A51812ACF0E3700FC7716 /* ScanningOptions.swift in Sources */,
 				D5A488A02ADFDAD400E9A635 /* SpellingOptions.swift in Sources */,
 				D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */,
 				D5EDA49C2AEBB1DF00727B90 /* VideoPlayer.swift in Sources */,
+				D5EDA4A52AEBF2CF00727B90 /* Intro.swift in Sources */,
 				D5DAB05C2AEA815200888390 /* Onboarding.swift in Sources */,
+				D5EDA4A12AEBF1EA00727B90 /* BottomText.swift in Sources */,
 				D5DB645F2ACC514800E41867 /* View.swift in Sources */,
 				D5DB64782ACDC39500E41867 /* AccessOptions.swift in Sources */,
 				D5C005712AC58C7A007C21B2 /* SettingsPage.swift in Sources */,
 				D5DB64612ACC518900E41867 /* VoiceEngine.swift in Sources */,
 				D507A94F2AE7D587003EC583 /* AnalyticsOptions.swift in Sources */,
 				D57A517F2ACF084300FC7716 /* ScanningOptionsPage.swift in Sources */,
+				D5EDA4A32AEBF2AE00727B90 /* OnScreenArrowsOnboarding.swift in Sources */,
 				D5A4889A2AD945D500E9A635 /* KeyPressController.swift in Sources */,
 				D51743132A7AA94100E14EE0 /* Items.swift in Sources */,
 				D5A4889E2ADFCD8D00E9A635 /* SpellingAndAlphabetPage.swift in Sources */,
@@ -413,6 +440,7 @@
 				D5DB646F2ACC5D0600E41867 /* Helpers.swift in Sources */,
 				D58005192AC6D92D008BDC33 /* VoicePicker.swift in Sources */,
 				D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */,
+				D5EDA49F2AEBF1C800727B90 /* ButtonStyles.swift in Sources */,
 				D5DB64742ACD82FD00E41867 /* VoiceOptions.swift in Sources */,
 				D536A5B32AD5865B00F8DB9F /* AddSwitch.swift in Sources */,
 			);

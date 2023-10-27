@@ -1,0 +1,35 @@
+//
+//  ButtonStyles.swift
+//  Echo
+//
+//  Created by Gavin Henderson on 27/10/2023.
+//
+
+import Foundation
+import SwiftUI
+
+struct NextButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(.horizontal, 52)
+            .padding(.vertical)
+            .background(Color("aceBlue"))
+            .foregroundStyle(.white)
+            .clipShape(Capsule())
+            .fontWeight(.bold)
+            .font(.system(size: 24))
+
+    }
+}
+
+struct SkipButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(.horizontal, 52)
+            .padding(.vertical)
+            .border(Color("aceBlue"), width: 2, cornerRadius: 32)
+            .foregroundStyle(Color("aceBlue"))
+            .fontWeight(.bold)
+            .font(.system(size: 24))
+    }
+}
