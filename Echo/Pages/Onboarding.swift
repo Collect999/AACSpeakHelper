@@ -35,6 +35,51 @@ struct SkipButton: ButtonStyle {
     }
 }
 
+struct BottomText: View {
+    var topText: AttributedString
+    var bottomText: AttributedString
+    
+    var body: some View {
+        Text(topText)
+            .foregroundStyle(Color("aceBlue"))
+            .font(.system(size: 24))
+            .padding(.bottom, 4)
+            .multilineTextAlignment(.center)
+        Text(bottomText)
+            .foregroundStyle(Color("aceBlue"))
+            .font(.system(size: 18))
+            .multilineTextAlignment(.center)
+    }
+}
+
+struct SecondStep: View {
+    var body: some View {
+        VStack {
+            VStack {
+                Spacer()
+                Image(systemName: "gear")
+                    .resizable()
+                    .frame(width: 200, height: 200)
+                    .foregroundStyle(Color("aceBlue"))
+
+                Spacer()
+            }
+            BottomText(
+                topText: AttributedString(
+                    localized: "Getting Started",
+                    comment: "Getting started onboarding"
+                ),
+                bottomText: AttributedString(
+                    localized: "Lets setup **Echo**. You can change your settings at any time.",
+                    comment: "Explain of Echo onboarding process"
+                )
+            )
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 64)
+    }
+}
+
 enum OnboardingSteps: Int, CaseIterable, Identifiable {
     case introVideo = 0
     case secondStep = 1
@@ -49,7 +94,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
     @ViewBuilder var page: some View {
         switch self {
         case .introVideo: IntroStep()
-        case .secondStep: Text("This is an example step", comment: "Temp text")
+        case .secondStep: SecondStep()
         }
     }
 }
@@ -114,13 +159,16 @@ struct IntroStep: View {
     var body: some View {
         VStack {
             VideoPlayerOnboarding()
-            Text("Welcome to **Echo**", comment: "Welcome message in onboarding")
-                .foregroundStyle(Color("aceBlue"))
-                .font(.system(size: 24))
-                .padding(.bottom, 4)
-            Text("Communication for the visual impaired", comment: "Explain what Echo is")
-                .foregroundStyle(Color("aceBlue"))
-                .font(.system(size: 18))
+            BottomText(
+                topText: AttributedString(
+                    localized: "Welcome to **Echo**",
+                    comment: "Welcome message in onboarding"
+                ),
+                bottomText: AttributedString(
+                    localized: "Communication for the visual impaired",
+                    comment: "Explain what Echo is"
+                )
+            )
         }.padding(.bottom, 64)
     }
 }
