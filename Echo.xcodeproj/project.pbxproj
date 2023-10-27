@@ -31,6 +31,8 @@
 		D5C005712AC58C7A007C21B2 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C005702AC58C7A007C21B2 /* SettingsPage.swift */; };
 		D5C005732AC5CEF9007C21B2 /* VoiceSelectionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C005722AC5CEF9007C21B2 /* VoiceSelectionPage.swift */; };
 		D5D848E32AE2C5C800D89C88 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = D5D848E22AE2C5C800D89C88 /* SwiftUIIntrospect */; };
+		D5DAB05C2AEA815200888390 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DAB05B2AEA815200888390 /* Onboarding.swift */; };
+		D5DAB0602AEAA7FF00888390 /* Promo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D5DAB05F2AEAA7FF00888390 /* Promo.mp4 */; };
 		D5DB645F2ACC514800E41867 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB645E2ACC514800E41867 /* View.swift */; };
 		D5DB64612ACC518900E41867 /* VoiceEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB64602ACC518900E41867 /* VoiceEngine.swift */; };
 		D5DB64662ACC5A6A00E41867 /* ItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB64652ACC5A6A00E41867 /* ItemsList.swift */; };
@@ -41,6 +43,7 @@
 		D5DB64762ACDBA0C00E41867 /* AccessOptionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB64752ACDBA0C00E41867 /* AccessOptionsPage.swift */; };
 		D5DB64782ACDC39500E41867 /* AccessOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DB64772ACDC39500E41867 /* AccessOptions.swift */; };
 		D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E26B422AC2E77A003545BE /* ScrollLock.swift */; };
+		D5EDA49C2AEBB1DF00727B90 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA49B2AEBB1DF00727B90 /* VideoPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +82,8 @@
 		D5C0056E2AC4625D007C21B2 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		D5C005702AC58C7A007C21B2 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		D5C005722AC5CEF9007C21B2 /* VoiceSelectionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSelectionPage.swift; sourceTree = "<group>"; };
+		D5DAB05B2AEA815200888390 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		D5DAB05F2AEAA7FF00888390 /* Promo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Promo.mp4; sourceTree = "<group>"; };
 		D5DB645E2ACC514800E41867 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		D5DB64602ACC518900E41867 /* VoiceEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceEngine.swift; sourceTree = "<group>"; };
 		D5DB64652ACC5A6A00E41867 /* ItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsList.swift; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		D5DB64752ACDBA0C00E41867 /* AccessOptionsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessOptionsPage.swift; sourceTree = "<group>"; };
 		D5DB64772ACDC39500E41867 /* AccessOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessOptions.swift; sourceTree = "<group>"; };
 		D5E26B422AC2E77A003545BE /* ScrollLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLock.swift; sourceTree = "<group>"; };
+		D5EDA49B2AEBB1DF00727B90 /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +158,7 @@
 		D5965DFB2A61995A003C9208 /* Echo */ = {
 			isa = PBXGroup;
 			children = (
+				D5DAB05F2AEAA7FF00888390 /* Promo.mp4 */,
 				D5965E0B2A6875AB003C9208 /* Info.plist */,
 				D5DB645D2ACC513A00E41867 /* Extensions */,
 				D5DB64622ACC57B000E41867 /* Components */,
@@ -202,6 +209,7 @@
 				D58005182AC6D92D008BDC33 /* VoicePicker.swift */,
 				D5E26B422AC2E77A003545BE /* ScrollLock.swift */,
 				D5A488992AD945D500E9A635 /* KeyPressController.swift */,
+				D5EDA49B2AEBB1DF00727B90 /* VideoPlayer.swift */,
 				D536A5B22AD5865B00F8DB9F /* AddSwitch.swift */,
 				D5DB64732ACD82FD00E41867 /* VoiceOptions.swift */,
 				D5DB64712ACC5E6500E41867 /* OnScreenArrows.swift */,
@@ -213,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				D5C005722AC5CEF9007C21B2 /* VoiceSelectionPage.swift */,
+				D5DAB05B2AEA815200888390 /* Onboarding.swift */,
 				D5A4889D2ADFCD8D00E9A635 /* SpellingAndAlphabetPage.swift */,
 				D57A517E2ACF084300FC7716 /* ScanningOptionsPage.swift */,
 				D5C005702AC58C7A007C21B2 /* SettingsPage.swift */,
@@ -336,6 +345,7 @@
 			files = (
 				D5965E042A61995F003C9208 /* Preview Assets.xcassets in Resources */,
 				D5965E012A61995E003C9208 /* Assets.xcassets in Resources */,
+				D5DAB0602AEAA7FF00888390 /* Promo.mp4 in Resources */,
 				D5A4889C2ADE8F3500E9A635 /* Localizable.xcstrings in Resources */,
 				D51743072A6FF72300E14EE0 /* dictionary.sqlite in Resources */,
 			);
@@ -386,6 +396,8 @@
 				D57A51812ACF0E3700FC7716 /* ScanningOptions.swift in Sources */,
 				D5A488A02ADFDAD400E9A635 /* SpellingOptions.swift in Sources */,
 				D5E26B432AC2E77A003545BE /* ScrollLock.swift in Sources */,
+				D5EDA49C2AEBB1DF00727B90 /* VideoPlayer.swift in Sources */,
+				D5DAB05C2AEA815200888390 /* Onboarding.swift in Sources */,
 				D5DB645F2ACC514800E41867 /* View.swift in Sources */,
 				D5DB64782ACDC39500E41867 /* AccessOptions.swift in Sources */,
 				D5C005712AC58C7A007C21B2 /* SettingsPage.swift in Sources */,

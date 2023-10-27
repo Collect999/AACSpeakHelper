@@ -10,91 +10,97 @@ struct ContentView: SwiftUI.View {
     @EnvironmentObject var analytics: Analytics
     
     @State var lastLangId: String?
+    @AppStorage("showOnboarding") var showOnboarding = true
     
     var body: some SwiftUI.View {
-        NavigationStack {
-            ScrollLock(selectedUUID: $items.selectedUUID) {
-                
-                ZStack {
-                    if accessOptions.showOnScreenArrows {
-                        OnScreenArrows(
-                            up: { items.back(userInteraction: true) },
-                            down: { items.next(userInteraction: true) },
-                            left: { items.backspace(userInteraction: true) },
-                            right: { items.select(userInteraction: true) }
-                        )
-                    }
-                    if accessOptions.enableSwitchControl {
-                        KeyPressController()
-                    }
-                    VStack {
-                        
-                        HStack {
-                            Image(systemName: "chevron.right")
+        if showOnboarding {
+            Onboarding(endOnboarding: {
+                showOnboarding = false
+            })
+        } else {
+            NavigationStack {
+                ScrollLock(selectedUUID: $items.selectedUUID) {
+                    
+                    ZStack {
+                        if accessOptions.showOnScreenArrows {
+                            OnScreenArrows(
+                                up: { items.back(userInteraction: true) },
+                                down: { items.next(userInteraction: true) },
+                                left: { items.backspace(userInteraction: true) },
+                                right: { items.select(userInteraction: true) }
+                            )
+                        }
+                        if accessOptions.enableSwitchControl {
+                            KeyPressController()
+                        }
+                        VStack {
                             
-                            GeometryReader { geoReader in
-                                ScrollView {
-                                    VStack(alignment: .leading) {
-                                        ForEach(items.items) { item in
-                                            HStack {
-                                                if item.id == items.selectedUUID {
-                                                    Text(item.details.displayText)
-                                                        .padding()
-                                                        .bold()
-                                                    
-                                                } else {
-                                                    Text(item.details.displayText)
-                                                        .padding()
-                                                    
-                                                }
-                                            }.id(item.id)
-                                            
-                                        }
-                                    }.padding(.vertical, geoReader.size.height/2)
+                            HStack {
+                                Image(systemName: "chevron.right")
+                                
+                                GeometryReader { geoReader in
+                                    ScrollView {
+                                        VStack(alignment: .leading) {
+                                            ForEach(items.items) { item in
+                                                HStack {
+                                                    if item.id == items.selectedUUID {
+                                                        Text(item.details.displayText)
+                                                            .padding()
+                                                            .bold()
+                                                        
+                                                    } else {
+                                                        Text(item.details.displayText)
+                                                            .padding()
+                                                        
+                                                    }
+                                                }.id(item.id)
+                                                
+                                            }
+                                        }.padding(.vertical, geoReader.size.height/2)
+                                        
+                                    }
                                     
                                 }
-                                
                             }
-                        }
-                        .contentShape(Rectangle())
-                        .padding()
-                        .swipe(
-                            up: {
-                                if accessOptions.allowSwipeGestures {
-                                    items.back(userInteraction: true)
-                                    analytics.userInteraction(type: "Swipe", extraInfo: "UP")
+                            .contentShape(Rectangle())
+                            .padding()
+                            .swipe(
+                                up: {
+                                    if accessOptions.allowSwipeGestures {
+                                        items.back(userInteraction: true)
+                                        analytics.userInteraction(type: "Swipe", extraInfo: "UP")
+                                    }
+                                },
+                                down: {
+                                    if accessOptions.allowSwipeGestures {
+                                        items.next(userInteraction: true)
+                                        analytics.userInteraction(type: "Swipe", extraInfo: "DOWN")
+                                    }
+                                },
+                                left: {
+                                    if accessOptions.allowSwipeGestures {
+                                        items.backspace(userInteraction: true)
+                                        analytics.userInteraction(type: "Swipe", extraInfo: "LEFT")
+                                    }
+                                },
+                                right: {
+                                    if accessOptions.allowSwipeGestures {
+                                        items.select(userInteraction: true)
+                                        analytics.userInteraction(type: "Swipe", extraInfo: "RIGHT")
+                                    }
                                 }
-                            },
-                            down: {
-                                if accessOptions.allowSwipeGestures {
-                                    items.next(userInteraction: true)
-                                    analytics.userInteraction(type: "Swipe", extraInfo: "DOWN")
-                                }
-                            },
-                            left: {
-                                if accessOptions.allowSwipeGestures {
-                                    items.backspace(userInteraction: true)
-                                    analytics.userInteraction(type: "Swipe", extraInfo: "LEFT")
-                                }
-                            },
-                            right: {
-                                if accessOptions.allowSwipeGestures {
-                                    items.select(userInteraction: true)
-                                    analytics.userInteraction(type: "Swipe", extraInfo: "RIGHT")
-                                }
+                            )
+                            VStack {
+                                Text(items.enteredText == "" ? " " : items.enteredText)
+                                    .padding(10)
                             }
-                        )
-                        VStack {
-                            Text(items.enteredText == "" ? " " : items.enteredText)
-                                .padding(10)
+                            .frame(maxWidth: .infinity)
+                            .background(Color("lightGray"))
+                            .shadow(radius: 1)
+                            
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(Color("lightGray"))
-                        .shadow(radius: 1)
-
                     }
                 }
-            }
                 .navigationTitle(
                     String(
                         localized: "Echo: Auditory Scanning",
@@ -131,6 +137,7 @@ struct ContentView: SwiftUI.View {
                         items.startScanningOnAppLaunch()
                     }
                 }
+            }
         }
     }
 }

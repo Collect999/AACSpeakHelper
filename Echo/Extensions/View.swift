@@ -35,3 +35,10 @@ extension SwiftUI.View {
             }))
     }
 }
+
+// https://stackoverflow.com/a/67090073/3125540
+extension View {
+    func border(_ color: Color, width: CGFloat, cornerRadius: CGFloat) -> some View {
+        overlay(RoundedRectangle(cornerRadius: cornerRadius).stroke(color, lineWidth: width))
+    }
+}

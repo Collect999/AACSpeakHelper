@@ -9,8 +9,11 @@ import Foundation
 import SwiftUI
 
 enum SettingsPath: CaseIterable, Identifiable {
-    case voice, access, scanning, spelling, analytics
-     
+    case voice, access, scanning, spelling, analytics, onboarding
+    
+    static public var allPhonePages: [SettingsPath] = [.voice, .access, .scanning, .spelling, .analytics]
+    static public var allPadPages: [SettingsPath] = [.voice, .access, .scanning, .spelling, .analytics, .onboarding]
+    
     var id: String {
         switch self {
         case .voice: return "voice"
@@ -18,6 +21,7 @@ enum SettingsPath: CaseIterable, Identifiable {
         case .scanning: return "scanning"
         case .spelling: return "spelling"
         case .analytics: return "analytics"
+        case .onboarding: return "onboarding"
         }
     }
     
@@ -28,6 +32,7 @@ enum SettingsPath: CaseIterable, Identifiable {
         case .scanning:  ScanningOptionsPage()
         case .spelling: SpellingAndAlphabetPage()
         case .analytics: AnalyticsOptions()
+        case .onboarding: OnboardingSettingsPage()
         }
     }
     
@@ -53,6 +58,10 @@ enum SettingsPath: CaseIterable, Identifiable {
             localized: "Analytics & Tracking",
             comment: "Label for the navigation link to the tracking options page"
         )
+        case .onboarding: return String(
+            localized: "Initial Setup",
+            comment: "Label for the navigation link to the initial options page"
+        )
         }
     }
 }
@@ -63,13 +72,20 @@ struct SettingsPagePhone: View {
     var body: some View {
         Form {
             Group {
-                ForEach(SettingsPath.allCases) { settingPage in
+                ForEach(SettingsPath.allPhonePages) { settingPage in
                     NavigationLink(destination: {
                         settingPage.page
                     }, label: {
                         Text(settingPage.description)
                     })
                 }
+            }
+            Section {
+                NavigationLink(destination: {
+                    OnboardingSettingsPage()
+                }, label: {
+                    Text("Initial Setup", comment: "Label for the navigation link to the onboarding page")
+                })
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -100,7 +116,7 @@ struct SettingsPagePad: View {
     
     var body: some View {
         NavigationSplitView {
-            List(SettingsPath.allCases, id: \.self, selection: $selection) { path in
+            List(SettingsPath.allPadPages, id: \.self, selection: $selection) { path in
                 NavigationLink(path.description, value: path)
             }
         } detail: {
