@@ -53,6 +53,7 @@
 		D5EDA4AB2AEC032600727B90 /* CueVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4AA2AEC032600727B90 /* CueVoice.swift */; };
 		D5EDA4AD2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4AC2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift */; };
 		D5EDA4AF2AEFC6B600727B90 /* AnalyticsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4AE2AEFC6B600727B90 /* AnalyticsOnboarding.swift */; };
+		D5EDA4B12AEFD3A500727B90 /* PredictionOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4B02AEFD3A500727B90 /* PredictionOnboarding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		D5EDA4AA2AEC032600727B90 /* CueVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueVoice.swift; sourceTree = "<group>"; };
 		D5EDA4AC2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingVoiceOnboarding.swift; sourceTree = "<group>"; };
 		D5EDA4AE2AEFC6B600727B90 /* AnalyticsOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsOnboarding.swift; sourceTree = "<group>"; };
+		D5EDA4B02AEFD3A500727B90 /* PredictionOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PredictionOnboarding.swift; path = Echo/Components/Onboarding/PredictionOnboarding.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +275,7 @@
 				D5EDA4A42AEBF2CF00727B90 /* Intro.swift */,
 				D5EDA4AE2AEFC6B600727B90 /* AnalyticsOnboarding.swift */,
 				D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */,
+				D5EDA4B02AEFD3A500727B90 /* PredictionOnboarding.swift */,
 				D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */,
 				D5EDA4A02AEBF1EA00727B90 /* BottomText.swift */,
 			);
@@ -459,6 +462,7 @@
 				D5DB64742ACD82FD00E41867 /* VoiceOptions.swift in Sources */,
 				D536A5B32AD5865B00F8DB9F /* AddSwitch.swift in Sources */,
 				D5EDA4AD2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift in Sources */,
+				D5EDA4B12AEFD3A500727B90 /* PredictionOnboarding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,6 +4,9 @@
     "**Cue Voice**" : {
       "comment" : "Label for the cue voice during onboarding"
     },
+    "**Speaking Voice**" : {
+      "comment" : "Label for the speaking voice during onboarding"
+    },
     "<BACKSPACE>" : {
       "comment" : "A description of the backspace key on a keyboard, please use all caps and <>"
     },
@@ -76,6 +79,9 @@
     "Add Switch" : {
       "comment" : "Button label to add a new switch to the list"
     },
+    "Allow tracking" : {
+      "comment" : "Label to enable swipe"
+    },
     "Alphabet Order" : {
       "comment" : "The label that is shown next to the alphabet order picker"
     },
@@ -83,7 +89,7 @@
       "comment" : "The value for the order of the alphabet"
     },
     "Analytics" : {
-      "comment" : "The label for the section about analytics"
+      "comment" : "The label for the section about analytics\nLabel for analytics picker"
     },
     "Analytics & Telemetry" : {
       "comment" : "The navigation title for the Analytics & Telemetry options page"
@@ -127,6 +133,9 @@
     "Collect Analytics" : {
       "comment" : "Label for toggle to analytics off and on"
     },
+    "Collect Analytics?" : {
+      "comment" : "Header for analytics onboarding page"
+    },
     "Communication for the visual impaired" : {
       "comment" : "Explain what Echo is"
     },
@@ -167,6 +176,9 @@
       "comment" : "Label for a NavigationLink that will get a user to press their external switch"
     },
     "Disable" : {
+      "comment" : "Label to disable swipe"
+    },
+    "Do not track" : {
       "comment" : "Label to disable swipe"
     },
     "Done" : {
@@ -263,7 +275,7 @@
       "comment" : "The label for the portuguese language when setting prediction language, make sure to include the experimental tag"
     },
     "Prediction" : {
-      "comment" : "Label for the section in settings about prediction"
+      "comment" : "Label for the section in settings about prediction\nLabel for toggle to turn prediction off and on"
     },
     "Prediction helps you to get to the words you want to speak faster" : {
       "comment" : "Footer for the section in settings about prediction"
@@ -290,7 +302,7 @@
       "comment" : "Label for toggle that controls when scanning starts"
     },
     "Scanning" : {
-      "comment" : "Label for toggle to turn scanning off and on\nLabel for the navigation link to the scanning options page"
+      "comment" : "Label for the navigation link to the scanning options page\nLabel for toggle to turn scanning off and on"
     },
     "Scanning is when Echo automatically cycles through the items in the list one ofter the other reading them aloud one a time." : {
       "comment" : "The footer explaining what scanning loops is"
@@ -403,6 +415,9 @@
     "Volume" : {
       "comment" : "Label for a slider that controls the volume of a voice"
     },
+    "We collect analytics to help us improve the app. All data is anonymised and never shared with any third party." : {
+      "comment" : "Explaination of analytics controls"
+    },
     "Welcome to **Echo**" : {
       "comment" : "Welcome message in onboarding"
     },
@@ -440,7 +455,7 @@
       "comment" : "The footer for the options that control the cue voice"
     },
     "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice." : {
-      "comment" : "The footer for the options that control the speaking voice"
+      "comment" : "The footer for the options that control the speaking voice\nExplanation of speaking voice during onboarding"
     }
   },
   "version" : "1.0"

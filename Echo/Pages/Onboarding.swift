@@ -16,6 +16,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
     case cueVoice =  4
     case speakingVoice = 5
     case analytics = 6
+    case prediction = 7
 
     var id: String {
         switch self {
@@ -26,6 +27,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         case .cueVoice: "cueVoice"
         case .speakingVoice: "speakingVoice"
         case .analytics: "analytics"
+        case .prediction: "prediction"
         }
     }
     
@@ -38,6 +40,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         case .cueVoice: CueVoiceOnboarding()
         case .speakingVoice: SpeakingVoiceOnboarding()
         case .analytics: AnalyticsOnboarding()
+        case .prediction: PredictionOnboarding()
         }
     }
 }
@@ -53,7 +56,7 @@ struct OnboardingSettingsPage: View {
 }
 
 struct Onboarding: View {
-    @State var currentPage: Int = 0
+    @State var currentPage: Int = 7
     var endOnboarding: () -> Void
     
     var body: some View {
@@ -102,6 +105,7 @@ struct OnboardingWrapper: View {
     @StateObject var access: AccessOptions = AccessOptions()
     @StateObject var voiceEngine: VoiceEngine = VoiceEngine()
     @StateObject var analytics: Analytics = Analytics()
+    @StateObject var spelling: SpellingOptions = SpellingOptions()
     
     var body: some View {
         ZStack {
@@ -112,6 +116,7 @@ struct OnboardingWrapper: View {
         .environmentObject(access)
         .environmentObject(voiceEngine)
         .environmentObject(analytics)
+        .environmentObject(spelling)
     }
 }
 
