@@ -51,6 +51,7 @@
 		D5EDA4A72AEBF3BF00727B90 /* SecondStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */; };
 		D5EDA4A92AEBF4CD00727B90 /* Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */; };
 		D5EDA4AB2AEC032600727B90 /* CueVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4AA2AEC032600727B90 /* CueVoice.swift */; };
+		D5EDA4AD2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4AC2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondStep.swift; sourceTree = "<group>"; };
 		D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swipe.swift; sourceTree = "<group>"; };
 		D5EDA4AA2AEC032600727B90 /* CueVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueVoice.swift; sourceTree = "<group>"; };
+		D5EDA4AC2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakingVoiceOnboarding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 				D5EDA49E2AEBF1C800727B90 /* ButtonStyles.swift */,
 				D5EDA4A22AEBF2AD00727B90 /* OnScreenArrowsOnboarding.swift */,
 				D5EDA4AA2AEC032600727B90 /* CueVoice.swift */,
+				D5EDA4AC2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift */,
 				D5EDA4A42AEBF2CF00727B90 /* Intro.swift */,
 				D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */,
 				D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */,
@@ -451,6 +454,7 @@
 				D5EDA49F2AEBF1C800727B90 /* ButtonStyles.swift in Sources */,
 				D5DB64742ACD82FD00E41867 /* VoiceOptions.swift in Sources */,
 				D536A5B32AD5865B00F8DB9F /* AddSwitch.swift in Sources */,
+				D5EDA4AD2AEFB37B00727B90 /* SpeakingVoiceOnboarding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

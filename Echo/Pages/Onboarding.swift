@@ -14,6 +14,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
     case onScreenArrows = 2
     case swipeOnboarding = 3
     case cueVoice =  4
+    case speakingVoice = 5
 
     var id: String {
         switch self {
@@ -22,6 +23,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         case .onScreenArrows: "arrows"
         case .swipeOnboarding: "swipe"
         case .cueVoice: "cueVoice"
+        case .speakingVoice: "speakingVoice"
         }
     }
     
@@ -32,6 +34,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         case .onScreenArrows: OnScreenArrowsOnboarding()
         case .swipeOnboarding: SwipeOnboarding()
         case .cueVoice: CueVoiceOnboarding()
+        case .speakingVoice: SpeakingVoiceOnboarding()
         }
     }
 }
