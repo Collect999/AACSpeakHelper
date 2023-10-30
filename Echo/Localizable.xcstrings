@@ -7,6 +7,9 @@
     "**Speaking Voice**" : {
       "comment" : "Label for the speaking voice during onboarding"
     },
+    "**Word and Letter Prediction**" : {
+      "comment" : "Label for the prediction during onboarding"
+    },
     "<BACKSPACE>" : {
       "comment" : "A description of the backspace key on a keyboard, please use all caps and <>"
     },
@@ -146,7 +149,7 @@
       "comment" : "Explaination of swipe controls"
     },
     "Control Echo using switch presses to perform actions. Add new switches and change what they trigger." : {
-      "comment" : "Footer description describing what switch access is"
+      "comment" : "Description describing what switch access is\nFooter description describing what switch access is"
     },
     "Copied!" : {
       "comment" : "Label thats shown when text is copied"
@@ -192,6 +195,9 @@
     },
     "English" : {
       "comment" : "The label for the English language when setting prediction language"
+    },
+    "Enter Switch" : {
+
     },
     "External switches can be a bluetooth or wired device such as a keyboard, controller or switch" : {
       "comment" : "Explains what an external switch is"
@@ -274,11 +280,17 @@
     "Portuguese (Experimental)" : {
       "comment" : "The label for the portuguese language when setting prediction language, make sure to include the experimental tag"
     },
+    "Predict which words and letters come next and you enter each letter." : {
+      "comment" : "Explaination of prediction during onboarding"
+    },
     "Prediction" : {
-      "comment" : "Label for the section in settings about prediction\nLabel for toggle to turn prediction off and on"
+      "comment" : "Label for toggle to turn prediction off and on\nLabel for the section in settings about prediction"
     },
     "Prediction helps you to get to the words you want to speak faster" : {
       "comment" : "Footer for the section in settings about prediction"
+    },
+    "Predition Language" : {
+      "comment" : "The label that is shown next to the language picker"
     },
     "Quickly scan through the items" : {
       "comment" : "Label for action that happens on a keypress"
@@ -334,6 +346,9 @@
     "Skip" : {
       "comment" : "The label for the button to exit onboarding"
     },
+    "Space Switch" : {
+
+    },
     "Spanish (Experimental)" : {
       "comment" : "The label for the Spanish language when setting prediction language, make sure to include the experimental tag"
     },
@@ -361,8 +376,11 @@
     "Swiping gestures" : {
       "comment" : "Toggle for swiping gestures"
     },
+    "Switch %lld" : {
+      "comment" : "The default switch name"
+    },
     "Switch Control" : {
-      "comment" : "Label for toggle to turn switch control off and on"
+      "comment" : "Header for switch control in onboarding page\nLabel for toggle to turn switch control off and on"
     },
     "Switch Key" : {
       "comment" : "Header text for the switch keyboard area"
@@ -455,7 +473,7 @@
       "comment" : "The footer for the options that control the cue voice"
     },
     "Your speaking voice is the voice that is used to communicate with your communication partner. Select the options that you want to represent your voice." : {
-      "comment" : "The footer for the options that control the speaking voice\nExplanation of speaking voice during onboarding"
+      "comment" : "Explanation of speaking voice during onboarding\nThe footer for the options that control the speaking voice"
     }
   },
   "version" : "1.0"

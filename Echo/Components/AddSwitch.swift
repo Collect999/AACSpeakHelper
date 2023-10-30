@@ -59,6 +59,16 @@ struct AddSwitch: View {
         return false
     }
     
+    func initSwitchName() {
+        if switchName != "" { return }
+        
+        let switchNumber = accessOptions.listOfSwitches.count + 1
+        switchName = String(
+            localized: "Switch \(switchNumber)",
+            comment: "The default switch name"
+        )
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -218,13 +228,17 @@ struct AddSwitch: View {
                 }
             }
         }
-        .navigationTitle(
-            String(
-                localized: "Switch: \(switchName)",
-                comment: "The navigation title when editing a given switch. It contains the user entered name after the colon"
+        .onAppear {
+            initSwitchName()
+        }
+        .if(id != nil) { view in
+            view.navigationTitle(
+                String(
+                    localized: "Switch: \(switchName)",
+                    comment: "The navigation title when editing a given switch. It contains the user entered name after the colon"
+                )
             )
-        )
-
+        }
     }
 }
 

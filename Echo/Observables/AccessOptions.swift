@@ -113,7 +113,28 @@ class AccessOptions: ObservableObject, Analytic {
     @AppStorage("allowSwipeGestures") var allowSwipeGestures = true
     @AppStorage("enableSwitchControl") var enableSwitchControl = true
 
-    @Published var listOfSwitches: [Switch] = []
+    @Published var listOfSwitches: [Switch] = [
+        Switch(
+            id: UUID(),
+            name: String(
+                localized: "Enter Switch",
+                comment: ""
+            ),
+            key: .return,
+            tapAction: .next,
+            holdAction: .none
+        ),
+        Switch(
+            id: UUID(),
+            name: String(
+                localized: "Space Switch",
+                comment: ""
+            ),
+            key: .space,
+            tapAction: .select,
+            holdAction: .none
+        )
+    ]
     
     func getAnalyticData() -> [String: Any] {
         return [

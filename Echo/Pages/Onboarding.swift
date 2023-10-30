@@ -17,6 +17,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
     case speakingVoice = 5
     case analytics = 6
     case prediction = 7
+    case switchOnboarding = 8
 
     var id: String {
         switch self {
@@ -28,6 +29,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         case .speakingVoice: "speakingVoice"
         case .analytics: "analytics"
         case .prediction: "prediction"
+        case .switchOnboarding: "switch"
         }
     }
     
@@ -41,6 +43,7 @@ enum OnboardingSteps: Int, CaseIterable, Identifiable {
         case .speakingVoice: SpeakingVoiceOnboarding()
         case .analytics: AnalyticsOnboarding()
         case .prediction: PredictionOnboarding()
+        case .switchOnboarding: SwitchOnboarding()
         }
     }
 }
@@ -56,48 +59,49 @@ struct OnboardingSettingsPage: View {
 }
 
 struct Onboarding: View {
-    @State var currentPage: Int = 7
+    @State var currentPage: Int = 0
     var endOnboarding: () -> Void
     
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradient(stops: [
-                .init(color: Color("gradientBackground").opacity(0.3), location: 0),
-                .init(color: Color("gradientBackground").opacity(0.75), location: 0.5),
-                .init(color: Color("gradientBackground").opacity(1), location: 1.0)
-            ]), startPoint: .topLeading, endPoint: .bottomTrailing)
-            .edgesIgnoringSafeArea(.all)
-            VStack {
-                TabView(selection: $currentPage) {
-                    ForEach(OnboardingSteps.allCases) { step in
-                        step.page.tag(step.rawValue)
+        NavigationStack {
+            ZStack {
+                LinearGradient(gradient: Gradient(stops: [
+                    .init(color: Color("gradientBackground").opacity(0.3), location: 0),
+                    .init(color: Color("gradientBackground").opacity(0.75), location: 0.5),
+                    .init(color: Color("gradientBackground").opacity(1), location: 1.0)
+                ]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                .edgesIgnoringSafeArea(.all)
+                VStack {
+                    TabView(selection: $currentPage) {
+                        ForEach(OnboardingSteps.allCases) { step in
+                            step.page.tag(step.rawValue)
+                        }
                     }
-                }
-                .tabViewStyle(PageTabViewStyle())
-                HStack {
-                    if currentPage + 1 < OnboardingSteps.allCases.count {
-                        Button(action: {
-                            endOnboarding()
-                        }, label: {
-                            Text("Skip", comment: "The label for the button to exit onboarding")
-                        })
-                        .buttonStyle(SkipButton())
-                        Button(action: {
-                            currentPage += 1
-                        }, label: {
-                            Text("Next", comment: "The label for the to go to the next onboarding step")
-                        }).buttonStyle(NextButton())
-                    } else {
-                        Button(action: {
-                            endOnboarding()
-                        }, label: {
-                            Text("Done", comment: "The label for the button to exit onboarding")
-                        }).buttonStyle(NextButton())
-                    }
-                }.padding(.bottom)
-            }.frame(maxWidth: 800)
+                    .tabViewStyle(PageTabViewStyle())
+                    HStack {
+                        if currentPage + 1 < OnboardingSteps.allCases.count {
+                            Button(action: {
+                                endOnboarding()
+                            }, label: {
+                                Text("Skip", comment: "The label for the button to exit onboarding")
+                            })
+                            .buttonStyle(SkipButton())
+                            Button(action: {
+                                currentPage += 1
+                            }, label: {
+                                Text("Next", comment: "The label for the to go to the next onboarding step")
+                            }).buttonStyle(NextButton())
+                        } else {
+                            Button(action: {
+                                endOnboarding()
+                            }, label: {
+                                Text("Done", comment: "The label for the button to exit onboarding")
+                            }).buttonStyle(NextButton())
+                        }
+                    }.padding(.bottom)
+                }.frame(maxWidth: 800)
+            }
         }
-
     }
 }
 
