@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AnalyticsOptions: View {
     @EnvironmentObject var analytics: Analytics
-    @State var isCopied: Bool = false
+    @State var isCopied: Bool = true
     
     var body: some View {
         Form {
