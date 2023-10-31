@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedEcho
 
 @main
 struct EchoApp: App {
@@ -26,6 +27,14 @@ struct EchoApp: App {
                 .environmentObject(spellingOptions)
                 .environmentObject(analytics)
                 .onAppear {
+                    #if DEBUG
+                    for current in StorageKeys.allowedViaTest {
+                        if let unwrappedValue = ProcessInfo.processInfo.environment[current] {
+                            UserDefaults.standard.setValue(unwrappedValue == "true", forKey: current)
+                        }
+                    }
+                    #endif
+ 
                     itemsList.loadAnalytics(analytics)
                     spellingOptions.loadAnalytics(analytics: analytics)
                     voiceEngine.load(analytics: analytics)
