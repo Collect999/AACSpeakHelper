@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import SharedEcho
 
 struct ContentView: SwiftUI.View {
     @EnvironmentObject var voiceEngine: VoiceEngine
@@ -10,7 +11,7 @@ struct ContentView: SwiftUI.View {
     @EnvironmentObject var analytics: Analytics
     
     @State var lastLangId: String?
-    @AppStorage("showOnboarding") var showOnboarding = true
+    @AppStorage(StorageKeys.showOnboarding) var showOnboarding = true
     
     var body: some SwiftUI.View {
         if showOnboarding {
