@@ -7,13 +7,14 @@
 
 import Foundation
 import SwiftUI
+import SharedEcho
 
 struct OnScreenArrows: View {
     @EnvironmentObject var analytics: Analytics
     
     // Thanks to https://sarunw.com/posts/move-view-around-with-drag-gesture-in-swiftui/
-    @AppStorage("arrowLocationX") var locationX: Double = 300
-    @AppStorage("arrowLocationY") var locationY: Double = 200
+    @AppStorage(StorageKeys.arrowLocationX) var locationX: Double = 300
+    @AppStorage(StorageKeys.arrowLocationY) var locationY: Double = 200
     @GestureState private var fingerLocation: CGPoint?
     @GestureState private var startLocation: CGPoint?
     

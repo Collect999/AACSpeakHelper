@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SharedEcho
 
 struct Switch: Identifiable, Decodable, Encodable {
     var id: UUID
@@ -109,9 +110,9 @@ enum Action: String, CaseIterable, Identifiable, Codable {
 }
 
 class AccessOptions: ObservableObject, Analytic {
-    @AppStorage("showOnScreenArrows") var showOnScreenArrows = true
-    @AppStorage("allowSwipeGestures") var allowSwipeGestures = true
-    @AppStorage("enableSwitchControl") var enableSwitchControl = true
+    @AppStorage(StorageKeys.showOnScreenArrows) var showOnScreenArrows = true
+    @AppStorage(StorageKeys.allowSwipeGestures) var allowSwipeGestures = true
+    @AppStorage(StorageKeys.enableSwitchControl) var enableSwitchControl = true
 
     @Published var listOfSwitches: [Switch] = [
         Switch(
@@ -188,14 +189,14 @@ class AccessOptions: ObservableObject, Analytic {
             let encoder = JSONEncoder()
             let switchesData = try encoder.encode(self.listOfSwitches)
             
-            UserDefaults.standard.set(switchesData, forKey: "switchesList")
+            UserDefaults.standard.set(switchesData, forKey: StorageKeys.switchesList)
         } catch {
             print("Failed to persist your settings")
         }
     }
     
     func load() {
-        if let switchesData = UserDefaults.standard.data(forKey: "switchesList") {
+        if let switchesData = UserDefaults.standard.data(forKey: StorageKeys.switchesList) {
             do {
                 let decoder = JSONDecoder()
                 listOfSwitches = try decoder.decode([Switch].self, from: switchesData)

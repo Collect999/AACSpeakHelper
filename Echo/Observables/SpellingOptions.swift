@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SQLite
+import SharedEcho
 
 struct PredictionLanguage: Hashable, Identifiable {
     var id: String
@@ -181,11 +182,11 @@ enum CharacterOrder: String, CaseIterable, Identifiable {
 }
 
 class SpellingOptions: ObservableObject, Analytic {
-    @AppStorage("letterPrediction") var letterPrediction: Bool = true
-    @AppStorage("wordPrediction") var wordPrediction: Bool = true
-    @AppStorage("wordPredictionLimit") var wordPredictionLimit: Int = 3
-    @AppStorage("predictionLanguage") var predictionLanguage: String = "DEFAULT"
-    @AppStorage("characterOrder") var characterOrderId: String = CharacterOrder.defaultOrder.id
+    @AppStorage(StorageKeys.letterPrediction) var letterPrediction: Bool = true
+    @AppStorage(StorageKeys.wordPrediction) var wordPrediction: Bool = true
+    @AppStorage(StorageKeys.wordPredictionLimit) var wordPredictionLimit: Int = 3
+    @AppStorage(StorageKeys.predictionLanguage) var predictionLanguage: String = "DEFAULT"
+    @AppStorage(StorageKeys.characterOrder) var characterOrderId: String = CharacterOrder.defaultOrder.id
     
     var analytics: Analytics?
     

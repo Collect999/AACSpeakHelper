@@ -7,6 +7,7 @@
 
 import Foundation
 import AVKit
+import SharedEcho
 
 class VoiceOptions: Codable {
     var voiceId: String
@@ -126,7 +127,7 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, Anal
     func load(analytics: Analytics? = nil) {
         self.analytics = analytics
         
-        if let speakingVoiceData = UserDefaults.standard.data(forKey: "speakingVoiceOptions") {
+        if let speakingVoiceData = UserDefaults.standard.data(forKey: StorageKeys.speakingVoiceOptions) {
             do {
                 let decoder = JSONDecoder()
                 speakingVoiceOptions = try decoder.decode(VoiceOptions.self, from: speakingVoiceData)
@@ -139,7 +140,7 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, Anal
             self.saveSpeakingOptions()
         }
         
-        if let cueVoiceData = UserDefaults.standard.data(forKey: "cueVoiceOptions") {
+        if let cueVoiceData = UserDefaults.standard.data(forKey: StorageKeys.cueVoiceOptions) {
             do {
                 let decoder = JSONDecoder()
                 cueVoiceOptions = try decoder.decode(VoiceOptions.self, from: cueVoiceData)
@@ -196,7 +197,7 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, Anal
             
             let speakingVoiceEncoded = try encoder.encode(speakingVoiceOptions)
                         
-            UserDefaults.standard.set(speakingVoiceEncoded, forKey: "speakingVoiceOptions")
+            UserDefaults.standard.set(speakingVoiceEncoded, forKey: StorageKeys.speakingVoiceOptions)
         } catch {
             print("Failed to persist your settings")
         }
@@ -208,7 +209,7 @@ class VoiceEngine: NSObject, ObservableObject, AVSpeechSynthesizerDelegate, Anal
             
             let cueVoiceEncoded = try encoder.encode(cueVoiceOptions)
                         
-            UserDefaults.standard.set(cueVoiceEncoded, forKey: "cueVoiceOptions")
+            UserDefaults.standard.set(cueVoiceEncoded, forKey: StorageKeys.cueVoiceOptions)
         } catch {
             print("Failed to persist your settings")
         }

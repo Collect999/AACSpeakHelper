@@ -8,6 +8,7 @@
 import Foundation
 import PostHog
 import SwiftUI
+import SharedEcho
 
 enum AnalyticKey: String, CaseIterable {
     case appLaunch
@@ -52,7 +53,7 @@ protocol Analytic {
 }
 
 class Analytics: ObservableObject {
-    @AppStorage("allowAnalytics") var allowAnalytics = true
+    @AppStorage(StorageKeys.allowAnalytics) var allowAnalytics = true
     
     var voiceEngine: VoiceEngine?
     var accessOptions: AccessOptions?
