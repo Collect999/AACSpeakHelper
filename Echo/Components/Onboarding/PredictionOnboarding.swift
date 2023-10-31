@@ -26,10 +26,21 @@ struct PredictionOnboarding: View {
         VStack {
             VStack {
                 Spacer()
-                Image(systemName: "keyboard")
-                    .resizable()
-                    .frame(width: 200, height: 144)
-                    .foregroundStyle(Color("aceBlue"))
+                ZStack {
+                    Image(systemName: "keyboard")
+                        .resizable()
+                        .frame(width: 200, height: 144)
+                        .foregroundStyle(Color("aceBlue"))
+                    if !prediction || (!spellingOptions.wordPrediction && !spellingOptions.letterPrediction) {
+                        Image("Slash")
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                            .accessibilityLabel(String(
+                                localized: "A slash to indicate disabled",
+                                comment: "Accessibility label for slash"
+                            ))
+                    }
+                }
                 Spacer()
             }
             VStack {

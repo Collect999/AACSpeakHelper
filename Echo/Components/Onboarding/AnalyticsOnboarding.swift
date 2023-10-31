@@ -15,10 +15,22 @@ struct AnalyticsOnboarding: View {
         VStack {
             VStack {
                 Spacer()
-                Image(systemName: "chart.xyaxis.line")
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .foregroundStyle(Color("aceBlue"))
+                ZStack {
+                    Image(systemName: "chart.xyaxis.line")
+                        .resizable()
+                        .frame(width: 150, height: 150)
+                        .foregroundStyle(Color("aceBlue"))
+                    if !analytics.allowAnalytics {
+                        Image("Slash")
+                            .resizable()
+                            .rotationEffect(.degrees(90))
+                            .frame(width: 200, height: 200)
+                            .accessibilityLabel(String(
+                                localized: "A slash to indicate disabled",
+                                comment: "Accessibility label for slash"
+                            ))
+                    }
+                }
                 Spacer()
             }
             

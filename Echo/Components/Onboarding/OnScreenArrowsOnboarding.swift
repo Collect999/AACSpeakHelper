@@ -15,7 +15,7 @@ struct OnScreenArrowsOnboarding: View {
         VStack {
             VStack {
                 Spacer()
-                Image("Arrows")
+                Image(access.showOnScreenArrows ? "Arrows" : "NoArrows")
                     .resizable()
                     .frame(width: 200, height: 200)
                     .accessibilityLabel(String(localized: "A four way arrow keypad", comment: "Accessibility label for arrows"))

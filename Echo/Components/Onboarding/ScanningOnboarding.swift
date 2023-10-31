@@ -14,14 +14,25 @@ struct ScanningOnboarding: View {
     var body: some View {
         VStack {
             VStack {
-                Image("Scanning")
-                    .resizable()
-                    .accessibilityLabel(String(
-                        localized: "An apple device with letters on screen, represents scanning",
-                        comment: "Accesibility label for logo"
-                    ))
-                    .frame(width: 69, height: 100)
-                    .foregroundStyle(Color("aceBlue"))
+                ZStack {
+                    Image("Scanning")
+                        .resizable()
+                        .accessibilityLabel(String(
+                            localized: "An apple device with letters on screen, represents scanning",
+                            comment: "Accesibility label for logo"
+                        ))
+                        .frame(width: 69, height: 100)
+                        .foregroundStyle(Color("aceBlue"))
+                    if !scanningOptions.scanning {
+                        Image("Slash")
+                            .resizable()
+                            .frame(width: 89, height: 120)
+                            .accessibilityLabel(String(
+                                localized: "A slash to indicate disabled",
+                                comment: "Accessibility label for slash"
+                            ))
+                    }
+                }
             }.padding(.top)
             VStack {
                 BottomText(

@@ -16,10 +16,21 @@ struct SwitchOnboarding: View {
         VStack {
             VStack {
                 Spacer()
-                Image(systemName: "button.horizontal.top.press")
-                    .resizable()
-                    .frame(width: 100, height: 100)
-                    .foregroundStyle(Color("aceBlue"))
+                ZStack {
+                    Image(systemName: "button.horizontal.top.press")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .foregroundStyle(Color("aceBlue"))
+                    if !accessOptions.enableSwitchControl {
+                        Image("Slash")
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .accessibilityLabel(String(
+                                localized: "A slash to indicate disabled",
+                                comment: "Accessibility label for slash"
+                            ))
+                    }
+                }
                 Spacer()
             }
             

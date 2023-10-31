@@ -13,12 +13,24 @@ struct SwipeOnboarding: View {
     
     var body: some View {
         VStack {
+            
             VStack {
                 Spacer()
-                Image(systemName: "hand.draw")
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .foregroundStyle(Color("aceBlue"))
+                ZStack {
+                    Image(systemName: "hand.draw")
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                        .foregroundStyle(Color("aceBlue"))
+                    if !access.allowSwipeGestures {
+                        Image("Slash")
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                            .accessibilityLabel(String(
+                                localized: "A slash to indicate disabled",
+                                comment: "Accessibility label for slash"
+                            ))
+                    }
+                }
                 Spacer()
             }
             
