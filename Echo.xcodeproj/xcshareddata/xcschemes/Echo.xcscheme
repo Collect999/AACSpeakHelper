@@ -40,6 +40,28 @@
                ReferencedContainer = "container:Echo.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D53986852AF1515C00CF9419"
+               BuildableName = "EchoUITests.xctest"
+               BlueprintName = "EchoUITests"
+               ReferencedContainer = "container:Echo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D539869E2AF1679200CF9419"
+               BuildableName = "SharedEchoTests.xctest"
+               BlueprintName = "SharedEchoTests"
+               ReferencedContainer = "container:Echo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
