@@ -52,7 +52,7 @@ protocol Analytic {
 }
 
 class Analytics: ObservableObject {
-    @AppStorage("allowAnalytics") var allowAnalytics = false
+    @AppStorage("allowAnalytics") var allowAnalytics = true
     
     var voiceEngine: VoiceEngine?
     var accessOptions: AccessOptions?
