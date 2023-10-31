@@ -55,6 +55,7 @@
 		D5EDA4AF2AEFC6B600727B90 /* AnalyticsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4AE2AEFC6B600727B90 /* AnalyticsOnboarding.swift */; };
 		D5EDA4B12AEFD3A500727B90 /* PredictionOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4B02AEFD3A500727B90 /* PredictionOnboarding.swift */; };
 		D5EDA4B32AF0059B00727B90 /* SwitchOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4B22AF0059B00727B90 /* SwitchOnboarding.swift */; };
+		D5EDA4B52AF0160600727B90 /* ScanningOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EDA4B42AF0160600727B90 /* ScanningOnboarding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		D5EDA4AE2AEFC6B600727B90 /* AnalyticsOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsOnboarding.swift; sourceTree = "<group>"; };
 		D5EDA4B02AEFD3A500727B90 /* PredictionOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PredictionOnboarding.swift; path = Echo/Components/Onboarding/PredictionOnboarding.swift; sourceTree = SOURCE_ROOT; };
 		D5EDA4B22AF0059B00727B90 /* SwitchOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchOnboarding.swift; sourceTree = "<group>"; };
+		D5EDA4B42AF0160600727B90 /* ScanningOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningOnboarding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +280,7 @@
 				D5EDA4AE2AEFC6B600727B90 /* AnalyticsOnboarding.swift */,
 				D5EDA4B22AF0059B00727B90 /* SwitchOnboarding.swift */,
 				D5EDA4A82AEBF4CD00727B90 /* Swipe.swift */,
+				D5EDA4B42AF0160600727B90 /* ScanningOnboarding.swift */,
 				D5EDA4B02AEFD3A500727B90 /* PredictionOnboarding.swift */,
 				D5EDA4A62AEBF3BF00727B90 /* SecondStep.swift */,
 				D5EDA4A02AEBF1EA00727B90 /* BottomText.swift */,
@@ -462,6 +465,7 @@
 				D5EDA4A92AEBF4CD00727B90 /* Swipe.swift in Sources */,
 				D58005192AC6D92D008BDC33 /* VoicePicker.swift in Sources */,
 				D5965DFD2A61995A003C9208 /* EchoApp.swift in Sources */,
+				D5EDA4B52AF0160600727B90 /* ScanningOnboarding.swift in Sources */,
 				D5EDA49F2AEBF1C800727B90 /* ButtonStyles.swift in Sources */,
 				D5DB64742ACD82FD00E41867 /* VoiceOptions.swift in Sources */,
 				D536A5B32AD5865B00F8DB9F /* AddSwitch.swift in Sources */,
